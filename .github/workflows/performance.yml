@@ -1,0 +1,350 @@
+name: Performance Monitoring
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6 AM UTC
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '18.x'
+
+jobs:
+  # Bundle size analysis
+  bundle-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build for production
+      run: npm run build
+
+    - name: Analyze bundle size
+      run: |
+        # Install bundle analyzer if not in package.json
+        npx webpack-bundle-analyzer build/static/js/*.js --report bundle-report.html --mode static
+
+    - name: Bundle size check
+      run: |
+        # Check if bundle size exceeds threshold
+        BUNDLE_SIZE=$(find build -name "*.js" -exec cat {} \; | wc -c)
+        THRESHOLD=1048576  # 1MB threshold
+
+        echo "Bundle size: $BUNDLE_SIZE bytes"
+
+        if [ $BUNDLE_SIZE -gt $THRESHOLD ]; then
+          echo "❌ Bundle size ($BUNDLE_SIZE bytes) exceeds threshold ($THRESHOLD bytes)"
+          echo "Consider code splitting, tree shaking, or removing unused dependencies"
+          exit 1
+        fi
+
+        echo "✅ Bundle size is within acceptable limits"
+
+    - name: Upload bundle report
+      uses: actions/upload-artifact@v3
+      with:
+        name: bundle-analysis
+        path: bundle-report.html
+
+  # Lighthouse CI
+  lighthouse-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build application
+      run: npm run build
+
+    - name: Serve application
+      run: |
+        npm install -g serve
+        serve -s build -l 3000 &
+        sleep 10  # Wait for server to start
+
+    - name: Run Lighthouse CI
+      run: |
+        npm install -g @lhci/cli
+        lhci autorun
+      env:
+        LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+    - name: Upload Lighthouse reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: lighthouse-reports
+        path: .lighthouseci/
+
+  # Performance regression testing
+  performance-regression:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+    - name: Checkout PR branch
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build PR version
+      run: npm run build
+
+    - name: Measure PR performance
+      run: |
+        # Add your performance measurement script here
+        echo "Measuring PR performance..."
+        # Example: Run performance tests and save results
+        npm run test:performance -- --outputFile=pr-performance.json
+
+    - name: Checkout main branch
+      uses: actions/checkout@v4
+      with:
+        ref: main
+        clean: false
+
+    - name: Build main version
+      run: |
+        npm ci
+        npm run build
+
+    - name: Measure main performance
+      run: |
+        echo "Measuring main branch performance..."
+        npm run test:performance -- --outputFile=main-performance.json
+
+    - name: Compare performance
+      run: |
+        # Add performance comparison logic here
+        echo "Comparing performance between main and PR..."
+
+        # Example comparison (implement based on your metrics)
+        PR_SCORE=$(cat pr-performance.json | jq '.score')
+        MAIN_SCORE=$(cat main-performance.json | jq '.score')
+
+        REGRESSION_THRESHOLD=5  # 5% regression threshold
+
+        if [ "$PR_SCORE" -lt "$MAIN_SCORE" ]; then
+          REGRESSION=$(echo "scale=2; ($MAIN_SCORE - $PR_SCORE) / $MAIN_SCORE * 100" | bc)
+
+          if (( $(echo "$REGRESSION > $REGRESSION_THRESHOLD" | bc -l) )); then
+            echo "❌ Performance regression detected: ${REGRESSION}%"
+            exit 1
+          fi
+        fi
+
+        echo "✅ No significant performance regression detected"
+
+  # Core Web Vitals monitoring
+  web-vitals:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build application
+      run: npm run build
+
+    - name: Start application
+      run: |
+        npm install -g serve
+        serve -s build -l 3000 &
+        APP_PID=$!
+        echo "APP_PID=$APP_PID" >> $GITHUB_ENV
+        sleep 10
+
+    - name: Measure Core Web Vitals
+      run: |
+        # Install web-vitals measurement tool
+        npm install -g web-vitals-cli
+
+        # Measure Core Web Vitals
+        web-vitals-cli --url http://localhost:3000 --output web-vitals.json
+
+    - name: Validate Web Vitals thresholds
+      run: |
+        LCP=$(cat web-vitals.json | jq '.LCP')
+        FID=$(cat web-vitals.json | jq '.FID')
+        CLS=$(cat web-vitals.json | jq '.CLS')
+
+        echo "Core Web Vitals:"
+        echo "- LCP: ${LCP}ms (threshold: <2500ms)"
+        echo "- FID: ${FID}ms (threshold: <100ms)"
+        echo "- CLS: ${CLS} (threshold: <0.1)"
+
+        # Check thresholds
+        FAILED=0
+
+        if (( $(echo "$LCP > 2500" | bc -l) )); then
+          echo "❌ LCP threshold exceeded"
+          FAILED=1
+        fi
+
+        if (( $(echo "$FID > 100" | bc -l) )); then
+          echo "❌ FID threshold exceeded"
+          FAILED=1
+        fi
+
+        if (( $(echo "$CLS > 0.1" | bc -l) )); then
+          echo "❌ CLS threshold exceeded"
+          FAILED=1
+        fi
+
+        if [ $FAILED -eq 1 ]; then
+          echo "❌ Core Web Vitals thresholds not met"
+          exit 1
+        fi
+
+        echo "✅ All Core Web Vitals within acceptable thresholds"
+
+    - name: Stop application
+      run: kill $APP_PID
+
+    - name: Upload Web Vitals report
+      uses: actions/upload-artifact@v3
+      with:
+        name: web-vitals-report
+        path: web-vitals.json
+
+  # Generate performance report
+  performance-report:
+    runs-on: ubuntu-latest
+    needs: [bundle-analysis, lighthouse-ci, web-vitals]
+    if: always()
+
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v3
+
+    - name: Generate performance summary
+      run: |
+        echo "# Performance Report - $(date)" > performance-report.md
+        echo "" >> performance-report.md
+
+        echo "## Bundle Analysis" >> performance-report.md
+        if [ -d bundle-analysis ]; then
+          echo "✅ Bundle analysis completed" >> performance-report.md
+        else
+          echo "❌ Bundle analysis failed" >> performance-report.md
+        fi
+        echo "" >> performance-report.md
+
+        echo "## Lighthouse Scores" >> performance-report.md
+        if [ -d lighthouse-reports ]; then
+          echo "✅ Lighthouse audit completed" >> performance-report.md
+        else
+          echo "❌ Lighthouse audit failed" >> performance-report.md
+        fi
+        echo "" >> performance-report.md
+
+        echo "## Core Web Vitals" >> performance-report.md
+        if [ -f web-vitals-report/web-vitals.json ]; then
+          echo "✅ Core Web Vitals measured" >> performance-report.md
+          cat web-vitals-report/web-vitals.json | jq -r 'to_entries[] | "- \(.key): \(.value)"' >> performance-report.md
+        else
+          echo "❌ Core Web Vitals measurement failed" >> performance-report.md
+        fi
+        echo "" >> performance-report.md
+
+        echo "## Recommendations" >> performance-report.md
+        echo "- Monitor bundle size regularly" >> performance-report.md
+        echo "- Optimize images and assets" >> performance-report.md
+        echo "- Implement code splitting" >> performance-report.md
+        echo "- Use performance budgets" >> performance-report.md
+
+    - name: Upload performance report
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-report
+        path: performance-report.md
+
+    - name: Comment performance summary on PR
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+
+          let performanceComment = `## 📊 Performance Report
+
+          Performance analysis has been completed for this PR.
+
+          ### Results Summary
+          `;
+
+          // Add bundle analysis results
+          if (fs.existsSync('bundle-analysis')) {
+            performanceComment += '✅ Bundle analysis: Passed\n';
+          } else {
+            performanceComment += '❌ Bundle analysis: Failed\n';
+          }
+
+          // Add Lighthouse results
+          if (fs.existsSync('lighthouse-reports')) {
+            performanceComment += '✅ Lighthouse audit: Completed\n';
+          } else {
+            performanceComment += '❌ Lighthouse audit: Failed\n';
+          }
+
+          // Add Web Vitals results
+          if (fs.existsSync('web-vitals-report/web-vitals.json')) {
+            performanceComment += '✅ Core Web Vitals: Measured\n';
+          } else {
+            performanceComment += '❌ Core Web Vitals: Failed\n';
+          }
+
+          performanceComment += `
+
+          ### Detailed Reports
+          Check the workflow artifacts for detailed performance analysis.
+
+          ---
+          *Performance monitoring powered by GitHub Actions*
+          `;
+
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: performanceComment
+          });

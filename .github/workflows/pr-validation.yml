@@ -1,0 +1,215 @@
+name: Pull Request Validation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+env:
+  NODE_VERSION: '18.x'
+
+jobs:
+  # PR metadata validation
+  pr-validation:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Validate PR title
+      uses: amannn/action-semantic-pull-request@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        types: |
+          feat
+          fix
+          docs
+          style
+          refactor
+          perf
+          test
+          chore
+        requireScope: false
+
+    - name: Check PR size
+      run: |
+        FILES_CHANGED=$(gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files | length')
+        if [ $FILES_CHANGED -gt 20 ]; then
+          echo "❌ PR is too large ($FILES_CHANGED files). Consider breaking it down."
+          exit 1
+        fi
+        echo "✅ PR size is acceptable ($FILES_CHANGED files)"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Code quality analysis
+  code-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests with coverage
+      run: npm run test:coverage
+
+    - name: Check coverage threshold
+      run: |
+        COVERAGE=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
+        if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+          echo "❌ Coverage is below 80% ($COVERAGE%)"
+          exit 1
+        fi
+        echo "✅ Coverage is acceptable ($COVERAGE%)"
+
+    - name: Run performance regression test
+      run: npm run test:performance:regression
+
+    - name: Analyze bundle size
+      run: |
+        npm run build
+        npm run analyze:bundle
+        # Compare with main branch bundle size
+
+  # Accessibility testing
+  accessibility-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build application
+      run: npm run build
+
+    - name: Run accessibility tests
+      run: npm run test:a11y
+
+    - name: Upload accessibility report
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: accessibility-report
+        path: reports/accessibility/
+
+  # Preview deployment
+  preview-deploy:
+    runs-on: ubuntu-latest
+    needs: [pr-validation, code-analysis]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build for preview
+      run: npm run build:preview
+
+    - name: Deploy preview
+      id: preview
+      run: |
+        # Add preview deployment logic here
+        PREVIEW_URL="https://pr-${{ github.event.pull_request.number }}.preview.your-domain.com"
+        echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+
+    - name: Comment preview URL
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `🚀 **Preview deployed successfully!**
+
+            📱 **Preview URL**: ${{ steps.preview.outputs.preview_url }}
+
+            This preview will be automatically updated when you push new commits.
+
+            ---
+            Built with commit: ${{ github.sha }}`
+          })
+
+  # Auto-assign reviewers
+  assign-reviewers:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'opened'
+
+    steps:
+    - name: Auto-assign reviewers
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const reviewers = ['alejandro']; // Add your reviewers here
+          await github.rest.pulls.requestReviewers({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.issue.number,
+            reviewers: reviewers
+          });
+
+  # Label management
+  label-management:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Auto-label PR
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const { data: files } = await github.rest.pulls.listFiles({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.issue.number
+          });
+
+          const labels = [];
+
+          // Auto-label based on file changes
+          if (files.some(f => f.filename.includes('.github/workflows'))) {
+            labels.push('ci/cd');
+          }
+          if (files.some(f => f.filename.includes('src/'))) {
+            labels.push('enhancement');
+          }
+          if (files.some(f => f.filename.includes('test/') || f.filename.includes('.test.'))) {
+            labels.push('testing');
+          }
+          if (files.some(f => f.filename.includes('docs/') || f.filename.includes('.md'))) {
+            labels.push('documentation');
+          }
+
+          if (labels.length > 0) {
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: labels
+            });
+          }

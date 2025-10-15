@@ -1,0 +1,70 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Modern portfolio website showcasing professional work and projects",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Add your development server command here'",
+    "build": "echo 'Add your build command here'",
+    "build:development": "NODE_ENV=development npm run build",
+    "build:staging": "NODE_ENV=staging npm run build",
+    "build:production": "NODE_ENV=production npm run build",
+    "build:preview": "NODE_ENV=preview npm run build",
+    "start": "echo 'Add your start command here'",
+    "test": "echo 'Add your test command here'",
+    "test:unit": "echo 'Add unit test command here'",
+    "test:integration": "echo 'Add integration test command here'",
+    "test:e2e": "echo 'Add e2e test command here'",
+    "test:coverage": "echo 'Add coverage test command here'",
+    "test:a11y": "echo 'Add accessibility test command here'",
+    "test:performance": "echo 'Add performance test command here'",
+    "test:performance:regression": "echo 'Add performance regression test command here'",
+    "lint": "echo 'Add lint command here'",
+    "lint:fix": "echo 'Add lint fix command here'",
+    "format": "echo 'Add format command here'",
+    "format:check": "echo 'Add format check command here'",
+    "type-check": "echo 'Add type check command here'",
+    "audit:performance": "echo 'Add performance audit command here'",
+    "analyze:bundle": "echo 'Add bundle analysis command here'",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "portfolio",
+    "website",
+    "modern",
+    "responsive",
+    "professional"
+  ],
+  "author": "alejandro",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run lint:fix",
+      "npm run format",
+      "git add"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "npm run format",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  }
+}
