@@ -122,44 +122,15 @@ jobs:
           build/
         retention-days: 30
 
-  # Deployment
-  deploy:
+  # Create deployment trigger
+  deployment-trigger:
     runs-on: ubuntu-latest
     needs: build-and-test
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
-    environment:
-      name: production
-      url: ${{ steps.deploy.outputs.url }}
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Download build artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: build-artifacts
-
-    - name: Deploy to production
-      id: deploy
+    - name: Trigger deployment
       run: |
-        echo "Deploying to production..."
-        # Add your deployment script here
-        echo "url=https://your-portfolio-domain.com" >> $GITHUB_OUTPUT
-
-    - name: Health check
-      run: |
-        # Add health check script
-        curl -f ${{ steps.deploy.outputs.url }}/health || exit 1
-
-    - name: Notify deployment success
-      if: success()
-      run: |
-        echo "✅ Deployment successful to production"
-
-    - name: Notify deployment failure
-      if: failure()
-      run: |
-        echo "❌ Deployment failed"
-        exit 1
+        echo "✅ CI/CD Pipeline completed successfully"
+        echo "🚀 SSH deployment workflow will be triggered automatically"
+        echo "📋 All quality gates passed, deployment is ready"
