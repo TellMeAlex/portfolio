@@ -3,29 +3,31 @@
   "version": "1.0.0",
   "description": "Modern portfolio website showcasing professional work and projects",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "echo 'Add your development server command here'",
-    "build": "echo 'Add your build command here'",
+    "dev": "vite",
+    "build": "tsc && vite build",
     "build:development": "NODE_ENV=development npm run build",
     "build:staging": "NODE_ENV=staging npm run build",
     "build:production": "NODE_ENV=production npm run build",
     "build:preview": "NODE_ENV=preview npm run build",
-    "start": "echo 'Add your start command here'",
-    "test": "echo 'Add your test command here'",
-    "test:unit": "echo 'Add unit test command here'",
-    "test:integration": "echo 'Add integration test command here'",
-    "test:e2e": "echo 'Add e2e test command here'",
-    "test:coverage": "echo 'Add coverage test command here'",
-    "test:a11y": "echo 'Add accessibility test command here'",
-    "test:performance": "echo 'Add performance test command here'",
-    "test:performance:regression": "echo 'Add performance regression test command here'",
-    "lint": "echo 'Add lint command here'",
-    "lint:fix": "echo 'Add lint fix command here'",
-    "format": "echo 'Add format command here'",
-    "format:check": "echo 'Add format check command here'",
-    "type-check": "echo 'Add type check command here'",
-    "audit:performance": "echo 'Add performance audit command here'",
-    "analyze:bundle": "echo 'Add bundle analysis command here'",
+    "preview": "vite preview",
+    "start": "npm run preview",
+    "test": "vitest",
+    "test:unit": "vitest run",
+    "test:integration": "vitest run --reporter=verbose",
+    "test:e2e": "echo 'E2E tests placeholder'",
+    "test:coverage": "vitest run --coverage",
+    "test:a11y": "echo 'Accessibility tests placeholder'",
+    "test:performance": "echo 'Performance tests placeholder'",
+    "test:performance:regression": "echo 'Performance regression tests placeholder'",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "type-check": "tsc --noEmit",
+    "audit:performance": "echo 'Performance audit placeholder'",
+    "analyze:bundle": "npm run build && npx vite-bundle-analyzer dist/stats.json",
     "prepare": "husky install"
   },
   "keywords": [
@@ -47,8 +49,30 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.7.2",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
+    "@vitejs/plugin-react": "^5.0.4",
+    "@vitest/coverage-v8": "^3.2.4",
+    "eslint": "^9.37.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.4.0",
     "husky": "^8.0.0",
-    "lint-staged": "^13.0.0"
+    "jsdom": "^27.0.0",
+    "lint-staged": "^13.0.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.10",
+    "vitest": "^3.2.4"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -66,5 +90,17 @@
       "pre-commit": "lint-staged",
       "pre-push": "npm run test"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TellMeAlex/portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TellMeAlex/portfolio/issues"
+  },
+  "homepage": "https://github.com/TellMeAlex/portfolio#readme",
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   }
 }
