@@ -25,13 +25,14 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        registry-url: 'https://registry.npmjs.org'
 
-    - name: Clean npm cache
-      run: npm cache clean --force
+    - name: Clean npm cache and config
+      run: |
+        npm cache clean --force
+        rm -f ~/.npmrc
 
     - name: Install dependencies
-      run: npm install --no-audit
+      run: npm install --no-audit --registry https://registry.npmjs.org
 
     - name: Run linting
       run: npm run lint
@@ -93,10 +94,9 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        registry-url: 'https://registry.npmjs.org'
 
     - name: Install dependencies
-      run: npm install --no-audit
+      run: npm install --no-audit --registry https://registry.npmjs.org
 
     - name: Build application
       run: npm run build:${{ matrix.environment }}
