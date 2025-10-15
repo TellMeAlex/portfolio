@@ -209,7 +209,7 @@ jobs:
 
     steps:
     - name: Download outdated report
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v5
       with:
         name: outdated-report
 
