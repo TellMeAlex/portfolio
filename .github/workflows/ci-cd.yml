@@ -27,6 +27,15 @@ jobs:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'yarn'
 
+    - name: Configure yarn registry
+      run: |
+        yarn config set registry https://registry.yarnpkg.com
+        yarn config set always-auth false
+        yarn config delete @inditex:registry
+        yarn config delete //inditex.jfrog.io/inditex/api/npm/node-public/:_auth
+        npm config set registry https://registry.npmjs.org/
+        npm config delete //inditex.jfrog.io/inditex/api/npm/node-public/:_auth
+
     - name: Install dependencies
       run: yarn install --frozen-lockfile
 
@@ -68,6 +77,12 @@ jobs:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'yarn'
 
+    - name: Configure yarn registry
+      run: |
+        yarn config set registry https://registry.yarnpkg.com
+        yarn config set always-auth false
+        npm config set registry https://registry.npmjs.org/
+
     - name: Install dependencies
       run: yarn install --frozen-lockfile
 
@@ -100,6 +115,12 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'yarn'
+
+    - name: Configure yarn registry
+      run: |
+        yarn config set registry https://registry.yarnpkg.com
+        yarn config set always-auth false
+        npm config set registry https://registry.npmjs.org/
 
     - name: Install dependencies
       run: yarn install --frozen-lockfile
