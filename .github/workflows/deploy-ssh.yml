@@ -36,7 +36,7 @@ jobs:
       run: yarn install --frozen-lockfile
 
     - name: Build for production
-      run: yarn build:production
+      run: yarn build
       env:
         CI: true
 
@@ -173,13 +173,13 @@ jobs:
         ssh ${SSH_USER}@${SSH_HOST} "mkdir -p ${SERVER_PATH}"
 
         # Stop existing container if running
-        ssh ${SSH_USER}@${SSH_HOST} "cd ${SERVER_PATH} && docker-compose down 2>/dev/null || true"
+        ssh ${SSH_USER}@${SSH_HOST} "cd ${SERVER_PATH} && docker compose down 2>/dev/null || true"
 
         # Transfer files to server
         scp -r deploy/* ${SSH_USER}@${SSH_HOST}:${SERVER_PATH}/
 
         # Build and start the application
-        ssh ${SSH_USER}@${SSH_HOST} "cd ${SERVER_PATH} && docker-compose build && docker-compose up -d"
+        ssh ${SSH_USER}@${SSH_HOST} "cd ${SERVER_PATH} && docker compose build && docker compose up -d"
 
         # Wait for container to be healthy
         echo "Waiting for container to be healthy..."
@@ -209,7 +209,7 @@ jobs:
 
         if [ "$HTTP_STATUS" != "200" ]; then
           echo "❌ Deployment verification failed"
-          ssh ${SSH_USER}@${SSH_HOST} "cd ${SERVER_PATH} && docker-compose logs"
+          ssh ${SSH_USER}@${SSH_HOST} "cd ${SERVER_PATH} && docker compose logs"
           exit 1
         fi
 
@@ -242,11 +242,15 @@ jobs:
           const status = '${{ job.status }}' === 'success' ? 'success' : 'failure';
           const deploymentUrl = status === 'success' ? 'http://tellmealex.com' : '';
 
-          github.rest.repos.createDeploymentStatus({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            deployment_id: context.payload.deployment?.id || 0,
-            state: status,
-            environment_url: deploymentUrl,
-            description: status === 'success' ? 'Deployment successful' : 'Deployment failed'
-          });
+          if (context.payload.deployment?.id) {
+            github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: context.payload.deployment.id,
+              state: status,
+              environment_url: deploymentUrl,
+              description: status === 'success' ? 'Deployment successful' : 'Deployment failed'
+            });
+          } else {
+            console.log('No deployment ID found, skipping status update');
+          }
