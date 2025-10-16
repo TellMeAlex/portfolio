@@ -90,13 +90,14 @@ jobs:
       run: yarn audit --level moderate
       continue-on-error: true
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: javascript
+# CodeQL análisis removido temporalmente por problemas de permisos
+    # - name: Initialize CodeQL
+    #   uses: github/codeql-action/init@v2
+    #   with:
+    #     languages: javascript
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+    # - name: Perform CodeQL Analysis
+    #   uses: github/codeql-action/analyze@v2
 
   # Build and test
   build-and-test:
