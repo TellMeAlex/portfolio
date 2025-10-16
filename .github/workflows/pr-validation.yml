@@ -54,13 +54,13 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
+        cache: 'yarn'
 
     - name: Install dependencies
-      run: npm ci
+      run: yarn install --frozen-lockfile
 
     - name: Run tests with coverage
-      run: npm run test:coverage
+      run: yarn test:coverage
 
     - name: Check coverage threshold
       run: |
@@ -72,12 +72,12 @@ jobs:
         echo "✅ Coverage is acceptable ($COVERAGE%)"
 
     - name: Run performance regression test
-      run: npm run test:performance:regression
+      run: yarn test:performance:regression
 
     - name: Analyze bundle size
       run: |
-        npm run build
-        npm run analyze:bundle
+        yarn build
+        yarn analyze:bundle
         # Compare with main branch bundle size
 
   # Accessibility testing
@@ -92,16 +92,16 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
+        cache: 'yarn'
 
     - name: Install dependencies
-      run: npm ci
+      run: yarn install --frozen-lockfile
 
     - name: Build application
-      run: npm run build
+      run: yarn build
 
     - name: Run accessibility tests
-      run: npm run test:a11y
+      run: yarn test:a11y
 
     - name: Upload accessibility report
       uses: actions/upload-artifact@v3
@@ -123,13 +123,13 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
+        cache: 'yarn'
 
     - name: Install dependencies
-      run: npm ci
+      run: yarn install --frozen-lockfile
 
     - name: Build for preview
-      run: npm run build:preview
+      run: yarn build:preview
 
     - name: Deploy preview
       id: preview

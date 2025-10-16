@@ -6,7 +6,7 @@ on:
   workflow_dispatch:  # Allow manual trigger
 
 env:
-  NODE_VERSION: '18.x'
+  NODE_VERSION: '20.x'
 
 jobs:
   # Check for outdated dependencies
@@ -21,14 +21,14 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
+        cache: 'yarn'
 
     - name: Install dependencies
-      run: npm ci
+      run: yarn install --frozen-lockfile
 
     - name: Check for outdated packages
       run: |
-        npm outdated --json > outdated.json || true
+        yarn outdated --json > outdated.json || true
         echo "Outdated packages:"
         cat outdated.json | jq -r 'keys[]' || echo "No outdated packages found"
 
@@ -53,7 +53,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
+        cache: 'yarn'
 
     - name: Configure git
       run: |
@@ -62,13 +62,12 @@ jobs:
 
     - name: Update patch versions
       run: |
-        npm update --save
-        npm update --save-dev
+        yarn upgrade --latest
 
     - name: Run tests after update
       run: |
-        npm ci
-        npm run test || exit 1
+        yarn install --frozen-lockfile
+        yarn test || exit 1
 
     - name: Check for changes
       id: changes
@@ -135,7 +134,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
+        cache: 'yarn'
 
     - name: Configure git
       run: |
@@ -144,7 +143,7 @@ jobs:
 
     - name: Check for security vulnerabilities
       run: |
-        npm audit --audit-level=moderate --json > audit.json || true
+        yarn audit --json > audit.json || true
         VULNS=$(cat audit.json | jq '.metadata.vulnerabilities.moderate + .metadata.vulnerabilities.high + .metadata.vulnerabilities.critical')
         echo "Found $VULNS vulnerabilities"
         echo "VULNERABILITY_COUNT=$VULNS" >> $GITHUB_ENV
@@ -152,12 +151,12 @@ jobs:
     - name: Apply security fixes
       if: env.VULNERABILITY_COUNT != '0'
       run: |
-        npm audit fix --force
-        npm ci  # Verify installation works
+        yarn audit --fix
+        yarn install --frozen-lockfile  # Verify installation works
 
     - name: Run tests after security fixes
       if: env.VULNERABILITY_COUNT != '0'
-      run: npm test
+      run: yarn test
 
     - name: Create security update PR
       if: env.VULNERABILITY_COUNT != '0'
@@ -170,7 +169,7 @@ jobs:
           git add package*.json
           git commit -m "security: fix dependency vulnerabilities
 
-          - Applied npm audit fix
+          - Applied yarn audit fix
           - Resolved ${{ env.VULNERABILITY_COUNT }} vulnerabilities
           - All tests passing
 
@@ -186,7 +185,7 @@ jobs:
 
           ### Security Issues Fixed
           - **Vulnerabilities Resolved**: ${{ env.VULNERABILITY_COUNT }}
-          - Applied \`npm audit fix\` to resolve issues
+          - Applied \`yarn audit --fix\` to resolve issues
 
           ### Verification
           - ✅ Tests are passing
@@ -255,13 +254,13 @@ jobs:
           ### Commands to Update
           \`\`\`bash
           # Check specific package details
-          npm info <package-name> versions --json
+          yarn info <package-name> versions --json
 
           # Update specific package
-          npm install <package-name>@latest
+          yarn add <package-name>@latest
 
           # Run tests after each update
-          npm test
+          yarn test
           \`\`\`
 
           **Labels**: dependencies, major-update, manual-review
@@ -289,12 +288,12 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
+        cache: 'yarn'
 
     - name: Generate dependency tree
       run: |
-        npm ci
-        npm list --all --json > dependency-tree.json
+        yarn install --frozen-lockfile
+        yarn list --json > dependency-tree.json
 
     - name: Create dependency report
       run: |

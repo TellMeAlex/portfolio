@@ -1,11 +1,20 @@
 import '@testing-library/jest-dom'
 
 // Mock IntersectionObserver
-;(globalThis as any).IntersectionObserver = class IntersectionObserver {
+;(
+  globalThis as typeof globalThis & { IntersectionObserver?: unknown }
+).IntersectionObserver = class IntersectionObserver {
+  root = null
+  rootMargin = ''
+  thresholds = []
+
   constructor() {}
   disconnect() {}
   observe() {}
   unobserve() {}
+  takeRecords() {
+    return []
+  }
 }
 
 // Mock scrollTo

@@ -29,6 +29,11 @@ const Hero: React.FC = () => {
             solutions with modern technologies
           </p>
 
+          <div className="text-sm text-gray-500 dark:text-gray-400 mb-8">
+            ✨ Portfolio actualizado - Octubre 2025 - CI/CD Automático
+            Funcionando
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
               href="#projects"

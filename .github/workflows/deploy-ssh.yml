@@ -11,7 +11,7 @@ env:
   NODE_VERSION: '20.x'
   SERVER_PATH: '/root/development/portfolio'
   CONTAINER_NAME: 'portfolio-app'
-  PORT: '3001'  # Different port to avoid conflict with existing app
+  PORT: '80'  # Standard HTTP port
 
 jobs:
   deploy:
@@ -20,7 +20,7 @@ jobs:
 
     environment:
       name: production
-      url: http://tellmealex.dev:3001
+      url: http://tellmealex.com
 
     steps:
     - name: Checkout code
@@ -30,13 +30,13 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
+        cache: 'yarn'
 
     - name: Install dependencies
-      run: npm ci
+      run: yarn install --frozen-lockfile
 
     - name: Build for production
-      run: npm run build:production
+      run: yarn build:production
       env:
         CI: true
 
@@ -58,20 +58,21 @@ jobs:
         # Create Dockerfile if it doesn't exist
         if [ ! -f deploy/Dockerfile ]; then
           cat > deploy/Dockerfile << 'EOF'
-        # Use Nix-based image for consistency
-        FROM nixos/nix:latest AS builder
-
-        # Install Node.js and build tools via Nix
-        RUN nix-env -iA nixpkgs.nodejs-18_x nixpkgs.nginx
+        # Multi-stage build for optimized production image
+        FROM node:20-alpine AS builder
 
         WORKDIR /app
+        COPY package.json yarn.lock ./
+        RUN yarn install --frozen-lockfile
+
         COPY . .
+        RUN yarn build
 
         # Production stage with Nginx
         FROM nginx:alpine
 
-        # Copy built files
-        COPY . /usr/share/nginx/html
+        # Copy built files from builder stage
+        COPY --from=builder /app/dist /usr/share/nginx/html
 
         # Copy nginx configuration
         COPY nginx.conf /etc/nginx/conf.d/default.conf
@@ -151,7 +152,7 @@ jobs:
               start_period: 40s
             labels:
               - "traefik.enable=true"
-              - "traefik.http.routers.portfolio.rule=Host(\`tellmealex.dev\`) && PathPrefix(\`/portfolio\`)"
+              - "traefik.http.routers.portfolio.rule=Host(\`tellmealex.com\`)"
               - "traefik.http.services.portfolio.loadbalancer.server.port=80"
         EOF
         fi
@@ -203,7 +204,7 @@ jobs:
         echo "Container status: $CONTAINER_STATUS"
 
         # Test HTTP endpoint
-        HTTP_STATUS=$(ssh ${SSH_USER}@${SSH_HOST} "curl -s -o /dev/null -w '%{http_code}' http://localhost:${PORT}/health")
+        HTTP_STATUS=$(ssh ${SSH_USER}@${SSH_HOST} "curl -s -o /dev/null -w '%{http_code}' http://localhost/health")
         echo "Health check status: $HTTP_STATUS"
 
         if [ "$HTTP_STATUS" != "200" ]; then
@@ -227,7 +228,7 @@ jobs:
       run: |
         if [ "${{ job.status }}" == "success" ]; then
           echo "🚀 Portfolio deployed successfully!"
-          echo "📍 URL: http://tellmealex.dev:${PORT}"
+          echo "📍 URL: http://tellmealex.com"
           echo "🐳 Container: ${CONTAINER_NAME}"
         else
           echo "❌ Deployment failed. Check logs for details."
@@ -239,7 +240,7 @@ jobs:
       with:
         script: |
           const status = '${{ job.status }}' === 'success' ? 'success' : 'failure';
-          const deploymentUrl = status === 'success' ? 'http://tellmealex.dev:${{ env.PORT }}' : '';
+          const deploymentUrl = status === 'success' ? 'http://tellmealex.com' : '';
 
           github.rest.repos.createDeploymentStatus({
             owner: context.repo.owner,
