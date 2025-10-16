@@ -182,26 +182,31 @@ jobs:
         # Create deployment directory on server
         ssh ${SSH_USER}@${SSH_HOST} "mkdir -p ${SERVER_PATH}"
 
-        # Stop existing container if running
-        ssh ${SSH_USER}@${SSH_HOST} "cd ${SERVER_PATH} && docker compose down 2>/dev/null || true"
+        # Transfer built files to server
+        scp -r dist/* ${SSH_USER}@${SSH_HOST}:${SERVER_PATH}/
 
-        # Transfer files to server
-        scp -r deploy/* ${SSH_USER}@${SSH_HOST}:${SERVER_PATH}/
-
-        # Build and start the application
-        ssh ${SSH_USER}@${SSH_HOST} "cd ${SERVER_PATH} && docker compose build && docker compose up -d"
-
-        # Wait for container to be healthy
-        echo "Waiting for container to be healthy..."
+        # Update the existing nginx container with new content
+        echo "Updating existing nginx container content..."
         ssh ${SSH_USER}@${SSH_HOST} "
-          for i in {1..30}; do
-            if docker exec ${CONTAINER_NAME} curl -f http://localhost/health >/dev/null 2>&1; then
-              echo '✅ Container is healthy'
-              break
-            fi
-            echo 'Waiting for container... (\$i/30)'
-            sleep 10
-          done
+          # Backup current content
+          docker exec react-nginx-app cp -r /usr/share/nginx/html /tmp/backup-\$(date +%Y%m%d-%H%M%S) 2>/dev/null || true
+
+          # Clear current content
+          docker exec react-nginx-app rm -rf /usr/share/nginx/html/*
+
+          # Copy new content into container
+          docker cp ${SERVER_PATH}/. react-nginx-app:/usr/share/nginx/html/
+
+          # Reload nginx to pick up changes
+          docker exec react-nginx-app nginx -s reload
+        "
+
+        # Verify the deployment
+        echo "Verifying deployment..."
+        ssh ${SSH_USER}@${SSH_HOST} "
+          # Test that nginx is serving the new content
+          sleep 2
+          curl -f http://localhost/ >/dev/null 2>&1 && echo '✅ Container is serving content' || echo '❌ Container not responding'
         "
 
     - name: Verify deployment
@@ -210,28 +215,37 @@ jobs:
         SSH_USER: ${{ secrets.SSH_USER }}
       run: |
         # Check container status
-        CONTAINER_STATUS=$(ssh ${SSH_USER}@${SSH_HOST} "docker ps --filter name=${CONTAINER_NAME} --format '{{.Status}}'")
+        CONTAINER_STATUS=$(ssh ${SSH_USER}@${SSH_HOST} "docker ps --filter name=react-nginx-app --format '{{.Status}}'")
         echo "Container status: $CONTAINER_STATUS"
 
         # Test HTTP endpoint
-        HTTP_STATUS=$(ssh ${SSH_USER}@${SSH_HOST} "curl -s -o /dev/null -w '%{http_code}' http://localhost/health")
-        echo "Health check status: $HTTP_STATUS"
+        HTTP_STATUS=$(ssh ${SSH_USER}@${SSH_HOST} "curl -s -o /dev/null -w '%{http_code}' http://localhost/")
+        echo "HTTP status: $HTTP_STATUS"
+
+        # Also test externally
+        EXTERNAL_STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://tellmealex.com/ || echo "000")
+        echo "External HTTP status: $EXTERNAL_STATUS"
 
         if [ "$HTTP_STATUS" != "200" ]; then
           echo "❌ Deployment verification failed"
-          ssh ${SSH_USER}@${SSH_HOST} "cd ${SERVER_PATH} && docker compose logs"
+          ssh ${SSH_USER}@${SSH_HOST} "docker logs react-nginx-app --tail 20"
           exit 1
         fi
 
         echo "✅ Deployment successful!"
+        echo "🌐 Available at: http://tellmealex.com"
 
-    - name: Cleanup old images
+    - name: Cleanup old files
       env:
         SSH_HOST: ${{ secrets.SSH_HOST }}
         SSH_USER: ${{ secrets.SSH_USER }}
       run: |
-        # Clean up old Docker images to save space
-        ssh ${SSH_USER}@${SSH_HOST} "docker image prune -f && docker system prune -f --volumes"
+        # Clean up deployment files and old backups
+        ssh ${SSH_USER}@${SSH_HOST} "
+          rm -rf ${SERVER_PATH}/*
+          find /tmp -name 'backup-*' -type d -mtime +7 -exec rm -rf {} + 2>/dev/null || true
+          docker system prune -f
+        "
 
     - name: Notify deployment status
       if: always()
