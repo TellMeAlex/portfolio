@@ -124,7 +124,7 @@ jobs:
       run: yarn install --frozen-lockfile
 
     - name: Build for production
-      run: yarn build:production
+      run: yarn build
       env:
         CI: true
 
