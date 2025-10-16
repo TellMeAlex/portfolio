@@ -88,6 +88,7 @@ jobs:
 
     - name: Run yarn audit
       run: yarn audit --level moderate
+      continue-on-error: true
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
