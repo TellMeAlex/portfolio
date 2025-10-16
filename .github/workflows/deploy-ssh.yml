@@ -45,8 +45,18 @@ jobs:
         # Create deployment directory structure
         mkdir -p deploy
 
-        # Copy built files
-        cp -r build/* deploy/ 2>/dev/null || cp -r dist/* deploy/ 2>/dev/null || echo "No build output found yet"
+        # Copy source files needed for Docker build
+        cp package.json deploy/
+        cp yarn.lock deploy/
+        cp -r src deploy/
+        cp -r public deploy/ 2>/dev/null || echo "No public folder"
+
+        # Copy configuration files
+        cp vite.config.ts deploy/ 2>/dev/null || echo "No vite config"
+        cp tsconfig.json deploy/ 2>/dev/null || echo "No tsconfig"
+        cp tailwind.config.js deploy/ 2>/dev/null || echo "No tailwind config"
+        cp postcss.config.js deploy/ 2>/dev/null || echo "No postcss config"
+        cp index.html deploy/ 2>/dev/null || echo "No index.html"
 
         # Copy Docker configuration
         cp Dockerfile deploy/ 2>/dev/null || echo "Creating Dockerfile..."
