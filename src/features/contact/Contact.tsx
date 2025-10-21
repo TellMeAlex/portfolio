@@ -5,7 +5,11 @@ import './Contact.css'
 
 export const Contact: React.FC = () => {
   return (
-    <Card size="medium" ariaLabel="Contact information" className="contact-card">
+    <Card
+      size="medium"
+      ariaLabel="Contact information"
+      className="contact-card"
+    >
       <div className="card-header">
         <h2 className="card-title">Contacto</h2>
       </div>
@@ -47,7 +51,9 @@ export const Contact: React.FC = () => {
           <Button
             variant="tertiary"
             size="small"
-            onClick={() => window.open('https://github.com/TellMeAlex', '_blank')}
+            onClick={() =>
+              window.open('https://github.com/TellMeAlex', '_blank')
+            }
             ariaLabel="Visit GitHub profile"
           >
             GitHub
