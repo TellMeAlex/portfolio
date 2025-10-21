@@ -15,3 +15,8 @@
 /* Import UI Components */
 @import './core/ui/Button/Button.css';
 @import './core/ui/ThemeToggle/ThemeToggle.css';
+
+/* Import Features */
+@import './features/hero/Hero.css';
+@import './features/about/About.css';
+@import './features/contact/Contact.css';

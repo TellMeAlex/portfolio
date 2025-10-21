@@ -2,8 +2,10 @@ import React from 'react'
 import { BentoGrid } from './core/layout/BentoGrid'
 import { Card } from './core/layout/Card'
 import { SkipLinks } from './core/layout/SkipLinks'
-import { Button } from './core/ui/Button'
 import { ThemeToggle } from './core/ui/ThemeToggle'
+import { Hero } from './features/hero'
+import { About } from './features/about'
+import { Contact } from './features/contact'
 
 const App: React.FC = () => {
   return (
@@ -43,61 +45,11 @@ const App: React.FC = () => {
         {/* Main Portfolio Grid */}
         <main id="main-content" tabIndex={-1}>
           <BentoGrid>
-            {/* Hero Card - XL (3x2) */}
-            <Card size="xl" ariaLabel="Hero section">
-              <div className="card-header">
-                <h2
-                  className="card-title"
-                  style={{ fontSize: 'var(--text-4xl)' }}
-                >
-                  👋 Hola, soy Alejandro
-                </h2>
-              </div>
-              <div className="card-body">
-                <p
-                  style={{
-                    fontSize: 'var(--text-xl)',
-                    color: 'var(--color-text-secondary)',
-                    lineHeight: 'var(--leading-relaxed)',
-                  }}
-                >
-                  Technical Leader Specialist en NTT DATA
-                </p>
-                <p style={{ color: 'var(--color-text-secondary)' }}>
-                  Liderando la transformación digital con IA y React.
-                  Especializado en arquitecturas de microfrontends y soluciones
-                  empresariales.
-                </p>
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: 'var(--space-4)',
-                    marginTop: 'var(--space-6)',
-                  }}
-                >
-                  <Button variant="primary">Ver proyectos</Button>
-                  <Button variant="secondary">Contactar</Button>
-                </div>
-              </div>
-            </Card>
+            {/* Hero Section - XL (3x2) */}
+            <Hero />
 
-            {/* About Card - Large (2x2) */}
-            <Card size="large" ariaLabel="About me">
-              <div className="card-header">
-                <h2 className="card-title">Sobre mí</h2>
-              </div>
-              <div className="card-body">
-                <p style={{ color: 'var(--color-text-secondary)' }}>
-                  Con más de 3 años de experiencia liderando equipos de
-                  desarrollo en proyectos de transformación digital para
-                  empresas como Inditex, RTVE y HelloAuto.
-                </p>
-                <p style={{ color: 'var(--color-text-secondary)' }}>
-                  Mi enfoque combina expertise técnico en React y arquitectura
-                  de software con liderazgo efectivo de equipos distribuidos.
-                </p>
-              </div>
-            </Card>
+            {/* About Section - Large (2x2) */}
+            <About />
 
             {/* Skills Card - Medium (2x1) */}
             <Card size="medium" ariaLabel="Skills">
@@ -191,34 +143,8 @@ const App: React.FC = () => {
               </div>
             </Card>
 
-            {/* Contact Card - Medium (2x1) */}
-            <Card size="medium" ariaLabel="Contact information">
-              <div className="card-header">
-                <h2 className="card-title">Contacto</h2>
-              </div>
-              <div className="card-body">
-                <p style={{ color: 'var(--color-text-secondary)' }}>
-                  📧 llamamealex@gmail.com
-                </p>
-                <p style={{ color: 'var(--color-text-secondary)' }}>
-                  📍 Jaén, Andalucía, España
-                </p>
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: 'var(--space-3)',
-                    marginTop: 'var(--space-4)',
-                  }}
-                >
-                  <Button variant="tertiary" size="small">
-                    LinkedIn
-                  </Button>
-                  <Button variant="tertiary" size="small">
-                    GitHub
-                  </Button>
-                </div>
-              </div>
-            </Card>
+            {/* Contact Section - Medium (2x1) */}
+            <Contact />
           </BentoGrid>
         </main>
 
