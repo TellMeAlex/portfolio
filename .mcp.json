@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "--registry", "https://registry.npmjs.org/", "@upstash/context7-mcp"]
+    },
+    "magic": {
+      "command": "npx",
+      "args": ["-y", "--registry", "https://registry.npmjs.org/", "@21st-dev/magic"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "--registry", "https://registry.npmjs.org/", "@playwright/mcp@latest"]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "--registry", "https://registry.npmjs.org/", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "morphllm-fast-apply": {
+      "command": "npx",
+      "args": ["-y", "--registry", "https://registry.npmjs.org/", "@morph-llm/morph-fast-apply"]
+    }
+  }
+}

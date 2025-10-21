@@ -14,24 +14,37 @@ Modern professional portfolio website for Alejandro de la Fuente, Technical Lead
 portfolio/
 ├── general-plan.md          # Complete project specification (371 lines)
 ├── prds/                    # Phase-based implementation documents
-│   ├── README.md           # Project guide and implementation strategy
-│   ├── PRD-01-Foundation-Design-System.md
-│   ├── PRD-02-Core-Content-Implementation.md
-│   ├── PRD-03-Experience-Timeline-Portfolio.md
-│   ├── PRD-04-Advanced-Animations-Microinteractions.md
-│   ├── PRD-05-Performance-Optimization-SEO.md
-│   └── PRD-06-Final-Polish-Accessibility.md
-└── [implementation files to be created]
+│   ├── README.md           # Project guide and implementation strategy (v2.0)
+│   ├── 00-PROJECT-OVERVIEW.md
+│   ├── 01-TECHNICAL-REFERENCE.md     # Design system (SSOT)
+│   ├── 02-CONTENT-SPECIFICATIONS.md  # Structured content
+│   ├── 03-COMPONENT-LIBRARY.md       # 12 core components
+│   ├── phases/
+│   │   ├── PHASE-01-Foundation.md
+│   │   ├── PHASE-02-Core-Content.md
+│   │   ├── PHASE-03-Advanced-Features.md
+│   │   ├── PHASE-04-Animations.md
+│   │   ├── PHASE-05-Performance.md
+│   │   └── PHASE-06-Polish.md
+│   ├── quick-references/
+│   │   ├── design-tokens.md          # Copy-paste CSS tokens
+│   │   ├── accessibility-checklist.md
+│   │   ├── performance-budgets.md
+│   │   └── browser-compatibility.md
+│   └── templates/
+└── src/                     # Feature-based architecture (see below)
 ```
 
 ## Implementation Architecture
 
 ### Technology Stack
-- **Core**: HTML5, CSS3 Grid/Flexbox, Vanilla JavaScript
-- **Optional Enhancement**: React for component architecture
+- **Frontend**: React 18+ with TypeScript
+- **Styling**: CSS Modules + CSS Custom Properties (design tokens)
+- **Build Tool**: Vite
 - **Animations**: CSS Animations + Intersection Observer API
 - **Typography**: Inter (body text) + JetBrains Mono (code)
 - **Color Palette**: Navy (#0A192F) + Cyan (#64FFDA) + light variants
+- **Testing**: Vitest + Testing Library
 
 ### Phase Dependencies
 ```
@@ -98,22 +111,122 @@ Phase 1 (Foundation) → Phase 2 (Core Content) → Phase 3 (Complex Features)
 - **Accessibility-first** implementation from Phase 1
 - **Component modularity** for maintainability
 
-### File Organization
+### File Organization - Feature-Based Architecture
+
 ```
 src/
-├── index.html              # Main HTML structure
-├── css/
-│   ├── main.css           # Global styles
-│   ├── grid.css           # Bento Grid layout
-│   └── components/        # Component-specific styles
-├── js/
-│   ├── main.js            # Core functionality
-│   ├── animations.js      # Scroll & hover animations
-│   └── components/        # Component scripts
-└── assets/
-    ├── images/            # Optimized images (AVIF, WebP)
-    └── fonts/             # Inter & JetBrains Mono
+├── core/                        # Core del sistema (shared)
+│   ├── design-system/          # Design tokens y sistema base
+│   │   ├── tokens/
+│   │   │   ├── colors.css      # Paleta + themes (dark/light)
+│   │   │   ├── typography.css  # Fuentes, tamaños, pesos
+│   │   │   ├── spacing.css     # Escala 8px base
+│   │   │   ├── shadows.css     # Sombras y efectos
+│   │   │   └── index.css       # Export maestro
+│   │   ├── base/
+│   │   │   ├── reset.css       # CSS reset
+│   │   │   ├── typography.css  # Tipografía base
+│   │   │   └── accessibility.css # Focus styles
+│   │   └── index.css
+│   │
+│   ├── layout/                  # Componentes de layout compartidos
+│   │   ├── BentoGrid/
+│   │   │   ├── BentoGrid.tsx
+│   │   │   ├── BentoGrid.css
+│   │   │   └── index.ts
+│   │   ├── Card/               # Card base component
+│   │   │   ├── Card.tsx
+│   │   │   ├── Card.css
+│   │   │   ├── Card.types.ts
+│   │   │   └── index.ts
+│   │   └── SkipLinks/
+│   │       ├── SkipLinks.tsx
+│   │       ├── SkipLinks.css
+│   │       └── index.ts
+│   │
+│   ├── ui/                      # Componentes UI compartidos
+│   │   ├── Button/
+│   │   │   ├── Button.tsx
+│   │   │   ├── Button.css
+│   │   │   ├── Button.types.ts
+│   │   │   └── index.ts
+│   │   └── ThemeToggle/
+│   │       ├── ThemeToggle.tsx
+│   │       ├── ThemeToggle.css
+│   │       ├── useTheme.ts
+│   │       └── index.ts
+│   │
+│   └── utils/                   # Utilidades compartidas
+│       ├── theme.ts
+│       └── constants.ts
+│
+├── features/                    # Features del portfolio (Bento Cards)
+│   ├── hero/                   # Hero Card (3x2) - Phase 2
+│   │   ├── Hero.tsx
+│   │   ├── Hero.css
+│   │   ├── Hero.types.ts
+│   │   └── index.ts
+│   │
+│   ├── about/                  # About Card (2x2) - Phase 2
+│   │   ├── About.tsx
+│   │   ├── About.css
+│   │   └── index.ts
+│   │
+│   ├── experience/             # Experience Timeline (3x2) - Phase 3
+│   │   ├── Experience.tsx
+│   │   ├── Experience.css
+│   │   ├── Timeline/           # Sub-componente
+│   │   │   ├── Timeline.tsx
+│   │   │   └── Timeline.css
+│   │   └── index.ts
+│   │
+│   ├── projects/               # Projects Grid (3x3) - Phase 3
+│   │   ├── Projects.tsx
+│   │   ├── Projects.css
+│   │   ├── ProjectCard/
+│   │   │   ├── ProjectCard.tsx
+│   │   │   └── ProjectCard.css
+│   │   └── index.ts
+│   │
+│   ├── skills/                 # Skills Visualization (2x2) - Phase 3
+│   │   ├── Skills.tsx
+│   │   ├── Skills.css
+│   │   └── index.ts
+│   │
+│   ├── contact/                # Contact Card (2x1) - Phase 2
+│   │   ├── Contact.tsx
+│   │   ├── Contact.css
+│   │   └── index.ts
+│   │
+│   └── stats/                  # Stats Counter (1x1) - Phase 3
+│       ├── Stats.tsx
+│       ├── Stats.css
+│       └── index.ts
+│
+├── hooks/                       # Hooks globales compartidos
+│   ├── useIntersectionObserver.ts
+│   ├── useMediaQuery.ts
+│   └── useLocalStorage.ts
+│
+├── types/                       # Types globales
+│   └── index.ts
+│
+├── App.tsx                      # App principal
+├── main.tsx                     # Entry point
+└── index.css                    # Import del design system
 ```
+
+### Architecture Principles
+
+1. **Feature Isolation**: Cada feature contiene todo lo necesario (componente, estilos, types, hooks)
+2. **Core Compartido**: Design system, layout, UI components reutilizables
+3. **Escalabilidad por Fases**:
+   - Phase 1: `core/design-system` + `core/layout` + `core/ui`
+   - Phase 2: `features/hero` + `features/about` + `features/contact`
+   - Phase 3: `features/experience` + `features/projects` + `features/skills`
+   - Phase 4: Agregar hooks de animación a cada feature
+4. **Barrel Exports**: Cada módulo exporta a través de `index.ts` para imports limpios
+5. **Co-location**: Todo relacionado a una feature vive junto
 
 ## Quality Validation
 
@@ -131,3 +244,54 @@ src/
 - **Accessibility**: Screen reader testing + keyboard navigation
 - **Responsiveness**: Multiple device sizes and orientations
 - **Content**: Professional accuracy and currency validation
+
+## Working with PRD Documentation
+
+### Documentation Hierarchy (SSOT - Single Source of Truth)
+
+1. **Design Tokens**: `/prds/quick-references/design-tokens.md`
+   - Copy-paste ready CSS variables
+   - Use ALWAYS for colors, spacing, typography, shadows
+
+2. **Technical Reference**: `/prds/01-TECHNICAL-REFERENCE.md`
+   - Complete design system specification
+   - Grid system details
+   - Component technical specs
+
+3. **Component Library**: `/prds/03-COMPONENT-LIBRARY.md`
+   - 12 core components with complete specs
+   - HTML anatomy, CSS styles, accessibility requirements
+   - Use as blueprint for implementation
+
+4. **Content Specifications**: `/prds/02-CONTENT-SPECIFICATIONS.md`
+   - All portfolio content structured in JSON
+   - Professional data, projects, skills, contact info
+
+5. **Phase Documents**: `/prds/phases/PHASE-XX-*.md`
+   - Step-by-step implementation guides
+   - Success criteria and quality gates
+   - Cross-references to other docs using `→` symbol
+
+### Best Practices
+
+- **Never hardcode values**: Always use design tokens from `quick-references/design-tokens.md`
+- **Follow cross-references**: Use `→` links to navigate between docs
+- **Copy-paste when available**: Design tokens and component specs are copy-paste ready
+- **Validate against specs**: Each component has detailed specs in Component Library
+- **Check quality gates**: Each phase has specific DoD (Definition of Done) criteria
+
+### Quick Reference Navigation
+
+```bash
+# Design tokens (copy-paste CSS)
+cat prds/quick-references/design-tokens.md
+
+# Component specs (blueprint)
+cat prds/03-COMPONENT-LIBRARY.md
+
+# Current phase guide
+cat prds/phases/PHASE-01-Foundation.md
+
+# Accessibility checklist
+cat prds/quick-references/accessibility-checklist.md
+```

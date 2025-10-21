@@ -1,0 +1,95 @@
+/* ============================================
+   BUTTON COMPONENT
+   Source: prds/03-COMPONENT-LIBRARY.md#9-button-component
+   ============================================ */
+
+/* Base Button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+
+  cursor: pointer;
+  transition: all var(--transition-base) var(--ease-out);
+
+  /* Accessibility */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Primary Button */
+.btn--primary {
+  background: var(--color-cyan);
+  color: var(--color-navy);
+}
+
+.btn--primary:hover {
+  background: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 255, 218, 0.4);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary Button */
+.btn--secondary {
+  background: transparent;
+  color: var(--color-cyan);
+  border: 2px solid var(--color-cyan);
+}
+
+.btn--secondary:hover {
+  background: var(--color-cyan);
+  color: var(--color-navy);
+}
+
+/* Tertiary Button */
+.btn--tertiary {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-gray);
+}
+
+.btn--tertiary:hover {
+  color: var(--color-cyan);
+  border-color: var(--color-cyan);
+}
+
+/* Button States */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 4px;
+}
+
+/* Button Sizes */
+.btn--small {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.btn--large {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-lg);
+}
+
+/* Icon Button */
+.btn--icon {
+  padding: var(--space-3);
+  aspect-ratio: 1;
+}

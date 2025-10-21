@@ -1,0 +1,112 @@
+/* ============================================
+   CARD BASE COMPONENT
+   Foundation component for all Bento cards
+   Source: prds/03-COMPONENT-LIBRARY.md#1-card-base-component
+   ============================================ */
+
+/* Base Card Styles */
+.card {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+
+  /* Spacing */
+  padding: var(--space-6);
+
+  /* Visual */
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+
+  /* Transitions */
+  transition: all var(--transition-base) var(--ease-in-out);
+}
+
+/* Size Variants */
+.card--small {
+  min-height: 300px;
+}
+
+.card--medium {
+  min-height: 300px;
+}
+
+.card--large {
+  min-height: 400px;
+}
+
+.card--xl {
+  min-height: 400px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .card--small,
+  .card--medium,
+  .card--large,
+  .card--xl {
+    min-height: auto;
+  }
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.card-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* Card Body */
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Card Footer */
+.card-footer {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Interactive States */
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.card:focus-within {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 4px;
+}
+
+.card:active {
+  transform: translateY(-4px) scale(0.98);
+}
+
+/* Loading State */
+.card--loading .card-body {
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Error State */
+.card--error {
+  border: 2px solid var(--color-error);
+}
