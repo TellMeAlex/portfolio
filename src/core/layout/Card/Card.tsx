@@ -1,6 +1,6 @@
-import React from 'react';
-import type { CardProps } from './Card.types';
-import './Card.css';
+import React from 'react'
+import type { CardProps } from './Card.types'
+import './Card.css'
 
 export const Card: React.FC<CardProps> = ({
   children,
@@ -17,7 +17,9 @@ export const Card: React.FC<CardProps> = ({
     loading && 'card--loading',
     error && 'card--error',
     className,
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <article
@@ -30,5 +32,5 @@ export const Card: React.FC<CardProps> = ({
     >
       {children}
     </article>
-  );
-};
+  )
+}

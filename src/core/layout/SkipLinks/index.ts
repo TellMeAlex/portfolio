@@ -1,1 +1,1 @@
-export { SkipLinks } from './SkipLinks';
+export { SkipLinks } from './SkipLinks'

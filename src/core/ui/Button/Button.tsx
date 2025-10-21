@@ -1,6 +1,6 @@
-import React from 'react';
-import type { ButtonProps } from './Button.types';
-import './Button.css';
+import React from 'react'
+import type { ButtonProps } from './Button.types'
+import './Button.css'
 
 export const Button: React.FC<ButtonProps> = ({
   children,
@@ -19,7 +19,9 @@ export const Button: React.FC<ButtonProps> = ({
     size !== 'medium' && `btn--${size}`,
     icon && 'btn--icon',
     className,
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <button
@@ -31,5 +33,5 @@ export const Button: React.FC<ButtonProps> = ({
     >
       {children}
     </button>
-  );
-};
+  )
+}

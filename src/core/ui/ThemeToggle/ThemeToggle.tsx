@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useTheme } from './useTheme';
-import './ThemeToggle.css';
+import React, { useState } from 'react'
+import { useTheme } from './useTheme'
+import './ThemeToggle.css'
 
 export const ThemeToggle: React.FC = () => {
-  const { theme, toggleTheme } = useTheme();
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const { theme, toggleTheme } = useTheme()
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   const handleToggle = () => {
-    setIsTransitioning(true);
-    toggleTheme();
-    setTimeout(() => setIsTransitioning(false), 300);
-  };
+    setIsTransitioning(true)
+    toggleTheme()
+    setTimeout(() => setIsTransitioning(false), 300)
+  }
 
   return (
     <button
@@ -47,5 +47,5 @@ export const ThemeToggle: React.FC = () => {
         )}
       </svg>
     </button>
-  );
-};
+  )
+}
