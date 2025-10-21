@@ -1,0 +1,62 @@
+/* ============================================
+   BENTO GRID SYSTEM
+   Responsive grid: 1 col (mobile) → 2 cols (tablet) → 4 cols (desktop)
+   Source: prds/03-COMPONENT-LIBRARY.md#bento-grid
+   ============================================ */
+
+.portfolio-grid {
+  display: grid;
+  gap: var(--grid-gap);
+  max-width: var(--grid-max-width);
+  margin: 0 auto;
+  padding: var(--grid-padding-mobile);
+
+  /* Mobile: 1 column */
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .portfolio-grid {
+    /* Tablet: 2 columns */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .portfolio-grid {
+    /* Desktop: 4 columns for flexibility */
+    grid-template-columns: repeat(4, 1fr);
+    padding: var(--grid-padding-desktop);
+  }
+}
+
+/* Card size variants using grid-column/grid-row */
+.card--small {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.card--medium {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.card--large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.card--xl {
+  grid-column: span 3;
+  grid-row: span 2;
+}
+
+/* Mobile: All cards full width */
+@media (max-width: 767px) {
+  .card--small,
+  .card--medium,
+  .card--large,
+  .card--xl {
+    grid-column: span 1;
+  }
+}

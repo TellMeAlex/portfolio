@@ -1,0 +1,58 @@
+{
+  "project": {
+    "name": "portfolio",
+    "type": "React + TypeScript + Vite",
+    "version": "1.0.0",
+    "description": "Modern portfolio website showcasing professional work and projects"
+  },
+  "architecture": {
+    "frontend": "React 18 + TypeScript + Vite",
+    "styling": "Tailwind CSS (inferred from modern setup)",
+    "testing": "Vitest + React Testing Library",
+    "build": "Vite bundler with TypeScript compilation",
+    "deployment": "GitHub Actions → Docker → tellmealex.com"
+  },
+  "structure": {
+    "entry_point": "src/main.tsx",
+    "main_app": "src/App.tsx",
+    "components": [
+      "Hero.tsx",
+      "Header.tsx",
+      "Projects.tsx",
+      "Skills.tsx",
+      "Contact.tsx",
+      "Footer.tsx"
+    ],
+    "path_aliases": {
+      "@/*": "./src/*",
+      "@/components/*": "./src/components/*",
+      "@/utils/*": "./src/utils/*",
+      "@/types/*": "./src/types/*",
+      "@/hooks/*": "./src/hooks/*",
+      "@/assets/*": "./src/assets/*"
+    }
+  },
+  "ci_cd": {
+    "platform": "GitHub Actions",
+    "workflows": "Quality gates + automated deployment",
+    "deployment_target": "tellmealex.com",
+    "container": "Docker-based deployment"
+  },
+  "quality_tools": {
+    "linting": "ESLint with TypeScript support",
+    "formatting": "Prettier",
+    "pre_commit": "Husky + lint-staged",
+    "type_checking": "TypeScript strict mode"
+  },
+  "session_info": {
+    "initialized": "2025-10-16",
+    "serena_status": "not_available",
+    "alternative_memory": "native_claude_with_file_persistence",
+    "available_mcp_servers": [
+      "Context7 (library docs)",
+      "Sequential Thinking (analysis)",
+      "Magic (UI components)",
+      "Playwright (browser testing)"
+    ]
+  }
+}

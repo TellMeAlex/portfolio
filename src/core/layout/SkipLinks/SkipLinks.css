@@ -1,0 +1,42 @@
+/* ============================================
+   SKIP LINKS COMPONENT
+   Keyboard navigation accessibility
+   Source: prds/03-COMPONENT-LIBRARY.md#11-skip-links
+   WCAG 2.4.1 compliance
+   ============================================ */
+
+.skip-links {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: var(--z-skip-link);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: var(--z-skip-link);
+
+  padding: var(--space-4) var(--space-6);
+
+  background: var(--color-cyan);
+  color: var(--color-navy);
+
+  font-weight: var(--font-bold);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+
+  transition: all var(--transition-base) var(--ease-out);
+}
+
+.skip-link:focus {
+  left: var(--space-4);
+  top: var(--space-4);
+  outline: 2px solid var(--color-white);
+  outline-offset: 4px;
+}
+
+.skip-link:hover {
+  background: var(--color-white);
+}

@@ -1,0 +1,59 @@
+/* ============================================
+   THEME TOGGLE COMPONENT
+   Dark/light mode switcher
+   Source: prds/03-COMPONENT-LIBRARY.md#10-theme-toggle
+   ============================================ */
+
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+  padding: var(--space-3);
+
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-gray);
+  border-radius: var(--radius-full);
+
+  cursor: pointer;
+  transition: all var(--transition-base) var(--ease-out);
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-cyan);
+  transform: scale(1.05);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 4px;
+}
+
+/* Icons */
+.theme-toggle__icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-primary);
+  transition: transform var(--transition-base) var(--ease-out);
+}
+
+.theme-toggle:hover .theme-toggle__icon {
+  transform: rotate(20deg);
+}
+
+/* Icon animation on toggle */
+.theme-toggle--transitioning .theme-toggle__icon {
+  animation: spin var(--transition-base) var(--ease-out);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}

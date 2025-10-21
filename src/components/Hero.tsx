@@ -1,4 +1,5 @@
 import React from 'react'
+import { PERSONAL_INFO, STATUS_MESSAGE, NAVIGATION } from '@/constants/personal'
 
 const Hero: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const Hero: React.FC = () => {
             <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-1">
               <div className="w-full h-full rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
                 <span className="text-4xl font-bold text-gray-700 dark:text-gray-300">
-                  A
+                  {PERSONAL_INFO.name.first.charAt(0)}
                 </span>
               </div>
             </div>
@@ -20,23 +21,21 @@ const Hero: React.FC = () => {
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             Hi, I'm{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-              Alejandro
+              {PERSONAL_INFO.name.first}
             </span>
           </h1>
 
           <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto text-balance">
-            Full Stack Developer passionate about creating innovative web
-            solutions with modern technologies
+            {PERSONAL_INFO.description}
           </p>
 
           <div className="text-sm text-gray-500 dark:text-gray-400 mb-8">
-            ✨ Portfolio actualizado - Octubre 2025 - CI/CD Automático
-            Funcionando
+            {STATUS_MESSAGE}
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
-              href="#projects"
+              href={NAVIGATION.projects}
               className="inline-flex items-center px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
             >
               View My Work
@@ -56,7 +55,7 @@ const Hero: React.FC = () => {
             </a>
 
             <a
-              href="#contact"
+              href={NAVIGATION.contact}
               className="inline-flex items-center px-8 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-medium rounded-lg hover:bg-blue-600 hover:text-white transition-colors duration-200"
             >
               Get In Touch
@@ -66,7 +65,7 @@ const Hero: React.FC = () => {
           {/* Social Links */}
           <div className="mt-12 flex justify-center space-x-6">
             <a
-              href="https://github.com/TellMeAlex"
+              href={PERSONAL_INFO.contact.github}
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
@@ -78,7 +77,7 @@ const Hero: React.FC = () => {
             </a>
 
             <a
-              href="https://www.linkedin.com/in/alejandro-de-la-fuente/"
+              href={PERSONAL_INFO.contact.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
@@ -90,7 +89,7 @@ const Hero: React.FC = () => {
             </a>
 
             <a
-              href="mailto:llamamealex@gmail.com"
+              href={`mailto:${PERSONAL_INFO.contact.email}`}
               className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
               aria-label="Email Contact"
             >
