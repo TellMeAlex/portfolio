@@ -22,7 +22,13 @@ export const useTypingEffect = ({
   loop = false,
   startDelay = 500,
 }: UseTypingEffectOptions) => {
-  const [displayText, setDisplayText] = useState('')
+  // Initialize with full text if reduced motion is preferred
+  const [displayText, setDisplayText] = useState(() => {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
+    return prefersReducedMotion ? text : ''
+  })
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
@@ -35,7 +41,6 @@ export const useTypingEffect = ({
     ).matches
 
     if (prefersReducedMotion) {
-      setDisplayText(text)
       return
     }
 

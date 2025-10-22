@@ -21,4 +21,9 @@
 /* Import Features */
 @import './features/hero/Hero.css';
 @import './features/about/About.css';
+@import './features/ai-leadership/AILeadership.css';
+@import './features/experience/Experience.css';
+@import './features/projects/Projects.css';
+@import './features/skills/Skills.css';
+@import './features/stats/Stats.css';
 @import './features/contact/Contact.css';

@@ -6,7 +6,13 @@
 import { useEffect, useState } from 'react'
 
 export const useScrollProgress = () => {
-  const [scrollProgress, setScrollProgress] = useState(0)
+  // Initialize with 100 if reduced motion is preferred
+  const [scrollProgress, setScrollProgress] = useState(() => {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
+    return prefersReducedMotion ? 100 : 0
+  })
 
   useEffect(() => {
     // Check for reduced motion preference
@@ -15,7 +21,6 @@ export const useScrollProgress = () => {
     ).matches
 
     if (prefersReducedMotion) {
-      setScrollProgress(100)
       return
     }
 

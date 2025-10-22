@@ -29,15 +29,13 @@
   perspective: 1000px;
   transform: translateZ(0);
 
-  /* Initial state for entrance animation */
-  opacity: 0;
-  transform: translateY(30px) translateZ(0);
+  /* Cards are visible by default */
+  opacity: 1;
 }
 
-/* Visible state (animated in) */
+/* Entrance animation when scrolling into view */
 .card.animate-on-scroll {
-  opacity: 1;
-  transform: translateY(0) translateZ(0);
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Shine effect on hover */
@@ -160,11 +158,6 @@
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  .card {
-    opacity: 1 !important;
-    transform: translateZ(0) !important;
-  }
-
   .card,
   .card::before {
     transition: none !important;
