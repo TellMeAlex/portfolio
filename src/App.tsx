@@ -1,20 +1,42 @@
-import React from 'react'
+import React, { lazy, Suspense, useEffect } from 'react'
 import { BentoGrid } from './core/layout/BentoGrid'
 import { SkipLinks } from './core/layout/SkipLinks'
 import { ThemeToggle } from './core/ui/ThemeToggle'
 import { PaletteSelector } from './core/ui/PaletteSelector'
 import { ScrollProgress } from './core/ui/ScrollProgress'
+import { CardSkeleton } from './core/ui/CardSkeleton'
+import { initPerformanceMonitor } from './utils/performance'
 import './App.css'
+
+// Critical above-the-fold components (eager loading)
 import { Hero } from './features/hero'
 import { About } from './features/about'
 import { AILeadership } from './features/ai-leadership'
 import { Contact } from './features/contact'
-import { Skills } from './features/skills'
-import { ProjectsCounter, ExperienceCounter } from './features/stats'
-import { Experience } from './features/experience'
-import { Projects } from './features/projects'
+
+// Below-the-fold components (lazy loading for better performance)
+const Experience = lazy(() =>
+  import('./features/experience').then(m => ({ default: m.Experience }))
+)
+const Projects = lazy(() =>
+  import('./features/projects').then(m => ({ default: m.Projects }))
+)
+const Skills = lazy(() =>
+  import('./features/skills').then(m => ({ default: m.Skills }))
+)
+const ProjectsCounter = lazy(() =>
+  import('./features/stats').then(m => ({ default: m.ProjectsCounter }))
+)
+const ExperienceCounter = lazy(() =>
+  import('./features/stats').then(m => ({ default: m.ExperienceCounter }))
+)
 
 const App: React.FC = () => {
+  // Initialize Performance Monitor for Core Web Vitals tracking
+  useEffect(() => {
+    initPerformanceMonitor()
+  }, [])
+
   return (
     <>
       {/* Skip Links for Accessibility - WCAG 2.4.1 */}
@@ -71,18 +93,28 @@ const App: React.FC = () => {
             {/* AI Leadership Section - Large (2x2) */}
             <AILeadership />
 
-            {/* Experience Timeline - XL (3x2) */}
-            <Experience />
+            {/* Experience Timeline - XL (3x2) - Lazy loaded */}
+            <Suspense fallback={<CardSkeleton size="xl" />}>
+              <Experience />
+            </Suspense>
 
-            {/* Projects Showcase - XL (3x3) */}
-            <Projects />
+            {/* Projects Showcase - XL (3x3) - Lazy loaded */}
+            <Suspense fallback={<CardSkeleton size="xl" />}>
+              <Projects />
+            </Suspense>
 
-            {/* Skills Section - Medium (2x1) */}
-            <Skills />
+            {/* Skills Section - Medium (2x1) - Lazy loaded */}
+            <Suspense fallback={<CardSkeleton size="medium" />}>
+              <Skills />
+            </Suspense>
 
-            {/* Stats Cards - Small (1x1) */}
-            <ProjectsCounter />
-            <ExperienceCounter />
+            {/* Stats Cards - Small (1x1) - Lazy loaded */}
+            <Suspense fallback={<CardSkeleton size="small" />}>
+              <ProjectsCounter />
+            </Suspense>
+            <Suspense fallback={<CardSkeleton size="small" />}>
+              <ExperienceCounter />
+            </Suspense>
 
             {/* Contact Section - Medium (2x1) */}
             <Contact />
@@ -116,7 +148,7 @@ const App: React.FC = () => {
               marginTop: 'var(--space-2)',
             }}
           >
-            Phase 4: Advanced Animations & Microinteractions ✨
+            Phase 5: Performance Optimization & SEO 🚀
           </p>
         </footer>
       </div>
