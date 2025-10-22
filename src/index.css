@@ -6,6 +6,7 @@
 
 /* Import Design System */
 @import './core/design-system/index.css';
+@import './core/design-system/animations.css';
 
 /* Import Layout Components */
 @import './core/layout/BentoGrid/BentoGrid.css';
@@ -15,8 +16,15 @@
 /* Import UI Components */
 @import './core/ui/Button/Button.css';
 @import './core/ui/ThemeToggle/ThemeToggle.css';
+@import './core/ui/PaletteSelector/PaletteSelector.css';
+@import './core/ui/ScrollProgress/ScrollProgress.css';
 
 /* Import Features */
 @import './features/hero/Hero.css';
 @import './features/about/About.css';
+@import './features/ai-leadership/AILeadership.css';
+@import './features/experience/Experience.css';
+@import './features/projects/Projects.css';
+@import './features/skills/Skills.css';
+@import './features/stats/Stats.css';
 @import './features/contact/Contact.css';

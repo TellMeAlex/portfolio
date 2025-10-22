@@ -1,9 +1,17 @@
+/**
+ * Stats Counter Feature - Enhanced with Counter Animation
+ * Animated counters with Intersection Observer
+ * Source: prds/phases/PHASE-03-Advanced-Features.md#step-4
+ */
 import React from 'react'
-import { Card } from '../../core/layout/Card'
+import { Card } from '@/core/layout/Card'
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
+import { useCounterAnimation } from '@/hooks/useCounterAnimation'
 import './Stats.css'
 
 interface StatCounterProps {
-  value: string
+  value: number
+  suffix?: string
   label: string
   icon?: string
   size?: 'small' | 'medium'
@@ -11,13 +19,21 @@ interface StatCounterProps {
 
 const StatCounter: React.FC<StatCounterProps> = ({
   value,
+  suffix = '',
   label,
   icon,
   size = 'small',
 }) => {
+  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.5 })
+  const currentValue = useCounterAnimation({
+    target: value,
+    duration: 2000,
+    isActive: isVisible,
+  })
+
   return (
     <Card size={size} ariaLabel={label}>
-      <div className="stats-counter">
+      <div className="stats-counter" ref={ref}>
         <div className="counter-wrapper">
           {icon && (
             <div className="counter-icon" aria-hidden="true">
@@ -26,7 +42,13 @@ const StatCounter: React.FC<StatCounterProps> = ({
           )}
           <div className="counter-content">
             <div className="counter-value">
-              <span className="counter">{value}</span>
+              <span
+                className={`counter ${isVisible ? 'counter-complete' : ''}`}
+                aria-label={`${value}${suffix} ${label}`}
+              >
+                {isVisible ? currentValue : 0}
+                {suffix}
+              </span>
             </div>
             <p className="counter-label">{label}</p>
           </div>
@@ -37,9 +59,9 @@ const StatCounter: React.FC<StatCounterProps> = ({
 }
 
 export const ProjectsCounter: React.FC = () => {
-  return <StatCounter value="50+" label="Proyectos completados" icon="🎯" />
+  return <StatCounter value={5} label="Proyectos alto impacto" icon="🚀" />
 }
 
 export const ExperienceCounter: React.FC = () => {
-  return <StatCounter value="3+" label="Años de experiencia" icon="⏱️" />
+  return <StatCounter value={3} suffix="+" label="Años experiencia" icon="💼" />
 }

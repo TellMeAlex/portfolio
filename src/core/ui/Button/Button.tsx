@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRippleEffect } from '@/hooks/useRippleEffect'
 import type { ButtonProps } from './Button.types'
 import './Button.css'
 
@@ -13,6 +14,8 @@ export const Button: React.FC<ButtonProps> = ({
   ariaLabel,
   icon = false,
 }) => {
+  const rippleRef = useRippleEffect()
+
   const buttonClasses = [
     'btn',
     `btn--${variant}`,
@@ -25,6 +28,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      ref={rippleRef}
       type={type}
       className={buttonClasses}
       disabled={disabled}

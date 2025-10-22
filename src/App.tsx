@@ -2,18 +2,26 @@ import React from 'react'
 import { BentoGrid } from './core/layout/BentoGrid'
 import { SkipLinks } from './core/layout/SkipLinks'
 import { ThemeToggle } from './core/ui/ThemeToggle'
+import { PaletteSelector } from './core/ui/PaletteSelector'
+import { ScrollProgress } from './core/ui/ScrollProgress'
+import './App.css'
 import { Hero } from './features/hero'
 import { About } from './features/about'
 import { AILeadership } from './features/ai-leadership'
 import { Contact } from './features/contact'
 import { Skills } from './features/skills'
 import { ProjectsCounter, ExperienceCounter } from './features/stats'
+import { Experience } from './features/experience'
+import { Projects } from './features/projects'
 
 const App: React.FC = () => {
   return (
     <>
       {/* Skip Links for Accessibility - WCAG 2.4.1 */}
       <SkipLinks />
+
+      {/* Scroll Progress Indicator */}
+      <ScrollProgress />
 
       {/* Main Content */}
       <div className="min-h-screen">
@@ -24,12 +32,16 @@ const App: React.FC = () => {
             position: 'sticky',
             top: 0,
             zIndex: 100,
-            padding: '1rem 2rem',
+            padding: '1rem var(--grid-padding-mobile)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             background: 'var(--color-bg-secondary)',
             borderBottom: '1px solid rgba(100, 255, 218, 0.1)',
+            maxWidth: 'var(--grid-max-width)',
+            margin: '0 auto',
+            width: '100%',
+            boxSizing: 'border-box',
           }}
         >
           <h1
@@ -41,7 +53,10 @@ const App: React.FC = () => {
           >
             Alejandro de la Fuente
           </h1>
-          <ThemeToggle />
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <PaletteSelector />
+            <ThemeToggle />
+          </div>
         </header>
 
         {/* Main Portfolio Grid */}
@@ -55,6 +70,12 @@ const App: React.FC = () => {
 
             {/* AI Leadership Section - Large (2x2) */}
             <AILeadership />
+
+            {/* Experience Timeline - XL (3x2) */}
+            <Experience />
+
+            {/* Projects Showcase - XL (3x3) */}
+            <Projects />
 
             {/* Skills Section - Medium (2x1) */}
             <Skills />
@@ -71,9 +92,13 @@ const App: React.FC = () => {
         {/* Footer */}
         <footer
           style={{
-            padding: 'var(--space-16) var(--space-8)',
+            padding: 'var(--space-16) var(--grid-padding-mobile)',
             textAlign: 'center',
             borderTop: '1px solid rgba(100, 255, 218, 0.1)',
+            maxWidth: 'var(--grid-max-width)',
+            margin: '0 auto',
+            width: '100%',
+            boxSizing: 'border-box',
           }}
         >
           <p
@@ -91,7 +116,7 @@ const App: React.FC = () => {
               marginTop: 'var(--space-2)',
             }}
           >
-            Phase 2: Core Content Implementation ✨
+            Phase 4: Advanced Animations & Microinteractions ✨
           </p>
         </footer>
       </div>

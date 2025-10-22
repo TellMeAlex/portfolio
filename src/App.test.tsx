@@ -12,7 +12,7 @@ describe('App', () => {
     const { container } = render(<App />)
     expect(container.textContent).toContain('Hola, soy')
     expect(container.textContent).toContain('Sobre Mí')
-    expect(container.textContent).toContain('Habilidades')
+    expect(container.textContent).toContain('Stack Técnico')
     expect(container.textContent).toContain('Contacto')
   })
 
