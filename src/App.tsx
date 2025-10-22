@@ -2,6 +2,7 @@ import React from 'react'
 import { BentoGrid } from './core/layout/BentoGrid'
 import { SkipLinks } from './core/layout/SkipLinks'
 import { ThemeToggle } from './core/ui/ThemeToggle'
+import { PaletteSelector } from './core/ui/PaletteSelector'
 import { ScrollProgress } from './core/ui/ScrollProgress'
 import { Hero } from './features/hero'
 import { About } from './features/about'
@@ -47,7 +48,10 @@ const App: React.FC = () => {
           >
             Alejandro de la Fuente
           </h1>
-          <ThemeToggle />
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <PaletteSelector />
+            <ThemeToggle />
+          </div>
         </header>
 
         {/* Main Portfolio Grid */}
