@@ -17,10 +17,10 @@ export const About: React.FC = () => {
 
       <div className="about-content">
         <p className="about-text">
-          Desarrollador web especializado en ReactJS con más de 3 años
-          liderando proyectos de transformación digital en NTT DATA.
-          Actualmente me desempeño como Technical Leader Specialist, liderando
-          iniciativas de IA y automatización para clientes como Inditex.
+          Desarrollador web especializado en ReactJS con más de 3 años liderando
+          proyectos de transformación digital en NTT DATA. Actualmente me
+          desempeño como Technical Leader Specialist, liderando iniciativas de
+          IA y automatización para clientes como Inditex.
         </p>
 
         <p className="about-text">

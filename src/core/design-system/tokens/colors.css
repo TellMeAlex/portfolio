@@ -5,14 +5,14 @@
 
 :root {
   /* Primary Brand Colors */
-  --color-navy: #0A192F;
-  --color-cyan: #64FFDA;
-  --color-white: #FFFFFF;
+  --color-navy: #0a192f;
+  --color-cyan: #64ffda;
+  --color-white: #ffffff;
 
   /* Grayscale */
-  --color-gray-light: #8892B0;
+  --color-gray-light: #8892b0;
   --color-gray: #495670;
-  --color-slate: #2E3A52;
+  --color-slate: #2e3a52;
 
   /* Semantic Colors - Dark Theme (Default) */
   --color-bg-primary: var(--color-navy);
@@ -22,24 +22,24 @@
   --color-accent: var(--color-cyan);
 
   /* Status Colors */
-  --color-error: #FF6B6B;
-  --color-success: #51CF66;
-  --color-warning: #FFD93D;
-  --color-info: #339AF0;
+  --color-error: #ff6b6b;
+  --color-success: #51cf66;
+  --color-warning: #ffd93d;
+  --color-info: #339af0;
 
   /* Light Theme Colors */
-  --color-bg-primary-light: #F8FAFC;
-  --color-bg-secondary-light: #FFFFFF;
-  --color-text-primary-light: #2D3748;
-  --color-text-secondary-light: #4A5568;
-  --color-accent-light: #00A3C4;
+  --color-bg-primary-light: #f8fafc;
+  --color-bg-secondary-light: #ffffff;
+  --color-text-primary-light: #2d3748;
+  --color-text-secondary-light: #4a5568;
+  --color-accent-light: #00a3c4;
 }
 
 /* ============================================
    LIGHT THEME OVERRIDES
    ============================================ */
 
-[data-theme="light"] {
+[data-theme='light'] {
   --color-bg-primary: var(--color-bg-primary-light);
   --color-bg-secondary: var(--color-bg-secondary-light);
   --color-text-primary: var(--color-text-primary-light);
@@ -48,9 +48,9 @@
 
   /* Adjusted shadows for light theme */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.15),
-               0 2px 4px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.15),
-               0 4px 6px -2px rgba(0, 0, 0, 0.08);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.08);
   --shadow-glow: 0 0 20px rgba(0, 163, 196, 0.2);
 }
