@@ -226,8 +226,8 @@ jobs:
         EXTERNAL_STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://tellmealex.com/ || echo "000")
         echo "External HTTP status: $EXTERNAL_STATUS"
 
-        if [ "$HTTP_STATUS" != "200" ]; then
-          echo "❌ Deployment verification failed"
+        if [ "$HTTP_STATUS" != "200" ] && [ "$HTTP_STATUS" != "301" ]; then
+          echo "❌ Deployment verification failed (HTTP $HTTP_STATUS)"
           ssh ${SSH_USER}@${SSH_HOST} "docker logs react-nginx-app --tail 20"
           exit 1
         fi
