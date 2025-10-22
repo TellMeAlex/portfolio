@@ -11,6 +11,7 @@ export const Card: React.FC<CardProps> = ({
   error = false,
   onClick,
   ariaLabel,
+  id,
 }) => {
   const { ref, isVisible } = useIntersectionObserver({
     threshold: 0.2,
@@ -31,12 +32,13 @@ export const Card: React.FC<CardProps> = ({
   return (
     <article
       ref={ref}
+      id={id}
       className={cardClasses}
       onClick={onClick}
       role="article"
       aria-label={ariaLabel}
       aria-busy={loading}
-      tabIndex={onClick ? 0 : undefined}
+      tabIndex={onClick || id ? 0 : undefined}
     >
       {children}
     </article>

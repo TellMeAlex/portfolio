@@ -36,6 +36,7 @@ export const Experience: React.FC = () => {
       size="xl"
       ariaLabel="Professional Experience"
       className="experience-card"
+      id="experience"
     >
       <div className="timeline-header">
         <h2 className="section-title">

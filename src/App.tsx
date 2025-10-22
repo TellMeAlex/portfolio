@@ -6,6 +6,7 @@ import { PaletteSelector } from './core/ui/PaletteSelector'
 import { ScrollProgress } from './core/ui/ScrollProgress'
 import { CardSkeleton } from './core/ui/CardSkeleton'
 import { initPerformanceMonitor } from './utils/performance'
+import { useKeyboardNav } from './hooks/useKeyboardNav'
 import './App.css'
 
 // Critical above-the-fold components (eager loading)
@@ -37,6 +38,9 @@ const App: React.FC = () => {
     initPerformanceMonitor()
   }, [])
 
+  // Enable keyboard navigation shortcuts (Alt+1-6)
+  useKeyboardNav()
+
   return (
     <>
       {/* Skip Links for Accessibility - WCAG 2.4.1 */}
@@ -66,7 +70,9 @@ const App: React.FC = () => {
             boxSizing: 'border-box',
           }}
         >
-          <h1
+          <div
+            role="banner"
+            aria-label="Site logo"
             style={{
               fontSize: 'var(--text-2xl)',
               fontWeight: 'var(--font-bold)',
@@ -74,7 +80,7 @@ const App: React.FC = () => {
             }}
           >
             Alejandro de la Fuente
-          </h1>
+          </div>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <PaletteSelector />
             <ThemeToggle />
