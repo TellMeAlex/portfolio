@@ -8,6 +8,8 @@ import { AILeadership } from './features/ai-leadership'
 import { Contact } from './features/contact'
 import { Skills } from './features/skills'
 import { ProjectsCounter, ExperienceCounter } from './features/stats'
+import { Experience } from './features/experience'
+import { Projects } from './features/projects'
 
 const App: React.FC = () => {
   return (
@@ -55,6 +57,12 @@ const App: React.FC = () => {
 
             {/* AI Leadership Section - Large (2x2) */}
             <AILeadership />
+
+            {/* Experience Timeline - XL (3x2) */}
+            <Experience />
+
+            {/* Projects Showcase - XL (3x3) */}
+            <Projects />
 
             {/* Skills Section - Medium (2x1) */}
             <Skills />
