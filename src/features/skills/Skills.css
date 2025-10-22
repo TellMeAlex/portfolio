@@ -1,0 +1,50 @@
+/* Skills Card Styles */
+.skills-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  height: 100%;
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.skill-tag {
+  padding: var(--space-2) var(--space-4);
+  background: rgba(100, 255, 218, 0.1);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  border: 1px solid var(--color-cyan);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+  white-space: nowrap;
+}
+
+/* Hover State */
+.skill-tag:hover {
+  background: rgba(100, 255, 218, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 255, 218, 0.3);
+}
+
+/* Focus State for Accessibility */
+.skill-tag:focus {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .skills-tags {
+    gap: var(--space-1-5);
+  }
+
+  .skill-tag {
+    font-size: var(--text-xs);
+    padding: var(--space-1-5) var(--space-3);
+  }
+}

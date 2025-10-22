@@ -1,0 +1,148 @@
+/* AI Leadership Card Styles */
+.ai-leadership-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  height: 100%;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.title-icon {
+  font-size: var(--text-3xl);
+}
+
+/* Leadership Content */
+.leadership-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.leadership-intro {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Responsibilities List */
+.responsibilities-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.responsibility-item {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.check-icon {
+  color: var(--color-cyan);
+  font-weight: var(--font-bold);
+  font-size: var(--text-lg);
+  flex-shrink: 0;
+  margin-top: var(--space-1);
+}
+
+.responsibility-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.responsibility-text strong {
+  color: var(--color-text-primary);
+  font-weight: var(--font-semibold);
+}
+
+/* Workshop List */
+.workshop-list {
+  margin: var(--space-2) 0 0 0;
+  padding-left: var(--space-4);
+  list-style: none;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.workshop-list li {
+  position: relative;
+  padding-left: var(--space-4);
+  margin-top: var(--space-1-5);
+}
+
+.workshop-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--color-cyan);
+  opacity: 0.7;
+}
+
+/* Certifications */
+.certifications {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.certification-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(100, 255, 218, 0.1);
+  border: 1px solid var(--color-cyan);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  font-weight: var(--font-medium);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.certification-badge:hover {
+  background: rgba(100, 255, 218, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 255, 218, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: var(--text-xl);
+  }
+
+  .title-icon {
+    font-size: var(--text-2xl);
+  }
+
+  .responsibility-text {
+    font-size: var(--text-xs);
+  }
+
+  .workshop-list {
+    font-size: var(--text-xs);
+  }
+
+  .certification-badge {
+    font-size: var(--text-xs);
+  }
+}

@@ -1,0 +1,71 @@
+/* Stats Counter Layout */
+.stats-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+}
+
+.counter-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+/* Counter Icon */
+.counter-icon {
+  font-size: var(--text-4xl);
+  filter: grayscale(0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stats-counter:hover .counter-icon {
+  filter: grayscale(0);
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Counter Content */
+.counter-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.counter-value {
+  font-size: var(--text-5xl);
+  font-weight: var(--font-bold);
+  color: var(--color-cyan);
+  line-height: 1;
+  font-family: var(--font-mono);
+}
+
+.counter {
+  display: inline-block;
+  min-width: 2ch;
+  text-align: center;
+}
+
+.counter-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-medium);
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .counter-value {
+    font-size: var(--text-4xl);
+  }
+
+  .counter-icon {
+    font-size: var(--text-3xl);
+  }
+
+  .counter-label {
+    font-size: var(--text-xs);
+  }
+}
