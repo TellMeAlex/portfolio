@@ -4,6 +4,7 @@ import { SkipLinks } from './core/layout/SkipLinks'
 import { ThemeToggle } from './core/ui/ThemeToggle'
 import { PaletteSelector } from './core/ui/PaletteSelector'
 import { ScrollProgress } from './core/ui/ScrollProgress'
+import './App.css'
 import { Hero } from './features/hero'
 import { About } from './features/about'
 import { AILeadership } from './features/ai-leadership'
@@ -31,12 +32,16 @@ const App: React.FC = () => {
             position: 'sticky',
             top: 0,
             zIndex: 100,
-            padding: '1rem 2rem',
+            padding: '1rem var(--grid-padding-mobile)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             background: 'var(--color-bg-secondary)',
             borderBottom: '1px solid rgba(100, 255, 218, 0.1)',
+            maxWidth: 'var(--grid-max-width)',
+            margin: '0 auto',
+            width: '100%',
+            boxSizing: 'border-box',
           }}
         >
           <h1
@@ -87,9 +92,13 @@ const App: React.FC = () => {
         {/* Footer */}
         <footer
           style={{
-            padding: 'var(--space-16) var(--space-8)',
+            padding: 'var(--space-16) var(--grid-padding-mobile)',
             textAlign: 'center',
             borderTop: '1px solid rgba(100, 255, 218, 0.1)',
+            maxWidth: 'var(--grid-max-width)',
+            margin: '0 auto',
+            width: '100%',
+            boxSizing: 'border-box',
           }}
         >
           <p
