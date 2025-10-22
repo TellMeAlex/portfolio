@@ -1,11 +1,13 @@
 import React from 'react'
 import { BentoGrid } from './core/layout/BentoGrid'
-import { Card } from './core/layout/Card'
 import { SkipLinks } from './core/layout/SkipLinks'
 import { ThemeToggle } from './core/ui/ThemeToggle'
 import { Hero } from './features/hero'
 import { About } from './features/about'
+import { AILeadership } from './features/ai-leadership'
 import { Contact } from './features/contact'
+import { Skills } from './features/skills'
+import { ProjectsCounter, ExperienceCounter } from './features/stats'
 
 const App: React.FC = () => {
   return (
@@ -51,97 +53,15 @@ const App: React.FC = () => {
             {/* About Section - Large (2x2) */}
             <About />
 
-            {/* Skills Card - Medium (2x1) */}
-            <Card size="medium" ariaLabel="Skills">
-              <div className="card-header">
-                <h2 className="card-title">Habilidades</h2>
-              </div>
-              <div className="card-body">
-                <div
-                  style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: 'var(--space-2)',
-                  }}
-                >
-                  {[
-                    'React',
-                    'TypeScript',
-                    'AI',
-                    'Microfrontends',
-                    'Node.js',
-                    'Leadership',
-                  ].map(skill => (
-                    <span
-                      key={skill}
-                      style={{
-                        padding: 'var(--space-2) var(--space-4)',
-                        background: 'rgba(100, 255, 218, 0.1)',
-                        borderRadius: 'var(--radius-full)',
-                        fontSize: 'var(--text-sm)',
-                        color: 'var(--color-accent)',
-                        border: '1px solid var(--color-cyan)',
-                      }}
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Card>
+            {/* AI Leadership Section - Large (2x2) */}
+            <AILeadership />
+
+            {/* Skills Section - Medium (2x1) */}
+            <Skills />
 
             {/* Stats Cards - Small (1x1) */}
-            <Card size="small" ariaLabel="Projects completed">
-              <div
-                className="card-body"
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textAlign: 'center',
-                }}
-              >
-                <h3
-                  style={{
-                    fontSize: 'var(--text-5xl)',
-                    fontWeight: 'var(--font-bold)',
-                    color: 'var(--color-cyan)',
-                  }}
-                >
-                  50+
-                </h3>
-                <p style={{ color: 'var(--color-text-secondary)' }}>
-                  Proyectos completados
-                </p>
-              </div>
-            </Card>
-
-            <Card size="small" ariaLabel="Years of experience">
-              <div
-                className="card-body"
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textAlign: 'center',
-                }}
-              >
-                <h3
-                  style={{
-                    fontSize: 'var(--text-5xl)',
-                    fontWeight: 'var(--font-bold)',
-                    color: 'var(--color-cyan)',
-                  }}
-                >
-                  3+
-                </h3>
-                <p style={{ color: 'var(--color-text-secondary)' }}>
-                  Años de experiencia
-                </p>
-              </div>
-            </Card>
+            <ProjectsCounter />
+            <ExperienceCounter />
 
             {/* Contact Section - Medium (2x1) */}
             <Contact />
@@ -171,7 +91,7 @@ const App: React.FC = () => {
               marginTop: 'var(--space-2)',
             }}
           >
-            Phase 1: Foundation & Design System ✨
+            Phase 2: Core Content Implementation ✨
           </p>
         </footer>
       </div>
