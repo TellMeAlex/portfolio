@@ -10,6 +10,8 @@
   max-width: var(--grid-max-width);
   margin: 0 auto;
   padding: var(--grid-padding-mobile);
+  width: 100%;
+  box-sizing: border-box;
 
   /* Mobile: 1 column */
   grid-template-columns: 1fr;
