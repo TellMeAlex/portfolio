@@ -6,6 +6,7 @@
  */
 import { useEffect } from 'react'
 import { scrollToSection } from '@/utils/scroll'
+import { announceNavigation } from '@/utils/screenReader'
 
 interface KeyboardShortcut {
   key: string
@@ -20,6 +21,7 @@ const shortcuts: KeyboardShortcut[] = [
   { key: '4', sectionId: 'projects', label: 'Proyectos' },
   { key: '5', sectionId: 'skills', label: 'Skills' },
   { key: '6', sectionId: 'contact', label: 'Contacto' },
+  { key: 'A', sectionId: '', label: 'Accesibilidad' }, // Handled in App.tsx
 ]
 
 /**
@@ -60,33 +62,6 @@ export const useKeyboardNav = (): void => {
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [])
-}
-
-/**
- * Announce navigation to screen readers
- * Uses aria-live region for accessibility
- */
-const announceNavigation = (label: string): void => {
-  // Create or get existing live region
-  let liveRegion = document.getElementById('keyboard-nav-announce')
-
-  if (!liveRegion) {
-    liveRegion = document.createElement('div')
-    liveRegion.id = 'keyboard-nav-announce'
-    liveRegion.setAttribute('role', 'status')
-    liveRegion.setAttribute('aria-live', 'polite')
-    liveRegion.setAttribute('aria-atomic', 'true')
-    liveRegion.className = 'sr-only'
-    document.body.appendChild(liveRegion)
-  }
-
-  // Announce navigation
-  liveRegion.textContent = `Navegando a ${label}`
-
-  // Clear after announcement
-  setTimeout(() => {
-    liveRegion!.textContent = ''
-  }, 1000)
 }
 
 /**

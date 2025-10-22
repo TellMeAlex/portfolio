@@ -1,12 +1,15 @@
-import React, { lazy, Suspense, useEffect } from 'react'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { BentoGrid } from './core/layout/BentoGrid'
 import { SkipLinks } from './core/layout/SkipLinks'
 import { ThemeToggle } from './core/ui/ThemeToggle'
 import { PaletteSelector } from './core/ui/PaletteSelector'
 import { ScrollProgress } from './core/ui/ScrollProgress'
 import { CardSkeleton } from './core/ui/CardSkeleton'
+import { AccessibilityButton } from './core/ui/AccessibilityButton'
+import { AccessibilityPanel } from './core/ui/AccessibilityPanel'
 import { initPerformanceMonitor } from './utils/performance'
 import { useKeyboardNav } from './hooks/useKeyboardNav'
+import { announceToScreenReader } from './utils/screenReader'
 import './App.css'
 
 // Critical above-the-fold components (eager loading)
@@ -33,6 +36,9 @@ const ExperienceCounter = lazy(() =>
 )
 
 const App: React.FC = () => {
+  const [isAccessibilityPanelOpen, setIsAccessibilityPanelOpen] =
+    useState(false)
+
   // Initialize Performance Monitor for Core Web Vitals tracking
   useEffect(() => {
     initPerformanceMonitor()
@@ -40,6 +46,26 @@ const App: React.FC = () => {
 
   // Enable keyboard navigation shortcuts (Alt+1-6)
   useKeyboardNav()
+
+  // Alt+A to toggle accessibility panel
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.altKey && event.key.toLowerCase() === 'a') {
+        event.preventDefault()
+        setIsAccessibilityPanelOpen(prev => !prev)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
+  // Announce accessibility panel state changes
+  useEffect(() => {
+    if (isAccessibilityPanelOpen) {
+      announceToScreenReader('Panel de accesibilidad abierto', 'polite')
+    }
+  }, [isAccessibilityPanelOpen])
 
   return (
     <>
@@ -158,6 +184,13 @@ const App: React.FC = () => {
           </p>
         </footer>
       </div>
+
+      {/* Accessibility Controls */}
+      <AccessibilityButton onClick={() => setIsAccessibilityPanelOpen(true)} />
+      <AccessibilityPanel
+        isOpen={isAccessibilityPanelOpen}
+        onClose={() => setIsAccessibilityPanelOpen(false)}
+      />
     </>
   )
 }

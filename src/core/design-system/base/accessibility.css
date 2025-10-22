@@ -162,7 +162,13 @@ a:not(.btn):not(.contact-social-link):not(.skip-link):hover {
   transition: opacity var(--transition-base) var(--ease-out);
 }
 
-*:focus-visible .keyboard-shortcut-hint,
-*:hover .keyboard-shortcut-hint {
+/* Show hints when settings enabled */
+html.show-keyboard-hints *:focus-visible .keyboard-shortcut-hint,
+html.show-keyboard-hints *:hover .keyboard-shortcut-hint {
+  opacity: 1;
+}
+
+/* Always show on focus for accessibility */
+*:focus-visible .keyboard-shortcut-hint {
   opacity: 1;
 }
