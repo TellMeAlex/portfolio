@@ -39,7 +39,9 @@ export const AILeadership: React.FC = () => {
               <div className="responsibility-text">
                 <strong>Talleres de GenAI y herramientas de IA:</strong>
                 <ul className="workshop-list">
-                  <li>"Sacarle partido a la IA: Instructions de Copilot y Agentes"</li>
+                  <li>
+                    "Sacarle partido a la IA: Instructions de Copilot y Agentes"
+                  </li>
                   <li>"Dev Containers: estandarización de entornos"</li>
                   <li>Novedades en React y arquitecturas modernas</li>
                 </ul>

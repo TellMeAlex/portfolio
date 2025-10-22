@@ -26,7 +26,11 @@ export const Skills: React.FC = () => {
         <div className="card-body">
           <div className="skills-tags">
             {skills.map(skill => (
-              <span key={skill.name} className="skill-tag" title={skill.category}>
+              <span
+                key={skill.name}
+                className="skill-tag"
+                title={skill.category}
+              >
                 {skill.name}
               </span>
             ))}

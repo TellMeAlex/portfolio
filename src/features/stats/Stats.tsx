@@ -37,9 +37,7 @@ const StatCounter: React.FC<StatCounterProps> = ({
 }
 
 export const ProjectsCounter: React.FC = () => {
-  return (
-    <StatCounter value="50+" label="Proyectos completados" icon="🎯" />
-  )
+  return <StatCounter value="50+" label="Proyectos completados" icon="🎯" />
 }
 
 export const ExperienceCounter: React.FC = () => {
