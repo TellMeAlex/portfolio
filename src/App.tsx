@@ -2,6 +2,7 @@ import React from 'react'
 import { BentoGrid } from './core/layout/BentoGrid'
 import { SkipLinks } from './core/layout/SkipLinks'
 import { ThemeToggle } from './core/ui/ThemeToggle'
+import { ScrollProgress } from './core/ui/ScrollProgress'
 import { Hero } from './features/hero'
 import { About } from './features/about'
 import { AILeadership } from './features/ai-leadership'
@@ -16,6 +17,9 @@ const App: React.FC = () => {
     <>
       {/* Skip Links for Accessibility - WCAG 2.4.1 */}
       <SkipLinks />
+
+      {/* Scroll Progress Indicator */}
+      <ScrollProgress />
 
       {/* Main Content */}
       <div className="min-h-screen">
@@ -99,7 +103,7 @@ const App: React.FC = () => {
               marginTop: 'var(--space-2)',
             }}
           >
-            Phase 2: Core Content Implementation ✨
+            Phase 4: Advanced Animations & Microinteractions ✨
           </p>
         </footer>
       </div>

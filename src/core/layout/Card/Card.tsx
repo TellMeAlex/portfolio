@@ -1,4 +1,5 @@
 import React from 'react'
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import type { CardProps } from './Card.types'
 import './Card.css'
 
@@ -11,11 +12,17 @@ export const Card: React.FC<CardProps> = ({
   onClick,
   ariaLabel,
 }) => {
+  const { ref, isVisible } = useIntersectionObserver({
+    threshold: 0.2,
+    triggerOnce: true,
+  })
+
   const cardClasses = [
     'card',
     `card--${size}`,
     loading && 'card--loading',
     error && 'card--error',
+    isVisible && 'animate-on-scroll',
     className,
   ]
     .filter(Boolean)
@@ -23,6 +30,7 @@ export const Card: React.FC<CardProps> = ({
 
   return (
     <article
+      ref={ref}
       className={cardClasses}
       onClick={onClick}
       role="article"
