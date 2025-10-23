@@ -1,0 +1,297 @@
+/* ============================================
+   ACCESSIBILITY PANEL
+   Settings and keyboard shortcuts reference
+   WCAG 2.1 AA compliant modal dialog
+   ============================================ */
+
+/* Backdrop */
+.accessibility-panel-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 25, 47, 0.8);
+  backdrop-filter: blur(4px);
+  z-index: var(--z-modal-backdrop, 1000);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Panel Container */
+.accessibility-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-bg-secondary);
+  border-left: 1px solid rgba(100, 255, 218, 0.2);
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-modal, 1001);
+  overflow-y: auto;
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .accessibility-panel-backdrop,
+  .accessibility-panel {
+    animation: none;
+  }
+}
+
+/* Header */
+.accessibility-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-6);
+  border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+  background: var(--color-bg-primary);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.panel-icon {
+  font-size: var(--text-2xl);
+}
+
+.panel-close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: var(--text-xl);
+  cursor: pointer;
+  transition: all var(--transition-base) var(--ease-out);
+}
+
+.panel-close-button:hover {
+  background: rgba(100, 255, 218, 0.1);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.panel-close-button:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
+/* Content */
+.accessibility-panel__content {
+  padding: var(--space-6);
+}
+
+.panel-section {
+  margin-bottom: var(--space-8);
+}
+
+.panel-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.section-description {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+/* Settings */
+.setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: rgba(100, 255, 218, 0.05);
+  border: 1px solid rgba(100, 255, 218, 0.1);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+}
+
+.setting-info {
+  flex: 1;
+}
+
+.setting-label {
+  display: block;
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+  cursor: pointer;
+}
+
+.setting-description {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Toggle Button */
+.toggle-button {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  background: rgba(100, 255, 218, 0.1);
+  border: 1px solid rgba(100, 255, 218, 0.3);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all var(--transition-base) var(--ease-out);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.toggle-button:hover {
+  background: rgba(100, 255, 218, 0.15);
+  border-color: var(--color-accent);
+}
+
+.toggle-button:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
+.toggle-button--active {
+  background: var(--color-cyan);
+  border-color: var(--color-cyan);
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  background: var(--color-bg-primary);
+  border-radius: 50%;
+  transition: transform var(--transition-base) var(--ease-out);
+  box-shadow: var(--shadow-sm);
+}
+
+.toggle-button--active .toggle-slider {
+  transform: translateX(24px);
+}
+
+/* Keyboard Shortcuts List */
+.shortcuts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.shortcut-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3);
+  background: rgba(100, 255, 218, 0.05);
+  border-radius: var(--radius-sm);
+}
+
+.shortcut-key {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-cyan);
+  background: rgba(100, 255, 218, 0.1);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid rgba(100, 255, 218, 0.3);
+  border-radius: var(--radius-sm);
+}
+
+.shortcut-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Footer */
+.panel-footer {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.reset-button {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base) var(--ease-out);
+}
+
+.reset-button:hover {
+  background: rgba(100, 255, 218, 0.05);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.reset-button:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .accessibility-panel {
+    max-width: 100%;
+  }
+}
+
+/* Reduced motion override */
+html.reduce-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}

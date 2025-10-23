@@ -1,6 +1,5 @@
 import React from 'react'
 import { Card } from '@/core/layout/Card'
-import { Button } from '@/core/ui/Button'
 import './Contact.css'
 
 export const Contact: React.FC = () => {
@@ -9,6 +8,7 @@ export const Contact: React.FC = () => {
       size="medium"
       ariaLabel="Contact information"
       className="contact-card"
+      id="contact"
     >
       <div className="card-header">
         <h2 className="card-title">Contacto</h2>
@@ -35,29 +35,24 @@ export const Contact: React.FC = () => {
         </div>
 
         <div className="contact-social">
-          <Button
-            variant="tertiary"
-            size="small"
-            onClick={() =>
-              window.open(
-                'https://linkedin.com/in/alejandro-de-la-fuente',
-                '_blank'
-              )
-            }
-            ariaLabel="Visit LinkedIn profile"
+          <a
+            href="https://linkedin.com/in/alejandro-de-la-fuente"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-social-link"
+            aria-label="Visit LinkedIn profile (opens in new tab)"
           >
             LinkedIn
-          </Button>
-          <Button
-            variant="tertiary"
-            size="small"
-            onClick={() =>
-              window.open('https://github.com/TellMeAlex', '_blank')
-            }
-            ariaLabel="Visit GitHub profile"
+          </a>
+          <a
+            href="https://github.com/TellMeAlex"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-social-link"
+            aria-label="Visit GitHub profile (opens in new tab)"
           >
             GitHub
-          </Button>
+          </a>
         </div>
       </div>
     </Card>

@@ -2,6 +2,7 @@ import React from 'react'
 import { Card } from '@/core/layout/Card'
 import { Button } from '@/core/ui/Button'
 import { useTypingEffect } from '@/hooks/useTypingEffect'
+import { scrollToSection } from '@/utils/scroll'
 import './Hero.css'
 
 export const Hero: React.FC = () => {
@@ -50,13 +51,21 @@ export const Hero: React.FC = () => {
 
         {/* CTAs */}
         <div className="hero-actions">
-          <Button variant="primary">
+          <Button
+            variant="primary"
+            onClick={() => scrollToSection('projects')}
+            ariaLabel="Navigate to projects section"
+          >
             <span>Ver Proyectos</span>
             <span className="btn-icon" aria-hidden="true">
               →
             </span>
           </Button>
-          <Button variant="secondary">
+          <Button
+            variant="secondary"
+            onClick={() => scrollToSection('contact')}
+            ariaLabel="Navigate to contact section"
+          >
             <span className="btn-icon" aria-hidden="true">
               📧
             </span>

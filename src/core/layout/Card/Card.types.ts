@@ -10,4 +10,5 @@ export interface CardProps {
   error?: boolean
   onClick?: () => void
   ariaLabel?: string
+  id?: string
 }

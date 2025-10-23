@@ -13,7 +13,12 @@ export const Skills: React.FC = () => {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.3 })
 
   return (
-    <Card size="large" ariaLabel="Technical Skills" className="skills-card">
+    <Card
+      size="large"
+      ariaLabel="Technical Skills"
+      className="skills-card"
+      id="skills"
+    >
       <div className="skills-header">
         <h2 className="section-title">
           <span className="title-icon" aria-hidden="true">

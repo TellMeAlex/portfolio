@@ -1,11 +1,15 @@
-import React, { lazy, Suspense, useEffect } from 'react'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { BentoGrid } from './core/layout/BentoGrid'
 import { SkipLinks } from './core/layout/SkipLinks'
 import { ThemeToggle } from './core/ui/ThemeToggle'
 import { PaletteSelector } from './core/ui/PaletteSelector'
 import { ScrollProgress } from './core/ui/ScrollProgress'
 import { CardSkeleton } from './core/ui/CardSkeleton'
+import { AccessibilityButton } from './core/ui/AccessibilityButton'
+import { AccessibilityPanel } from './core/ui/AccessibilityPanel'
 import { initPerformanceMonitor } from './utils/performance'
+import { useKeyboardNav } from './hooks/useKeyboardNav'
+import { announceToScreenReader } from './utils/screenReader'
 import './App.css'
 
 // Critical above-the-fold components (eager loading)
@@ -32,10 +36,36 @@ const ExperienceCounter = lazy(() =>
 )
 
 const App: React.FC = () => {
+  const [isAccessibilityPanelOpen, setIsAccessibilityPanelOpen] =
+    useState(false)
+
   // Initialize Performance Monitor for Core Web Vitals tracking
   useEffect(() => {
     initPerformanceMonitor()
   }, [])
+
+  // Enable keyboard navigation shortcuts (Alt+1-6)
+  useKeyboardNav()
+
+  // Alt+A to toggle accessibility panel
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.altKey && event.key.toLowerCase() === 'a') {
+        event.preventDefault()
+        setIsAccessibilityPanelOpen(prev => !prev)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
+  // Announce accessibility panel state changes
+  useEffect(() => {
+    if (isAccessibilityPanelOpen) {
+      announceToScreenReader('Panel de accesibilidad abierto', 'polite')
+    }
+  }, [isAccessibilityPanelOpen])
 
   return (
     <>
@@ -66,7 +96,9 @@ const App: React.FC = () => {
             boxSizing: 'border-box',
           }}
         >
-          <h1
+          <div
+            role="banner"
+            aria-label="Site logo"
             style={{
               fontSize: 'var(--text-2xl)',
               fontWeight: 'var(--font-bold)',
@@ -74,7 +106,7 @@ const App: React.FC = () => {
             }}
           >
             Alejandro de la Fuente
-          </h1>
+          </div>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <PaletteSelector />
             <ThemeToggle />
@@ -82,7 +114,11 @@ const App: React.FC = () => {
         </header>
 
         {/* Main Portfolio Grid */}
-        <main id="main-content" tabIndex={-1}>
+        <main
+          id="main-content"
+          tabIndex={-1}
+          aria-label="Portfolio principal de Alejandro de la Fuente"
+        >
           <BentoGrid>
             {/* Hero Section - XL (3x2) */}
             <Hero />
@@ -94,25 +130,57 @@ const App: React.FC = () => {
             <AILeadership />
 
             {/* Experience Timeline - XL (3x2) - Lazy loaded */}
-            <Suspense fallback={<CardSkeleton size="xl" />}>
+            <Suspense
+              fallback={
+                <CardSkeleton
+                  size="xl"
+                  ariaLabel="Cargando experiencia laboral"
+                />
+              }
+            >
               <Experience />
             </Suspense>
 
             {/* Projects Showcase - XL (3x3) - Lazy loaded */}
-            <Suspense fallback={<CardSkeleton size="xl" />}>
+            <Suspense
+              fallback={
+                <CardSkeleton size="xl" ariaLabel="Cargando proyectos" />
+              }
+            >
               <Projects />
             </Suspense>
 
-            {/* Skills Section - Medium (2x1) - Lazy loaded */}
-            <Suspense fallback={<CardSkeleton size="medium" />}>
+            {/* Skills Section - Large (2x2) - Lazy loaded */}
+            <Suspense
+              fallback={
+                <CardSkeleton
+                  size="large"
+                  ariaLabel="Cargando habilidades técnicas"
+                />
+              }
+            >
               <Skills />
             </Suspense>
 
             {/* Stats Cards - Small (1x1) - Lazy loaded */}
-            <Suspense fallback={<CardSkeleton size="small" />}>
+            <Suspense
+              fallback={
+                <CardSkeleton
+                  size="small"
+                  ariaLabel="Cargando contador de proyectos"
+                />
+              }
+            >
               <ProjectsCounter />
             </Suspense>
-            <Suspense fallback={<CardSkeleton size="small" />}>
+            <Suspense
+              fallback={
+                <CardSkeleton
+                  size="small"
+                  ariaLabel="Cargando años de experiencia"
+                />
+              }
+            >
               <ExperienceCounter />
             </Suspense>
 
@@ -148,10 +216,17 @@ const App: React.FC = () => {
               marginTop: 'var(--space-2)',
             }}
           >
-            Phase 5: Performance Optimization & SEO 🚀
+            Phase 6: Final Polish & Accessibility ♿
           </p>
         </footer>
       </div>
+
+      {/* Accessibility Controls */}
+      <AccessibilityButton onClick={() => setIsAccessibilityPanelOpen(true)} />
+      <AccessibilityPanel
+        isOpen={isAccessibilityPanelOpen}
+        onClose={() => setIsAccessibilityPanelOpen(false)}
+      />
     </>
   )
 }

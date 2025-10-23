@@ -3,6 +3,7 @@ import './CardSkeleton.css'
 
 interface CardSkeletonProps {
   size?: 'small' | 'medium' | 'large' | 'xl'
+  ariaLabel?: string
 }
 
 /**
@@ -11,12 +12,15 @@ interface CardSkeletonProps {
  */
 export const CardSkeleton: React.FC<CardSkeletonProps> = ({
   size = 'medium',
+  ariaLabel = 'Cargando contenido',
 }) => {
   return (
     <div
       className={`card-skeleton card-skeleton--${size}`}
+      role="status"
       aria-busy="true"
-      aria-label="Loading content"
+      aria-live="polite"
+      aria-label={ariaLabel}
     >
       <div className="card-skeleton__header">
         <div className="card-skeleton__title" />

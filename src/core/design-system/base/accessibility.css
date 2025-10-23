@@ -110,3 +110,65 @@ textarea {
 .interactive-group > * + * {
   margin-left: var(--space-4);
 }
+
+/* Enhanced focus styles for common interactive elements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role='button']:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+/* Card focus styles */
+.card:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 4px rgba(100, 255, 218, 0.1);
+}
+
+/* Filter button focus styles */
+.filter-btn:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
+/* Link underline for better accessibility */
+a:not(.btn):not(.contact-social-link):not(.skip-link) {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--transition-base) var(--ease-out);
+}
+
+a:not(.btn):not(.contact-social-link):not(.skip-link):hover {
+  text-decoration-color: currentColor;
+}
+
+/* Focus within for containers */
+.card:focus-within {
+  box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
+}
+
+/* Visible keyboard shortcuts hint */
+.keyboard-shortcut-hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  opacity: 0;
+  transition: opacity var(--transition-base) var(--ease-out);
+}
+
+/* Show hints when settings enabled */
+html.show-keyboard-hints *:focus-visible .keyboard-shortcut-hint,
+html.show-keyboard-hints *:hover .keyboard-shortcut-hint {
+  opacity: 1;
+}
+
+/* Always show on focus for accessibility */
+*:focus-visible .keyboard-shortcut-hint {
+  opacity: 1;
+}
