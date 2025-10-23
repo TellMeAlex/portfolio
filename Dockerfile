@@ -32,8 +32,10 @@ RUN apt-get update && \
 COPY package.json package-lock.json yarn.lock* ./
 
 # Install all dependencies (production + development needed for build)
-# Using npm ci for reproducible, locked dependency installation
-RUN npm ci --frozen-lockfile
+# First install Rollup's native binary explicitly due to npm optional deps bug
+# See: https://github.com/npm/cli/issues/4828
+RUN npm install @rollup/rollup-linux-x64-gnu --no-save --legacy-peer-deps && \
+    npm ci --frozen-lockfile
 
 # Copy application source code
 COPY . .
