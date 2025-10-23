@@ -27,7 +27,8 @@ COPY package.json package-lock.json yarn.lock* ./
 
 # Install all dependencies (production + development needed for build)
 # Using npm ci for reproducible, locked dependency installation
-RUN npm ci --frozen-lockfile
+# Include optional dependencies for Rollup native binaries
+RUN npm ci --frozen-lockfile --include=optional
 
 # Copy application source code
 COPY . .
