@@ -114,7 +114,11 @@ const App: React.FC = () => {
         </header>
 
         {/* Main Portfolio Grid */}
-        <main id="main-content" tabIndex={-1}>
+        <main
+          id="main-content"
+          tabIndex={-1}
+          aria-label="Portfolio principal de Alejandro de la Fuente"
+        >
           <BentoGrid>
             {/* Hero Section - XL (3x2) */}
             <Hero />
@@ -126,25 +130,57 @@ const App: React.FC = () => {
             <AILeadership />
 
             {/* Experience Timeline - XL (3x2) - Lazy loaded */}
-            <Suspense fallback={<CardSkeleton size="xl" />}>
+            <Suspense
+              fallback={
+                <CardSkeleton
+                  size="xl"
+                  ariaLabel="Cargando experiencia laboral"
+                />
+              }
+            >
               <Experience />
             </Suspense>
 
             {/* Projects Showcase - XL (3x3) - Lazy loaded */}
-            <Suspense fallback={<CardSkeleton size="xl" />}>
+            <Suspense
+              fallback={
+                <CardSkeleton size="xl" ariaLabel="Cargando proyectos" />
+              }
+            >
               <Projects />
             </Suspense>
 
-            {/* Skills Section - Medium (2x1) - Lazy loaded */}
-            <Suspense fallback={<CardSkeleton size="medium" />}>
+            {/* Skills Section - Large (2x2) - Lazy loaded */}
+            <Suspense
+              fallback={
+                <CardSkeleton
+                  size="large"
+                  ariaLabel="Cargando habilidades técnicas"
+                />
+              }
+            >
               <Skills />
             </Suspense>
 
             {/* Stats Cards - Small (1x1) - Lazy loaded */}
-            <Suspense fallback={<CardSkeleton size="small" />}>
+            <Suspense
+              fallback={
+                <CardSkeleton
+                  size="small"
+                  ariaLabel="Cargando contador de proyectos"
+                />
+              }
+            >
               <ProjectsCounter />
             </Suspense>
-            <Suspense fallback={<CardSkeleton size="small" />}>
+            <Suspense
+              fallback={
+                <CardSkeleton
+                  size="small"
+                  ariaLabel="Cargando años de experiencia"
+                />
+              }
+            >
               <ExperienceCounter />
             </Suspense>
 
@@ -180,7 +216,7 @@ const App: React.FC = () => {
               marginTop: 'var(--space-2)',
             }}
           >
-            Phase 5: Performance Optimization & SEO 🚀
+            Phase 6: Final Polish & Accessibility ♿
           </p>
         </footer>
       </div>
