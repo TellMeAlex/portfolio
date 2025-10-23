@@ -26,9 +26,9 @@ RUN apk add --no-cache python3 make g++
 COPY package.json package-lock.json yarn.lock* ./
 
 # Install all dependencies (production + development needed for build)
-# Using npm ci for reproducible, locked dependency installation
-# Include optional dependencies for Rollup native binaries
-RUN npm ci --frozen-lockfile --include=optional
+# Use npm install instead of npm ci to ensure optional dependencies are installed
+# This is required for Rollup native binaries on Alpine Linux (musl)
+RUN npm install --no-audit --prefer-offline
 
 # Copy application source code
 COPY . .
