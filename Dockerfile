@@ -12,23 +12,28 @@
 # ============================================================================
 # STAGE 1: BUILDER
 # ============================================================================
-FROM node:20-alpine AS builder
+# Use Debian-based Node image instead of Alpine for better compatibility
+# with native modules (Rollup, esbuild, etc.)
+FROM node:20-slim AS builder
 
 # Set working directory
 WORKDIR /app
 
 # Install build dependencies for native modules
-# Alpine Linux has minimal pre-installed packages
-RUN apk add --no-cache python3 make g++
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python3 \
+    make \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy package management files first for better Docker layer caching
 # This allows Docker to cache the node_modules layer if dependencies haven't changed
 COPY package.json package-lock.json yarn.lock* ./
 
 # Install all dependencies (production + development needed for build)
-# Use npm install instead of npm ci to ensure optional dependencies are installed
-# This is required for Rollup native binaries on Alpine Linux (musl)
-RUN npm install --no-audit --prefer-offline
+# Using npm ci for reproducible, locked dependency installation
+RUN npm ci --frozen-lockfile
 
 # Copy application source code
 COPY . .
