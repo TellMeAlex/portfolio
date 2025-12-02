@@ -7,7 +7,6 @@ import { ScrollProgress } from './core/ui/ScrollProgress'
 import { CardSkeleton } from './core/ui/CardSkeleton'
 import { AccessibilityButton } from './core/ui/AccessibilityButton'
 import { AccessibilityPanel } from './core/ui/AccessibilityPanel'
-import { initPerformanceMonitor } from './utils/performance'
 import { useKeyboardNav } from './hooks/useKeyboardNav'
 import { announceToScreenReader } from './utils/screenReader'
 import './App.css'
@@ -38,11 +37,6 @@ const ExperienceCounter = lazy(() =>
 const App: React.FC = () => {
   const [isAccessibilityPanelOpen, setIsAccessibilityPanelOpen] =
     useState(false)
-
-  // Initialize Performance Monitor for Core Web Vitals tracking
-  useEffect(() => {
-    initPerformanceMonitor()
-  }, [])
 
   // Enable keyboard navigation shortcuts (Alt+1-6)
   useKeyboardNav()
