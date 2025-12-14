@@ -1,4 +1,4 @@
-// Deployment verification - Testing Tailscale OAuth + Dokploy deployment
+// Deployment verification - Testing Tailscale Auth Key + Dokploy auto-deployment
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
