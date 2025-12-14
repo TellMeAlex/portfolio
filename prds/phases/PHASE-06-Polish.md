@@ -6,6 +6,7 @@
 **Complexity**: 🟢 Medium
 **Dependencies**: Phase 1-5 (Complete Application Required) - BLOCKING
 **Key Deliverables**:
+
 - WCAG 2.1 AA compliance (Lighthouse 100)
 - Advanced keyboard navigation system
 - Screen reader optimization
@@ -17,15 +18,15 @@
 
 ## 🎯 Objectives & Success Criteria
 
-| Objective | Success Metric | Target |
-|-----------|----------------|--------|
-| **Accessibility** | WCAG 2.1 AA compliance | Lighthouse 100 |
-| **Screen Reader** | Navigation success rate | 100% |
-| **Keyboard Navigation** | All functionality accessible | Complete coverage |
-| **Error Handling** | Graceful fallbacks | All scenarios covered |
-| **Loading States** | Professional UX | Skeleton screens + smooth transitions |
-| **Automated Testing** | Zero violations | axe-core + WAVE |
-| **User Testing** | Positive feedback | Diverse user needs met |
+| Objective               | Success Metric               | Target                                |
+| ----------------------- | ---------------------------- | ------------------------------------- |
+| **Accessibility**       | WCAG 2.1 AA compliance       | Lighthouse 100                        |
+| **Screen Reader**       | Navigation success rate      | 100%                                  |
+| **Keyboard Navigation** | All functionality accessible | Complete coverage                     |
+| **Error Handling**      | Graceful fallbacks           | All scenarios covered                 |
+| **Loading States**      | Professional UX              | Skeleton screens + smooth transitions |
+| **Automated Testing**   | Zero violations              | axe-core + WAVE                       |
+| **User Testing**        | Positive feedback            | Diverse user needs met                |
 
 ---
 
@@ -34,6 +35,7 @@
 Esta fase final transforma el portfolio en un sitio web production-ready que excede estándares de accesibilidad y proporciona una experiencia de usuario excepcional para todos los usuarios. Se enfoca en WCAG 2.1 AA compliance, navegación avanzada por teclado, optimización para screen readers, manejo robusto de errores, y toques finales premium que demuestran atención al detalle y excelencia profesional.
 
 **Critical Focus**:
+
 - Accesibilidad universal (WCAG 2.1 AA)
 - Professional polish y finishing touches
 - Error handling comprehensivo
@@ -58,103 +60,108 @@ Esta fase final transforma el portfolio en un sitio web production-ready que exc
 ```html
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alejandro de la Fuente - Technical Leader Specialist | Portfolio Profesional</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Alejandro de la Fuente - Technical Leader Specialist | Portfolio
+      Profesional
+    </title>
+  </head>
 
-<body>
-  <!-- Skip Links for Keyboard Navigation -->
-  <div class="skip-links">
-    <a href="#main-content" class="skip-link">
-      Saltar al contenido principal
-    </a>
-    <a href="#navigation" class="skip-link">
-      Saltar a la navegación
-    </a>
-    <a href="#contact" class="skip-link">
-      Saltar al contacto
-    </a>
-  </div>
+  <body>
+    <!-- Skip Links for Keyboard Navigation -->
+    <div class="skip-links">
+      <a href="#main-content" class="skip-link">
+        Saltar al contenido principal
+      </a>
+      <a href="#navigation" class="skip-link"> Saltar a la navegación </a>
+      <a href="#contact" class="skip-link"> Saltar al contacto </a>
+    </div>
 
-  <!-- Main Landmark -->
-  <main id="main-content" role="main" tabindex="-1">
-    <h1 class="sr-only">Portfolio de Alejandro de la Fuente</h1>
+    <!-- Main Landmark -->
+    <main id="main-content" role="main" tabindex="-1">
+      <h1 class="sr-only">Portfolio de Alejandro de la Fuente</h1>
 
-    <!-- Hero Section with Proper ARIA -->
-    <section class="hero-card"
-             aria-labelledby="hero-heading"
-             role="banner">
-      <div class="hero-content">
-        <img src="images/alejandro-profile-120.webp"
-             alt="Fotografía profesional de Alejandro de la Fuente, Technical Leader Specialist en NTT DATA"
-             class="profile-image"
-             width="120"
-             height="120"
-             role="img">
+      <!-- Hero Section with Proper ARIA -->
+      <section class="hero-card" aria-labelledby="hero-heading" role="banner">
+        <div class="hero-content">
+          <img
+            src="images/alejandro-profile-120.webp"
+            alt="Fotografía profesional de Alejandro de la Fuente, Technical Leader Specialist en NTT DATA"
+            class="profile-image"
+            width="120"
+            height="120"
+            role="img"
+          />
 
-        <div class="hero-text">
-          <h2 id="hero-heading" class="hero-name">
-            Alejandro de la Fuente
-          </h2>
+          <div class="hero-text">
+            <h2 id="hero-heading" class="hero-name">Alejandro de la Fuente</h2>
 
-          <div class="hero-title"
-               aria-live="polite"
-               aria-label="Título profesional con efecto de escritura">
-            <span class="typing-text" role="text">
-              Technical Leader Specialist | Experto en IA
+            <div
+              class="hero-title"
+              aria-live="polite"
+              aria-label="Título profesional con efecto de escritura"
+            >
+              <span class="typing-text" role="text">
+                Technical Leader Specialist | Experto en IA
+              </span>
+            </div>
+
+            <p class="hero-subtitle">
+              Liderando la transformación digital con IA en NTT DATA
+            </p>
+
+            <div class="hero-location" aria-label="Ubicación profesional">
+              <span class="location-icon" aria-hidden="true">📍</span>
+              <span>Jaén, Andalucía, España</span>
+            </div>
+          </div>
+
+          <nav class="hero-actions" aria-label="Acciones principales">
+            <button
+              class="btn btn--primary"
+              data-scroll-to="projects"
+              aria-describedby="projects-desc"
+            >
+              Ver Proyectos
+            </button>
+            <span id="projects-desc" class="sr-only">
+              Navegar a la sección de proyectos destacados
             </span>
-          </div>
 
-          <p class="hero-subtitle">
-            Liderando la transformación digital con IA en NTT DATA
-          </p>
+            <a
+              href="assets/cv-alejandro-fuente.pdf"
+              class="btn btn--secondary"
+              download="CV-Alejandro-de-la-Fuente.pdf"
+              aria-describedby="cv-desc"
+            >
+              Descargar CV
+            </a>
+            <span id="cv-desc" class="sr-only">
+              Descargar currículum vitae en formato PDF, 1.2MB
+            </span>
 
-          <div class="hero-location" aria-label="Ubicación profesional">
-            <span class="location-icon" aria-hidden="true">📍</span>
-            <span>Jaén, Andalucía, España</span>
-          </div>
+            <button
+              class="btn btn--tertiary"
+              data-scroll-to="contact"
+              aria-describedby="contact-desc"
+            >
+              Contactar
+            </button>
+            <span id="contact-desc" class="sr-only">
+              Navegar a la sección de información de contacto
+            </span>
+          </nav>
         </div>
+      </section>
+    </main>
 
-        <nav class="hero-actions" aria-label="Acciones principales">
-          <button class="btn btn--primary"
-                  data-scroll-to="projects"
-                  aria-describedby="projects-desc">
-            Ver Proyectos
-          </button>
-          <span id="projects-desc" class="sr-only">
-            Navegar a la sección de proyectos destacados
-          </span>
-
-          <a href="assets/cv-alejandro-fuente.pdf"
-             class="btn btn--secondary"
-             download="CV-Alejandro-de-la-Fuente.pdf"
-             aria-describedby="cv-desc">
-            Descargar CV
-          </a>
-          <span id="cv-desc" class="sr-only">
-            Descargar currículum vitae en formato PDF, 1.2MB
-          </span>
-
-          <button class="btn btn--tertiary"
-                  data-scroll-to="contact"
-                  aria-describedby="contact-desc">
-            Contactar
-          </button>
-          <span id="contact-desc" class="sr-only">
-            Navegar a la sección de información de contacto
-          </span>
-        </nav>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer with Contact Info -->
-  <footer role="contentinfo" aria-label="Información de contacto y legal">
-    <p>&copy; 2025 Alejandro de la Fuente. Todos los derechos reservados.</p>
-  </footer>
-</body>
+    <!-- Footer with Contact Info -->
+    <footer role="contentinfo" aria-label="Información de contacto y legal">
+      <p>&copy; 2025 Alejandro de la Fuente. Todos los derechos reservados.</p>
+    </footer>
+  </body>
 </html>
 ```
 
@@ -233,24 +240,25 @@ select:focus-visible {
 /* Ensure sufficient contrast ratios (WCAG AA) */
 :root {
   /* Navy + White: 15.3:1 (AAA) */
-  --color-text-primary: #FFFFFF;
+  --color-text-primary: #ffffff;
   /* Navy + Gray Light: 7.2:1 (AA) */
-  --color-text-secondary: #CDD7ED;
+  --color-text-secondary: #cdd7ed;
   /* Navy + Cyan: 8.9:1 (AA) */
-  --color-cyan: #64FFDA;
+  --color-cyan: #64ffda;
 }
 
-[data-theme="light"] {
+[data-theme='light'] {
   /* Light + Dark Text: 12.6:1 (AAA) */
-  --color-text-primary: #2D3748;
+  --color-text-primary: #2d3748;
   /* Light + Medium Gray: 7.0:1 (AA) */
-  --color-text-secondary: #4A5568;
+  --color-text-secondary: #4a5568;
   /* Light + Cyan Dark: 4.5:1 (AA) */
-  --color-cyan: #00A3C4;
+  --color-cyan: #00a3c4;
 }
 ```
 
 **Validation**:
+
 - [ ] All interactive elements have visible focus indicators
 - [ ] Skip links work and are visible on focus
 - [ ] Color contrast ratios ≥ 4.5:1 for text, ≥ 3:1 for UI
@@ -278,215 +286,221 @@ class KeyboardNavigationManager {
       'select:not([disabled])',
       'textarea:not([disabled])',
       '[tabindex]:not([tabindex="-1"])',
-      '[contenteditable="true"]'
-    ].join(', ');
+      '[contenteditable="true"]',
+    ].join(', ')
 
-    this.focusableElements = [];
-    this.currentFocusIndex = -1;
-    this.isKeyboardUser = false;
+    this.focusableElements = []
+    this.currentFocusIndex = -1
+    this.isKeyboardUser = false
 
-    this.init();
+    this.init()
   }
 
   init() {
-    this.updateFocusableElements();
-    this.bindEvents();
-    this.detectInputMethod();
+    this.updateFocusableElements()
+    this.bindEvents()
+    this.detectInputMethod()
   }
 
   updateFocusableElements() {
     this.focusableElements = Array.from(
       document.querySelectorAll(this.focusableSelector)
-    ).filter(el => this.isVisible(el) && this.isEnabled(el));
+    ).filter(el => this.isVisible(el) && this.isEnabled(el))
   }
 
   isVisible(element) {
-    const style = window.getComputedStyle(element);
+    const style = window.getComputedStyle(element)
     return (
       style.display !== 'none' &&
       style.visibility !== 'hidden' &&
       parseFloat(style.opacity) > 0 &&
       element.offsetParent !== null
-    );
+    )
   }
 
   isEnabled(element) {
-    return !element.hasAttribute('disabled') && !element.getAttribute('aria-disabled');
+    return (
+      !element.hasAttribute('disabled') &&
+      !element.getAttribute('aria-disabled')
+    )
   }
 
   bindEvents() {
-    document.addEventListener('keydown', this.handleKeyDown.bind(this));
-    document.addEventListener('focusin', this.handleFocusIn.bind(this));
+    document.addEventListener('keydown', this.handleKeyDown.bind(this))
+    document.addEventListener('focusin', this.handleFocusIn.bind(this))
 
     // Update focusable elements when DOM changes
     const observer = new MutationObserver(() => {
-      this.updateFocusableElements();
-    });
+      this.updateFocusableElements()
+    })
 
     observer.observe(document.body, {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ['disabled', 'tabindex', 'aria-hidden', 'aria-disabled']
-    });
+      attributeFilter: ['disabled', 'tabindex', 'aria-hidden', 'aria-disabled'],
+    })
   }
 
   handleKeyDown(event) {
-    const { key, shiftKey, altKey, ctrlKey, metaKey } = event;
+    const { key, shiftKey, altKey, ctrlKey, metaKey } = event
 
     // Escape key handling
     if (key === 'Escape') {
-      this.handleEscape(event);
-      return;
+      this.handleEscape(event)
+      return
     }
 
     // Home/End navigation (Ctrl+Home, Ctrl+End)
     if (ctrlKey && key === 'Home') {
-      event.preventDefault();
-      this.focusFirst();
-      return;
+      event.preventDefault()
+      this.focusFirst()
+      return
     }
 
     if (ctrlKey && key === 'End') {
-      event.preventDefault();
-      this.focusLast();
-      return;
+      event.preventDefault()
+      this.focusLast()
+      return
     }
 
     // Keyboard shortcuts (Alt + Number)
     if (altKey && !ctrlKey && !metaKey && !shiftKey) {
-      this.handleShortcut(key, event);
+      this.handleShortcut(key, event)
     }
   }
 
   handleShortcut(key, event) {
     const shortcuts = {
-      '1': 'hero',
-      '2': 'about',
-      '3': 'timeline',
-      '4': 'projects',
-      '5': 'skills',
-      '6': 'contact'
-    };
+      1: 'hero',
+      2: 'about',
+      3: 'timeline',
+      4: 'projects',
+      5: 'skills',
+      6: 'contact',
+    }
 
-    const sectionId = shortcuts[key];
+    const sectionId = shortcuts[key]
     if (sectionId) {
-      event.preventDefault();
-      this.navigateToSection(sectionId);
-      this.announceToScreenReader(`Navegando a la sección ${sectionId}`);
+      event.preventDefault()
+      this.navigateToSection(sectionId)
+      this.announceToScreenReader(`Navegando a la sección ${sectionId}`)
     }
   }
 
   handleEscape(event) {
     // Close any open modals or overlays
-    const openModal = document.querySelector('.modal.open, .overlay.open, [role="dialog"][aria-hidden="false"]');
+    const openModal = document.querySelector(
+      '.modal.open, .overlay.open, [role="dialog"][aria-hidden="false"]'
+    )
 
     if (openModal) {
-      event.preventDefault();
-      this.closeModal(openModal);
-      return;
+      event.preventDefault()
+      this.closeModal(openModal)
+      return
     }
 
     // Return focus to main content
-    const mainContent = document.getElementById('main-content');
+    const mainContent = document.getElementById('main-content')
     if (mainContent && document.activeElement !== mainContent) {
-      event.preventDefault();
-      mainContent.focus();
-      this.announceToScreenReader('Regresando al contenido principal');
+      event.preventDefault()
+      mainContent.focus()
+      this.announceToScreenReader('Regresando al contenido principal')
     }
   }
 
   closeModal(modal) {
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
+    modal.classList.remove('open')
+    modal.setAttribute('aria-hidden', 'true')
 
     // Return focus to trigger element
-    const trigger = modal.dataset.trigger;
+    const trigger = modal.dataset.trigger
     if (trigger) {
-      const triggerElement = document.getElementById(trigger);
+      const triggerElement = document.getElementById(trigger)
       if (triggerElement) {
-        triggerElement.focus();
+        triggerElement.focus()
       }
     }
   }
 
   navigateToSection(sectionId) {
-    const section = document.getElementById(sectionId) ||
-                   document.querySelector(`[data-section="${sectionId}"]`);
+    const section =
+      document.getElementById(sectionId) ||
+      document.querySelector(`[data-section="${sectionId}"]`)
 
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
       // Set tabindex to make section focusable
       if (!section.hasAttribute('tabindex')) {
-        section.setAttribute('tabindex', '-1');
+        section.setAttribute('tabindex', '-1')
       }
 
-      section.focus();
+      section.focus()
     }
   }
 
   focusFirst() {
     if (this.focusableElements.length > 0) {
-      this.focusableElements[0].focus();
-      this.announceToScreenReader('Navegando al primer elemento enfocable');
+      this.focusableElements[0].focus()
+      this.announceToScreenReader('Navegando al primer elemento enfocable')
     }
   }
 
   focusLast() {
-    const lastIndex = this.focusableElements.length - 1;
+    const lastIndex = this.focusableElements.length - 1
     if (lastIndex >= 0) {
-      this.focusableElements[lastIndex].focus();
-      this.announceToScreenReader('Navegando al último elemento enfocable');
+      this.focusableElements[lastIndex].focus()
+      this.announceToScreenReader('Navegando al último elemento enfocable')
     }
   }
 
   handleFocusIn(event) {
-    const currentIndex = this.focusableElements.indexOf(event.target);
+    const currentIndex = this.focusableElements.indexOf(event.target)
     if (currentIndex !== -1) {
-      this.currentFocusIndex = currentIndex;
+      this.currentFocusIndex = currentIndex
     }
   }
 
   detectInputMethod() {
     // Detect mouse users
     document.addEventListener('mousedown', () => {
-      this.isKeyboardUser = false;
-      document.body.classList.add('mouse-user');
-      document.body.classList.remove('keyboard-user');
-    });
+      this.isKeyboardUser = false
+      document.body.classList.add('mouse-user')
+      document.body.classList.remove('keyboard-user')
+    })
 
     // Detect keyboard users
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', e => {
       if (e.key === 'Tab') {
-        this.isKeyboardUser = true;
-        document.body.classList.add('keyboard-user');
-        document.body.classList.remove('mouse-user');
+        this.isKeyboardUser = true
+        document.body.classList.add('keyboard-user')
+        document.body.classList.remove('mouse-user')
       }
-    });
+    })
   }
 
   announceToScreenReader(message, priority = 'polite') {
-    const announcement = document.createElement('div');
-    announcement.setAttribute('aria-live', priority);
-    announcement.setAttribute('aria-atomic', 'true');
-    announcement.classList.add('sr-only');
-    announcement.textContent = message;
+    const announcement = document.createElement('div')
+    announcement.setAttribute('aria-live', priority)
+    announcement.setAttribute('aria-atomic', 'true')
+    announcement.classList.add('sr-only')
+    announcement.textContent = message
 
-    document.body.appendChild(announcement);
+    document.body.appendChild(announcement)
 
     setTimeout(() => {
-      document.body.removeChild(announcement);
-    }, 1000);
+      document.body.removeChild(announcement)
+    }, 1000)
   }
 }
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  window.keyboardNav = new KeyboardNavigationManager();
-});
+  window.keyboardNav = new KeyboardNavigationManager()
+})
 
-export default KeyboardNavigationManager;
+export default KeyboardNavigationManager
 ```
 
 **CSS for Focus Management**:
@@ -516,23 +530,23 @@ export default KeyboardNavigationManager;
 
 ```html
 <!-- Timeline with Screen Reader Navigation -->
-<section class="timeline-card"
-         aria-labelledby="timeline-heading"
-         role="region">
+<section class="timeline-card" aria-labelledby="timeline-heading" role="region">
   <h2 id="timeline-heading">Experiencia Laboral</h2>
 
-  <div class="timeline-container"
-       role="list"
-       aria-label="Línea temporal de experiencia profesional con 2 empresas">
-
+  <div
+    class="timeline-container"
+    role="list"
+    aria-label="Línea temporal de experiencia profesional con 2 empresas"
+  >
     <!-- Timeline line is decorative -->
     <div class="timeline-line" aria-hidden="true"></div>
 
-    <article class="timeline-item"
-             role="listitem"
-             aria-labelledby="ntt-data-heading"
-             aria-describedby="ntt-data-desc">
-
+    <article
+      class="timeline-item"
+      role="listitem"
+      aria-labelledby="ntt-data-heading"
+      aria-describedby="ntt-data-desc"
+    >
       <!-- Decorative marker -->
       <div class="timeline-marker" aria-hidden="true">
         <div class="timeline-dot"></div>
@@ -543,40 +557,42 @@ export default KeyboardNavigationManager;
 
       <div class="timeline-content">
         <header class="company-header">
-          <h3 id="ntt-data-heading" class="company-name">
-            NTT DATA
-          </h3>
-          <div class="company-location">Madrid, España</div>
+          <h3 id="ntt-data-heading" class="company-name">NTT DATA</h3>
+          <div class="company-location">Jaén, España</div>
         </header>
 
         <div id="ntt-data-desc">
           <p class="company-summary">
-            Empresa multinacional de servicios de TI donde lidero proyectos
-            de transformación digital e innovación con inteligencia artificial
+            Empresa multinacional de servicios de TI donde lidero proyectos de
+            transformación digital e innovación con inteligencia artificial
             desde junio de 2022 hasta la actualidad.
           </p>
 
-          <div class="positions"
-               role="list"
-               aria-label="5 posiciones en NTT DATA">
-
+          <div
+            class="positions"
+            role="list"
+            aria-label="5 posiciones en NTT DATA"
+          >
             <div class="position-item" role="listitem">
               <h4 class="position-title">Technical Leader Specialist</h4>
-              <time class="position-period"
-                    datetime="2025-07/P">
+              <time class="position-period" datetime="2025-07/P">
                 Julio 2025 - Presente (6 meses)
               </time>
 
-              <ul class="position-achievements"
-                  aria-label="3 logros principales">
+              <ul
+                class="position-achievements"
+                aria-label="3 logros principales"
+              >
                 <li>Liderazgo en iniciativas de IA y talleres técnicos</li>
                 <li>Procesos de selección y validación técnica</li>
                 <li>Arquitectura microfrontends para Inditex</li>
               </ul>
 
-              <div class="position-skills"
-                   role="list"
-                   aria-label="Tecnologías utilizadas en esta posición">
+              <div
+                class="position-skills"
+                role="list"
+                aria-label="Tecnologías utilizadas en esta posición"
+              >
                 <span class="skill-tag" role="listitem">Leadership</span>
                 <span class="skill-tag" role="listitem">GenAI</span>
                 <span class="skill-tag" role="listitem">Microfrontends</span>
@@ -590,57 +606,67 @@ export default KeyboardNavigationManager;
 </section>
 
 <!-- Projects with Tab Navigation -->
-<section class="projects-card"
-         aria-labelledby="projects-heading"
-         role="region">
+<section class="projects-card" aria-labelledby="projects-heading" role="region">
   <header class="projects-header">
     <h2 id="projects-heading">Proyectos Destacados</h2>
 
-    <div class="projects-filter"
-         role="tablist"
-         aria-label="Filtros de categorías de proyectos">
-      <button class="filter-btn filter-btn--active"
-              role="tab"
-              aria-selected="true"
-              aria-controls="projects-panel"
-              id="tab-all"
-              data-filter="all">
+    <div
+      class="projects-filter"
+      role="tablist"
+      aria-label="Filtros de categorías de proyectos"
+    >
+      <button
+        class="filter-btn filter-btn--active"
+        role="tab"
+        aria-selected="true"
+        aria-controls="projects-panel"
+        id="tab-all"
+        data-filter="all"
+      >
         Todos
       </button>
-      <button class="filter-btn"
-              role="tab"
-              aria-selected="false"
-              aria-controls="projects-panel"
-              id="tab-enterprise"
-              data-filter="enterprise">
+      <button
+        class="filter-btn"
+        role="tab"
+        aria-selected="false"
+        aria-controls="projects-panel"
+        id="tab-enterprise"
+        data-filter="enterprise"
+      >
         Empresariales
       </button>
-      <button class="filter-btn"
-              role="tab"
-              aria-selected="false"
-              aria-controls="projects-panel"
-              id="tab-web"
-              data-filter="web">
+      <button
+        class="filter-btn"
+        role="tab"
+        aria-selected="false"
+        aria-controls="projects-panel"
+        id="tab-web"
+        data-filter="web"
+      >
         Web Apps
       </button>
     </div>
   </header>
 
-  <div class="projects-grid"
-       id="projects-panel"
-       role="tabpanel"
-       aria-labelledby="tab-all">
-
-    <article class="project-item"
-             aria-labelledby="inditex-title"
-             aria-describedby="inditex-desc">
-
+  <div
+    class="projects-grid"
+    id="projects-panel"
+    role="tabpanel"
+    aria-labelledby="tab-all"
+  >
+    <article
+      class="project-item"
+      aria-labelledby="inditex-title"
+      aria-describedby="inditex-desc"
+    >
       <div class="project-image">
-        <img src="images/projects/inditex-400.webp"
-             alt="Captura de pantalla de la plataforma de gestión de tiendas Inditex mostrando dashboard principal con métricas de rendimiento y gestión de empleados"
-             loading="lazy"
-             width="600"
-             height="400">
+        <img
+          src="images/projects/inditex-400.webp"
+          alt="Captura de pantalla de la plataforma de gestión de tiendas Inditex mostrando dashboard principal con métricas de rendimiento y gestión de empleados"
+          loading="lazy"
+          width="600"
+          height="400"
+        />
 
         <!-- Status overlay is decorative -->
         <div class="project-overlay" aria-hidden="true">
@@ -657,9 +683,11 @@ export default KeyboardNavigationManager;
             Plataforma Inditex Store Management
           </h3>
 
-          <div class="project-tags"
-               role="list"
-               aria-label="Etiquetas del proyecto">
+          <div
+            class="project-tags"
+            role="list"
+            aria-label="Etiquetas del proyecto"
+          >
             <span class="project-tag" role="listitem">Empresarial</span>
             <span class="project-tag" role="listitem">Confidencial</span>
           </div>
@@ -672,9 +700,11 @@ export default KeyboardNavigationManager;
             cubriendo el 100% de las tiendas en España.
           </p>
 
-          <div class="project-tech"
-               role="list"
-               aria-label="4 tecnologías utilizadas">
+          <div
+            class="project-tech"
+            role="list"
+            aria-label="4 tecnologías utilizadas"
+          >
             <span class="tech-tag" role="listitem">React</span>
             <span class="tech-tag" role="listitem">Microfrontends</span>
             <span class="tech-tag" role="listitem">RTK Query</span>
@@ -705,58 +735,58 @@ export default KeyboardNavigationManager;
 
 class ScreenReaderAnnouncer {
   constructor() {
-    this.liveRegion = null;
-    this.init();
+    this.liveRegion = null
+    this.init()
   }
 
   init() {
-    this.createLiveRegion();
+    this.createLiveRegion()
   }
 
   createLiveRegion() {
-    this.liveRegion = document.createElement('div');
-    this.liveRegion.setAttribute('aria-live', 'polite');
-    this.liveRegion.setAttribute('aria-atomic', 'true');
-    this.liveRegion.classList.add('sr-only');
-    document.body.appendChild(this.liveRegion);
+    this.liveRegion = document.createElement('div')
+    this.liveRegion.setAttribute('aria-live', 'polite')
+    this.liveRegion.setAttribute('aria-atomic', 'true')
+    this.liveRegion.classList.add('sr-only')
+    document.body.appendChild(this.liveRegion)
   }
 
   announce(message, priority = 'polite') {
     if (!this.liveRegion) {
-      this.createLiveRegion();
+      this.createLiveRegion()
     }
 
     // Update priority if needed
-    this.liveRegion.setAttribute('aria-live', priority);
+    this.liveRegion.setAttribute('aria-live', priority)
 
     // Clear and set new message
-    this.liveRegion.textContent = '';
+    this.liveRegion.textContent = ''
 
     setTimeout(() => {
-      this.liveRegion.textContent = message;
-    }, 100);
+      this.liveRegion.textContent = message
+    }, 100)
   }
 
   announceNavigation(sectionName) {
-    this.announce(`Navegando a la sección ${sectionName}`);
+    this.announce(`Navegando a la sección ${sectionName}`)
   }
 
   announceFilterChange(filterName, count) {
-    this.announce(`Mostrando ${count} proyectos en la categoría ${filterName}`);
+    this.announce(`Mostrando ${count} proyectos en la categoría ${filterName}`)
   }
 
   announceLoadingComplete(sectionName) {
-    this.announce(`Sección ${sectionName} cargada completamente`);
+    this.announce(`Sección ${sectionName} cargada completamente`)
   }
 
   announceError(errorMessage) {
-    this.announce(errorMessage, 'assertive');
+    this.announce(errorMessage, 'assertive')
   }
 }
 
 // Initialize and export
-const screenReader = new ScreenReaderAnnouncer();
-export default screenReader;
+const screenReader = new ScreenReaderAnnouncer()
+export default screenReader
 ```
 
 ---
@@ -860,12 +890,12 @@ export default screenReader;
 
 class LoadingStateManager {
   constructor() {
-    this.loadingElements = new Map();
-    this.init();
+    this.loadingElements = new Map()
+    this.init()
   }
 
   init() {
-    this.showInitialLoading();
+    this.showInitialLoading()
   }
 
   showInitialLoading() {
@@ -875,40 +905,40 @@ class LoadingStateManager {
       { id: 'timeline', delay: 700 },
       { id: 'projects', delay: 900 },
       { id: 'skills', delay: 1100 },
-      { id: 'contact', delay: 1300 }
-    ];
+      { id: 'contact', delay: 1300 },
+    ]
 
     sections.forEach(({ id }) => {
-      this.showSkeleton(id);
-    });
+      this.showSkeleton(id)
+    })
 
     // Simulate progressive loading
     sections.forEach(({ id, delay }) => {
       setTimeout(() => {
-        this.showContent(id);
-      }, delay);
-    });
+        this.showContent(id)
+      }, delay)
+    })
   }
 
   showSkeleton(sectionId) {
-    const section = document.querySelector(`[data-section="${sectionId}"]`);
-    if (!section) return;
+    const section = document.querySelector(`[data-section="${sectionId}"]`)
+    if (!section) return
 
-    const skeleton = this.createSkeleton(sectionId);
-    section.appendChild(skeleton);
-    this.loadingElements.set(sectionId, skeleton);
+    const skeleton = this.createSkeleton(sectionId)
+    section.appendChild(skeleton)
+    this.loadingElements.set(sectionId, skeleton)
   }
 
   createSkeleton(type) {
-    const skeleton = document.createElement('div');
-    skeleton.className = `${type}-skeleton`;
-    skeleton.setAttribute('aria-label', 'Contenido cargando');
-    skeleton.setAttribute('aria-busy', 'true');
+    const skeleton = document.createElement('div')
+    skeleton.className = `${type}-skeleton`
+    skeleton.setAttribute('aria-label', 'Contenido cargando')
+    skeleton.setAttribute('aria-busy', 'true')
 
     // Create skeleton structure based on type
-    skeleton.innerHTML = this.getSkeletonHTML(type);
+    skeleton.innerHTML = this.getSkeletonHTML(type)
 
-    return skeleton;
+    return skeleton
   }
 
   getSkeletonHTML(type) {
@@ -923,74 +953,87 @@ class LoadingStateManager {
       `,
       timeline: `
         <div class="timeline-skeleton">
-          ${Array(3).fill(0).map(() => `
+          ${Array(3)
+            .fill(0)
+            .map(
+              () => `
             <div class="skeleton-item">
               <div class="skeleton skeleton-dot"></div>
               <div class="skeleton skeleton-text" style="width: 60%"></div>
             </div>
-          `).join('')}
+          `
+            )
+            .join('')}
         </div>
       `,
       projects: `
         <div class="projects-skeleton">
-          ${Array(3).fill(0).map(() => `
+          ${Array(3)
+            .fill(0)
+            .map(
+              () => `
             <div class="project-skeleton">
               <div class="skeleton skeleton-image"></div>
               <div class="skeleton skeleton-header"></div>
               <div class="skeleton skeleton-text"></div>
             </div>
-          `).join('')}
+          `
+            )
+            .join('')}
         </div>
-      `
-    };
+      `,
+    }
 
-    return templates[type] || `
+    return (
+      templates[type] ||
+      `
       <div class="card-skeleton">
         <div class="skeleton skeleton-header"></div>
         <div class="skeleton skeleton-text"></div>
         <div class="skeleton skeleton-text"></div>
       </div>
-    `;
+    `
+    )
   }
 
   showContent(sectionId) {
-    const skeleton = this.loadingElements.get(sectionId);
-    const section = document.querySelector(`[data-section="${sectionId}"]`);
+    const skeleton = this.loadingElements.get(sectionId)
+    const section = document.querySelector(`[data-section="${sectionId}"]`)
 
     if (skeleton && section) {
       // Fade out skeleton
-      skeleton.style.transition = 'opacity 0.3s ease-out';
-      skeleton.style.opacity = '0';
+      skeleton.style.transition = 'opacity 0.3s ease-out'
+      skeleton.style.opacity = '0'
 
       setTimeout(() => {
-        skeleton.remove();
-        this.loadingElements.delete(sectionId);
+        skeleton.remove()
+        this.loadingElements.delete(sectionId)
 
         // Show actual content
-        const content = section.querySelector('.actual-content');
+        const content = section.querySelector('.actual-content')
         if (content) {
-          content.style.opacity = '0';
-          content.style.display = 'block';
+          content.style.opacity = '0'
+          content.style.display = 'block'
 
           requestAnimationFrame(() => {
-            content.style.transition = 'opacity 0.5s ease-in';
-            content.style.opacity = '1';
-          });
+            content.style.transition = 'opacity 0.5s ease-in'
+            content.style.opacity = '1'
+          })
 
           // Update aria-busy
-          section.setAttribute('aria-busy', 'false');
+          section.setAttribute('aria-busy', 'false')
         }
-      }, 300);
+      }, 300)
     }
   }
 }
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  window.loadingManager = new LoadingStateManager();
-});
+  window.loadingManager = new LoadingStateManager()
+})
 
-export default LoadingStateManager;
+export default LoadingStateManager
 ```
 
 ---
@@ -1006,119 +1049,123 @@ export default LoadingStateManager;
 
 class ErrorHandler {
   constructor() {
-    this.errors = [];
-    this.init();
+    this.errors = []
+    this.init()
   }
 
   init() {
-    this.setupGlobalErrorHandling();
-    this.setupImageFallbacks();
-    this.setupNetworkErrorHandling();
+    this.setupGlobalErrorHandling()
+    this.setupImageFallbacks()
+    this.setupNetworkErrorHandling()
   }
 
   setupGlobalErrorHandling() {
     // JavaScript errors
-    window.addEventListener('error', (event) => {
+    window.addEventListener('error', event => {
       this.logError({
         type: 'javascript',
         message: event.message,
         filename: event.filename,
         lineno: event.lineno,
-        error: event.error
-      });
+        error: event.error,
+      })
 
       // Prevent default error UI
-      event.preventDefault();
-    });
+      event.preventDefault()
+    })
 
     // Unhandled promise rejections
-    window.addEventListener('unhandledrejection', (event) => {
+    window.addEventListener('unhandledrejection', event => {
       this.logError({
         type: 'promise',
         message: event.reason?.message || 'Unhandled promise rejection',
-        reason: event.reason
-      });
+        reason: event.reason,
+      })
 
-      event.preventDefault();
-    });
+      event.preventDefault()
+    })
   }
 
   setupImageFallbacks() {
-    document.addEventListener('error', (event) => {
-      if (event.target.tagName === 'IMG') {
-        this.handleImageError(event.target);
-      }
-    }, true);
+    document.addEventListener(
+      'error',
+      event => {
+        if (event.target.tagName === 'IMG') {
+          this.handleImageError(event.target)
+        }
+      },
+      true
+    )
   }
 
   handleImageError(img) {
     // Prevent infinite loop
     if (img.dataset.fallbackAttempted) {
-      this.showImagePlaceholder(img);
-      return;
+      this.showImagePlaceholder(img)
+      return
     }
 
-    img.dataset.fallbackAttempted = 'true';
+    img.dataset.fallbackAttempted = 'true'
 
     // Try alternative formats
-    const src = img.src;
-    const baseName = src.replace(/\.(avif|webp|jpg|jpeg|png)$/i, '');
+    const src = img.src
+    const baseName = src.replace(/\.(avif|webp|jpg|jpeg|png)$/i, '')
 
     const fallbacks = [
       `${baseName}.jpg`,
       `${baseName}.png`,
-      '/images/placeholder-image.svg'
-    ];
+      '/images/placeholder-image.svg',
+    ]
 
-    this.tryImageFallbacks(img, fallbacks, 0);
+    this.tryImageFallbacks(img, fallbacks, 0)
   }
 
   tryImageFallbacks(img, fallbacks, index) {
     if (index >= fallbacks.length) {
-      this.showImagePlaceholder(img);
-      return;
+      this.showImagePlaceholder(img)
+      return
     }
 
-    const testImg = new Image();
+    const testImg = new Image()
     testImg.onload = () => {
-      img.src = fallbacks[index];
-    };
+      img.src = fallbacks[index]
+    }
 
     testImg.onerror = () => {
-      this.tryImageFallbacks(img, fallbacks, index + 1);
-    };
+      this.tryImageFallbacks(img, fallbacks, index + 1)
+    }
 
-    testImg.src = fallbacks[index];
+    testImg.src = fallbacks[index]
   }
 
   showImagePlaceholder(img) {
-    const placeholder = document.createElement('div');
-    placeholder.className = 'image-placeholder';
-    placeholder.setAttribute('role', 'img');
-    placeholder.setAttribute('aria-label', img.alt || 'Imagen no disponible');
+    const placeholder = document.createElement('div')
+    placeholder.className = 'image-placeholder'
+    placeholder.setAttribute('role', 'img')
+    placeholder.setAttribute('aria-label', img.alt || 'Imagen no disponible')
 
     placeholder.innerHTML = `
       <div class="placeholder-content">
         <span class="placeholder-icon" aria-hidden="true">📷</span>
         <span class="placeholder-text">Imagen no disponible</span>
       </div>
-    `;
+    `
 
-    img.parentNode.replaceChild(placeholder, img);
+    img.parentNode.replaceChild(placeholder, img)
   }
 
   setupNetworkErrorHandling() {
     window.addEventListener('online', () => {
-      this.handleNetworkRestore();
-    });
+      this.handleNetworkRestore()
+    })
 
     window.addEventListener('offline', () => {
-      this.handleNetworkLoss();
-    });
+      this.handleNetworkLoss()
+    })
 
     // Check initial status
     if (!navigator.onLine) {
-      this.handleNetworkLoss();
+      this.handleNetworkLoss()
     }
   }
 
@@ -1126,21 +1173,21 @@ class ErrorHandler {
     this.showNotification(
       'Sin conexión a internet. Algunos elementos pueden no estar disponibles.',
       'warning'
-    );
+    )
   }
 
   handleNetworkRestore() {
-    this.showNotification(
-      'Conexión restaurada.',
-      'success'
-    );
+    this.showNotification('Conexión restaurada.', 'success')
   }
 
   showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification--${type}`;
-    notification.setAttribute('role', 'alert');
-    notification.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+    const notification = document.createElement('div')
+    notification.className = `notification notification--${type}`
+    notification.setAttribute('role', 'alert')
+    notification.setAttribute(
+      'aria-live',
+      type === 'error' ? 'assertive' : 'polite'
+    )
 
     notification.innerHTML = `
       <div class="notification-content">
@@ -1150,19 +1197,21 @@ class ErrorHandler {
         <span class="notification-message">${message}</span>
         <button class="notification-close" aria-label="Cerrar notificación">×</button>
       </div>
-    `;
+    `
 
-    document.body.appendChild(notification);
+    document.body.appendChild(notification)
 
     // Auto-dismiss
     setTimeout(() => {
-      notification.remove();
-    }, 5000);
+      notification.remove()
+    }, 5000)
 
     // Manual dismiss
-    notification.querySelector('.notification-close').addEventListener('click', () => {
-      notification.remove();
-    });
+    notification
+      .querySelector('.notification-close')
+      .addEventListener('click', () => {
+        notification.remove()
+      })
   }
 
   logError(errorInfo) {
@@ -1170,25 +1219,25 @@ class ErrorHandler {
       ...errorInfo,
       timestamp: new Date().toISOString(),
       userAgent: navigator.userAgent,
-      url: window.location.href
-    });
+      url: window.location.href,
+    })
 
     // Send to analytics in production
     if (typeof gtag !== 'undefined') {
       gtag('event', 'exception', {
         description: errorInfo.message,
-        fatal: false
-      });
+        fatal: false,
+      })
     }
 
-    console.warn('Error logged:', errorInfo);
+    console.warn('Error logged:', errorInfo)
   }
 }
 
 // Initialize
-window.errorHandler = new ErrorHandler();
+window.errorHandler = new ErrorHandler()
 
-export default ErrorHandler;
+export default ErrorHandler
 ```
 
 **Error Styles**:
@@ -1221,15 +1270,15 @@ export default ErrorHandler;
 }
 
 .notification--warning {
-  border-left: 4px solid #FFA500;
+  border-left: 4px solid #ffa500;
 }
 
 .notification--error {
-  border-left: 4px solid #FF6B6B;
+  border-left: 4px solid #ff6b6b;
 }
 
 .notification--success {
-  border-left: 4px solid #51CF66;
+  border-left: 4px solid #51cf66;
 }
 
 .notification-content {
@@ -1377,17 +1426,20 @@ export default ErrorHandler;
 ## 🔗 Referencias
 
 ### Core Documentation
+
 → [Project Overview](../00-PROJECT-OVERVIEW.md)
 → [Technical Reference](../01-TECHNICAL-REFERENCE.md)
 → [Component Library](../03-COMPONENT-LIBRARY.md)
 
 ### Quick References
+
 → [Design Tokens](../quick-references/design-tokens.md)
 → [Accessibility Checklist](../quick-references/accessibility-checklist.md)
 → [Performance Budgets](../quick-references/performance-budgets.md)
 → [Browser Compatibility](../quick-references/browser-compatibility.md)
 
 ### All Previous Phases
+
 → [Phase 1: Foundation](PHASE-01-Foundation.md)
 → [Phase 2: Core Content](PHASE-02-Core-Content.md)
 → [Phase 3: Advanced Features](PHASE-03-Advanced-Features.md)

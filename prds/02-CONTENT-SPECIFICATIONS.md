@@ -33,7 +33,7 @@
       "emoji": "🇪🇸",
       "coordinates": {
         "latitude": 37.7749,
-        "longitude": -3.7890
+        "longitude": -3.789
       }
     },
     "availability": {
@@ -98,7 +98,7 @@
     {
       "company": {
         "name": "NTT DATA",
-        "location": "Madrid, España",
+        "location": "Jaén, España",
         "website": "https://www.nttdata.com",
         "industry": "IT Services & Consulting",
         "size": "100,000+ employees"
@@ -270,7 +270,7 @@
 {
   "company": {
     "name": "HelloAuto",
-    "location": "Madrid, España",
+    "location": "Jaén, España",
     "website": "https://www.helloauto.com",
     "industry": "InsurTech / IoT",
     "description": "Plataforma de seguros de coche con telemetría IoT"
@@ -916,6 +916,7 @@
 ### Tono de Voz
 
 **Características**:
+
 - Profesional pero accesible
 - Técnicamente preciso sin ser pedante
 - Orientado a resultados y logros medibles
@@ -923,6 +924,7 @@
 - Entusiasta sobre aprendizaje y crecimiento
 
 **Evitar**:
+
 - Jerga innecesaria o buzzwords vacíos
 - Exageraciones o claims no respaldados
 - Negatividad sobre tecnologías o empresas
@@ -932,6 +934,7 @@
 ### Keywords SEO
 
 **Primary Keywords**:
+
 - Technical Leader
 - ReactJS
 - Inteligencia Artificial
@@ -939,6 +942,7 @@
 - Microfrontends
 
 **Secondary Keywords**:
+
 - NTT DATA
 - Inditex
 - Frontend Developer
@@ -946,6 +950,7 @@
 - GenAI
 
 **Long-tail Keywords**:
+
 - "Technical Leader Specialist IA"
 - "Desarrollador React microfrontends España"
 - "Experto GenAI Jaén"
