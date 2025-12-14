@@ -10,7 +10,7 @@ on:
 env:
   NODE_VERSION: '20.x'
   SERVER_PATH: '/home/alejandro/development/portfolio'
-  CONTAINER_NAME: 'react-nginx-app'
+  CONTAINER_NAME: 'portfolio-portfolioapp-cjgywg.1.f70lx1jhylzw09ewxwg99jymx'
   PORT: '80' # Standard HTTP port
 
 jobs:
