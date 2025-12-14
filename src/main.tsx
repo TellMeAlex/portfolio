@@ -1,4 +1,4 @@
-// Deployment verification - Testing Dokploy webhook integration
+// Deployment verification - Testing Tailscale OAuth + Dokploy deployment
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
