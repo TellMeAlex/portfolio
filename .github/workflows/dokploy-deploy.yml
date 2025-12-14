@@ -1,7 +1,10 @@
 name: Dokploy Auto-Deploy
 
 # This workflow triggers deployment to Dokploy after CI/CD passes
-# It uses SSH to connect to the Raspberry Pi and triggers deployment via Dokploy API
+# Architecture:
+#   1. Connect GitHub Actions runner to Tailscale network (using OAuth)
+#   2. SSH to Raspberry Pi via Tailscale (100.122.202.103)
+#   3. Execute curl to localhost:3000 (Dokploy API) to trigger deployment
 
 on:
   workflow_run:
@@ -22,6 +25,13 @@ jobs:
     steps:
     - name: Checkout code (for documentation)
       uses: actions/checkout@v4
+
+    - name: Connect to Tailscale
+      uses: tailscale/github-action@v2
+      with:
+        oauth-client-id: ${{ secrets.TAILSCALE_OAUTH_CLIENT_ID }}
+        oauth-secret: ${{ secrets.TAILSCALE_OAUTH_SECRET }}
+        tags: tag:ci
 
     - name: Setup SSH
       env:
