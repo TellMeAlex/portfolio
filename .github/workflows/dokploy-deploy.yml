@@ -1,10 +1,7 @@
-name: Dokploy Auto-Deploy
+name: Deployment Notification
 
-# This workflow triggers deployment to Dokploy after CI/CD passes
-# Architecture:
-#   1. Connect GitHub Actions runner to Tailscale network (using Auth Key)
-#   2. SSH to Raspberry Pi via Tailscale (100.122.202.103)
-#   3. Execute curl to localhost:3000 (Dokploy API) to trigger deployment
+# Simple notification workflow after CI/CD passes
+# Manual deployment via Dokploy UI: http://100.122.202.103:3000
 
 on:
   workflow_run:
@@ -12,51 +9,21 @@ on:
     types: [completed]
     branches: [main]
 
-env:
-  APPLICATION_ID: "R02khAu1mJJTnpSlkiu2v"
-  DOKPLOY_URL: "http://localhost:3000"
-
 jobs:
-  deploy:
+  notify:
     runs-on: ubuntu-latest
-    # Only deploy if CI/CD passed successfully
+    # Only notify if CI/CD passed successfully
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
-    - name: Checkout code (for documentation)
-      uses: actions/checkout@v4
-
-    - name: Connect to Tailscale
-      uses: tailscale/github-action@v2
-      with:
-        authkey: ${{ secrets.TAILSCALE_AUTH_KEY }}
-
-    - name: Setup SSH
-      env:
-        SSH_KEY: ${{ secrets.RASPBERRY_PI_SSH_KEY }}
-        SSH_HOST: ${{ secrets.RASPBERRY_PI_HOST }}
+    - name: Deployment Ready Notification
       run: |
-        mkdir -p ~/.ssh
-        echo "$SSH_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
-
-    - name: Trigger Dokploy Deployment via SSH
-      env:
-        SSH_USER: ${{ secrets.RASPBERRY_PI_USER }}
-        SSH_HOST: ${{ secrets.RASPBERRY_PI_HOST }}
-        API_TOKEN: ${{ secrets.DOKPLOY_API_TOKEN }}
-      run: |
-        ssh -o StrictHostKeyChecking=no "${SSH_USER}@${SSH_HOST}" \
-          "curl -X POST '${DOKPLOY_URL}/api/application.deploy' \
-            -H 'accept: application/json' \
-            -H 'Content-Type: application/json' \
-            -H 'x-api-key: ${API_TOKEN}' \
-            -d '{\"applicationId\": \"${APPLICATION_ID}\"}'"
-
-    - name: Deployment triggered
-      run: |
-        echo "✅ Deployment triggered successfully on Dokploy"
-        echo "🚀 Application: portfolio-app ($APPLICATION_ID)"
-        echo "📦 Monitor deployment at: http://100.122.202.103:3000"
-        echo "🌐 Live site: https://tellmealex.dev"
+        echo "✅ CI/CD Pipeline passed successfully"
+        echo "🚀 Ready for deployment"
+        echo ""
+        echo "Manual deployment steps:"
+        echo "1. Access Dokploy: http://100.122.202.103:3000"
+        echo "2. Navigate to: Projects → portfolio → portfolio-app"
+        echo "3. Click 'Deploy' button"
+        echo ""
+        echo "Live site: https://tellmealex.dev"
