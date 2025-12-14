@@ -2,16 +2,16 @@ name: Deploy to SSH Server
 
 on:
   workflow_run:
-    workflows: ["CI/CD Pipeline"]
+    workflows: ['CI/CD Pipeline']
     types:
       - completed
     branches: [main]
 
 env:
   NODE_VERSION: '20.x'
-  SERVER_PATH: '/root/development/portfolio'
-  CONTAINER_NAME: 'portfolio-app'
-  PORT: '80'  # Standard HTTP port
+  SERVER_PATH: '/home/alejandro/development/portfolio'
+  CONTAINER_NAME: 'react-nginx-app'
+  PORT: '80' # Standard HTTP port
 
 jobs:
   deploy:
@@ -23,258 +23,258 @@ jobs:
       url: http://tellmealex.com
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
 
-    - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
-    - name: Build for production
-      run: yarn build
-      env:
-        CI: true
+      - name: Build for production
+        run: yarn build
+        env:
+          CI: true
 
-    - name: Create deployment package
-      run: |
-        # Create deployment directory structure
-        mkdir -p deploy
+      - name: Create deployment package
+        run: |
+          # Create deployment directory structure
+          mkdir -p deploy
 
-        # Copy source files needed for Docker build
-        cp package.json deploy/
-        cp yarn.lock deploy/
-        cp -r src deploy/
-        cp -r public deploy/ 2>/dev/null || echo "No public folder"
+          # Copy source files needed for Docker build
+          cp package.json deploy/
+          cp yarn.lock deploy/
+          cp -r src deploy/
+          cp -r public deploy/ 2>/dev/null || echo "No public folder"
 
-        # Copy configuration files
-        cp vite.config.ts deploy/ 2>/dev/null || echo "No vite config"
-        cp tsconfig.json deploy/ 2>/dev/null || echo "No tsconfig"
-        cp tailwind.config.js deploy/ 2>/dev/null || echo "No tailwind config"
-        cp postcss.config.js deploy/ 2>/dev/null || echo "No postcss config"
-        cp index.html deploy/ 2>/dev/null || echo "No index.html"
+          # Copy configuration files
+          cp vite.config.ts deploy/ 2>/dev/null || echo "No vite config"
+          cp tsconfig.json deploy/ 2>/dev/null || echo "No tsconfig"
+          cp tailwind.config.js deploy/ 2>/dev/null || echo "No tailwind config"
+          cp postcss.config.js deploy/ 2>/dev/null || echo "No postcss config"
+          cp index.html deploy/ 2>/dev/null || echo "No index.html"
 
-        # Copy Docker configuration
-        cp Dockerfile deploy/ 2>/dev/null || echo "Creating Dockerfile..."
-        cp docker-compose.production.yml deploy/docker-compose.yml 2>/dev/null || echo "Creating docker-compose.yml..."
-        cp nginx.conf deploy/ 2>/dev/null || echo "Creating nginx.conf..."
+          # Copy Docker configuration
+          cp Dockerfile deploy/ 2>/dev/null || echo "Creating Dockerfile..."
+          cp docker-compose.production.yml deploy/docker-compose.yml 2>/dev/null || echo "Creating docker-compose.yml..."
+          cp nginx.conf deploy/ 2>/dev/null || echo "Creating nginx.conf..."
 
-    - name: Create Docker configuration if missing
-      run: |
-        # Create Dockerfile if it doesn't exist
-        if [ ! -f deploy/Dockerfile ]; then
-          cat > deploy/Dockerfile << 'EOF'
-        # Multi-stage build for optimized production image
-        FROM node:20-alpine AS builder
+      - name: Create Docker configuration if missing
+        run: |
+          # Create Dockerfile if it doesn't exist
+          if [ ! -f deploy/Dockerfile ]; then
+            cat > deploy/Dockerfile << 'EOF'
+          # Multi-stage build for optimized production image
+          FROM node:20-alpine AS builder
 
-        WORKDIR /app
-        COPY package.json yarn.lock ./
-        RUN yarn install --frozen-lockfile
+          WORKDIR /app
+          COPY package.json yarn.lock ./
+          RUN yarn install --frozen-lockfile
 
-        COPY . .
-        RUN yarn build
+          COPY . .
+          RUN yarn build
 
-        # Production stage with Nginx
-        FROM nginx:alpine
+          # Production stage with Nginx
+          FROM nginx:alpine
 
-        # Copy built files from builder stage
-        COPY --from=builder /app/dist /usr/share/nginx/html
+          # Copy built files from builder stage
+          COPY --from=builder /app/dist /usr/share/nginx/html
 
-        # Copy nginx configuration
-        COPY nginx.conf /etc/nginx/conf.d/default.conf
+          # Copy nginx configuration
+          COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-        # Health check
-        HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-          CMD curl -f http://localhost/ || exit 1
+          # Health check
+          HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+            CMD curl -f http://localhost/ || exit 1
 
-        EXPOSE 80
+          EXPOSE 80
 
-        CMD ["nginx", "-g", "daemon off;"]
-        EOF
-        fi
+          CMD ["nginx", "-g", "daemon off;"]
+          EOF
+          fi
 
-        # Create nginx.conf if it doesn't exist
-        if [ ! -f deploy/nginx.conf ]; then
-          cat > deploy/nginx.conf << 'EOF'
-        server {
-            listen 80;
-            server_name localhost;
-            root /usr/share/nginx/html;
-            index index.html index.htm;
+          # Create nginx.conf if it doesn't exist
+          if [ ! -f deploy/nginx.conf ]; then
+            cat > deploy/nginx.conf << 'EOF'
+          server {
+              listen 80;
+              server_name localhost;
+              root /usr/share/nginx/html;
+              index index.html index.htm;
 
-            # Enable gzip compression
-            gzip on;
-            gzip_vary on;
-            gzip_min_length 1024;
-            gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml+rss application/json;
+              # Enable gzip compression
+              gzip on;
+              gzip_vary on;
+              gzip_min_length 1024;
+              gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml+rss application/json;
 
-            # Security headers
-            add_header X-Frame-Options "SAMEORIGIN" always;
-            add_header X-XSS-Protection "1; mode=block" always;
-            add_header X-Content-Type-Options "nosniff" always;
-            add_header Referrer-Policy "no-referrer-when-downgrade" always;
-            add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
+              # Security headers
+              add_header X-Frame-Options "SAMEORIGIN" always;
+              add_header X-XSS-Protection "1; mode=block" always;
+              add_header X-Content-Type-Options "nosniff" always;
+              add_header Referrer-Policy "no-referrer-when-downgrade" always;
+              add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
 
-            # Handle SPA routing
-            location / {
-                try_files $uri $uri/ /index.html;
-            }
+              # Handle SPA routing
+              location / {
+                  try_files $uri $uri/ /index.html;
+              }
 
-            # Static assets caching
-            location ~* \.(css|js|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$ {
-                expires 1y;
-                add_header Cache-Control "public, immutable";
-            }
+              # Static assets caching
+              location ~* \.(css|js|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$ {
+                  expires 1y;
+                  add_header Cache-Control "public, immutable";
+              }
 
-            # Health check endpoint
-            location /health {
-                access_log off;
-                return 200 "healthy\n";
-                add_header Content-Type text/plain;
-            }
-        }
-        EOF
-        fi
-
-        # Create docker-compose.yml if it doesn't exist
-        if [ ! -f deploy/docker-compose.yml ]; then
-          cat > deploy/docker-compose.yml << EOF
-        version: '3.8'
-
-        services:
-          portfolio:
-            build: .
-            container_name: ${CONTAINER_NAME}
-            ports:
-              - "${PORT}:80"
-            restart: unless-stopped
-            environment:
-              - NODE_ENV=production
-            healthcheck:
-              test: ["CMD", "curl", "-f", "http://localhost/health"]
-              interval: 30s
-              timeout: 10s
-              retries: 3
-              start_period: 40s
-            labels:
-              - "traefik.enable=true"
-              - "traefik.http.routers.portfolio.rule=Host(\`tellmealex.com\`)"
-              - "traefik.http.services.portfolio.loadbalancer.server.port=80"
-        EOF
-        fi
-
-    - name: Setup SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-
-    - name: Deploy to server
-      env:
-        SSH_HOST: ${{ secrets.SSH_HOST }}
-        SSH_USER: ${{ secrets.SSH_USER }}
-      run: |
-        # Create deployment directory on server
-        ssh ${SSH_USER}@${SSH_HOST} "mkdir -p ${SERVER_PATH}"
-
-        # Transfer built files to server
-        scp -r dist/* ${SSH_USER}@${SSH_HOST}:${SERVER_PATH}/
-
-        # Update the existing nginx container with new content
-        echo "Updating existing nginx container content..."
-        ssh ${SSH_USER}@${SSH_HOST} "
-          # Backup current content
-          docker exec react-nginx-app cp -r /usr/share/nginx/html /tmp/backup-\$(date +%Y%m%d-%H%M%S) 2>/dev/null || true
-
-          # Clear current content
-          docker exec react-nginx-app rm -rf /usr/share/nginx/html/*
-
-          # Copy new content into container
-          docker cp ${SERVER_PATH}/. react-nginx-app:/usr/share/nginx/html/
-
-          # Reload nginx to pick up changes
-          docker exec react-nginx-app nginx -s reload
-        "
-
-        # Verify the deployment
-        echo "Verifying deployment..."
-        ssh ${SSH_USER}@${SSH_HOST} "
-          # Test that nginx is serving the new content
-          sleep 2
-          curl -f http://localhost/ >/dev/null 2>&1 && echo '✅ Container is serving content' || echo '❌ Container not responding'
-        "
-
-    - name: Verify deployment
-      env:
-        SSH_HOST: ${{ secrets.SSH_HOST }}
-        SSH_USER: ${{ secrets.SSH_USER }}
-      run: |
-        # Check container status
-        CONTAINER_STATUS=$(ssh ${SSH_USER}@${SSH_HOST} "docker ps --filter name=react-nginx-app --format '{{.Status}}'")
-        echo "Container status: $CONTAINER_STATUS"
-
-        # Test HTTP endpoint
-        HTTP_STATUS=$(ssh ${SSH_USER}@${SSH_HOST} "curl -s -o /dev/null -w '%{http_code}' http://localhost/")
-        echo "HTTP status: $HTTP_STATUS"
-
-        # Also test externally
-        EXTERNAL_STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://tellmealex.com/ || echo "000")
-        echo "External HTTP status: $EXTERNAL_STATUS"
-
-        if [ "$HTTP_STATUS" != "200" ] && [ "$HTTP_STATUS" != "301" ]; then
-          echo "❌ Deployment verification failed (HTTP $HTTP_STATUS)"
-          ssh ${SSH_USER}@${SSH_HOST} "docker logs react-nginx-app --tail 20"
-          exit 1
-        fi
-
-        echo "✅ Deployment successful!"
-        echo "🌐 Available at: http://tellmealex.com"
-
-    - name: Cleanup old files
-      env:
-        SSH_HOST: ${{ secrets.SSH_HOST }}
-        SSH_USER: ${{ secrets.SSH_USER }}
-      run: |
-        # Clean up deployment files and old backups
-        ssh ${SSH_USER}@${SSH_HOST} "
-          rm -rf ${SERVER_PATH}/*
-          find /tmp -name 'backup-*' -type d -mtime +7 -exec rm -rf {} + 2>/dev/null || true
-          docker system prune -f
-        "
-
-    - name: Notify deployment status
-      if: always()
-      run: |
-        if [ "${{ job.status }}" == "success" ]; then
-          echo "🚀 Portfolio deployed successfully!"
-          echo "📍 URL: http://tellmealex.com"
-          echo "🐳 Container: ${CONTAINER_NAME}"
-        else
-          echo "❌ Deployment failed. Check logs for details."
-        fi
-
-    - name: Update deployment status
-      if: always()
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const status = '${{ job.status }}' === 'success' ? 'success' : 'failure';
-          const deploymentUrl = status === 'success' ? 'http://tellmealex.com' : '';
-
-          if (context.payload.deployment?.id) {
-            github.rest.repos.createDeploymentStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              deployment_id: context.payload.deployment.id,
-              state: status,
-              environment_url: deploymentUrl,
-              description: status === 'success' ? 'Deployment successful' : 'Deployment failed'
-            });
-          } else {
-            console.log('No deployment ID found, skipping status update');
+              # Health check endpoint
+              location /health {
+                  access_log off;
+                  return 200 "healthy\n";
+                  add_header Content-Type text/plain;
+              }
           }
+          EOF
+          fi
+
+          # Create docker-compose.yml if it doesn't exist
+          if [ ! -f deploy/docker-compose.yml ]; then
+            cat > deploy/docker-compose.yml << EOF
+          version: '3.8'
+
+          services:
+            portfolio:
+              build: .
+              container_name: ${CONTAINER_NAME}
+              ports:
+                - "${PORT}:80"
+              restart: unless-stopped
+              environment:
+                - NODE_ENV=production
+              healthcheck:
+                test: ["CMD", "curl", "-f", "http://localhost/health"]
+                interval: 30s
+                timeout: 10s
+                retries: 3
+                start_period: 40s
+              labels:
+                - "traefik.enable=true"
+                - "traefik.http.routers.portfolio.rule=Host(\`tellmealex.com\`)"
+                - "traefik.http.services.portfolio.loadbalancer.server.port=80"
+          EOF
+          fi
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to server
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          # Create deployment directory on server
+          ssh ${SSH_USER}@${SSH_HOST} "mkdir -p ${SERVER_PATH}"
+
+          # Transfer built files to server
+          scp -r dist/* ${SSH_USER}@${SSH_HOST}:${SERVER_PATH}/
+
+          # Update the existing nginx container with new content
+          echo "Updating existing nginx container content..."
+          ssh ${SSH_USER}@${SSH_HOST} "
+            # Backup current content
+            docker exec react-nginx-app cp -r /usr/share/nginx/html /tmp/backup-\$(date +%Y%m%d-%H%M%S) 2>/dev/null || true
+
+            # Clear current content
+            docker exec react-nginx-app rm -rf /usr/share/nginx/html/*
+
+            # Copy new content into container
+            docker cp ${SERVER_PATH}/. react-nginx-app:/usr/share/nginx/html/
+
+            # Reload nginx to pick up changes
+            docker exec react-nginx-app nginx -s reload
+          "
+
+          # Verify the deployment
+          echo "Verifying deployment..."
+          ssh ${SSH_USER}@${SSH_HOST} "
+            # Test that nginx is serving the new content
+            sleep 2
+            curl -f http://localhost/ >/dev/null 2>&1 && echo '✅ Container is serving content' || echo '❌ Container not responding'
+          "
+
+      - name: Verify deployment
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          # Check container status
+          CONTAINER_STATUS=$(ssh ${SSH_USER}@${SSH_HOST} "docker ps --filter name=react-nginx-app --format '{{.Status}}'")
+          echo "Container status: $CONTAINER_STATUS"
+
+          # Test HTTP endpoint
+          HTTP_STATUS=$(ssh ${SSH_USER}@${SSH_HOST} "curl -s -o /dev/null -w '%{http_code}' http://localhost/")
+          echo "HTTP status: $HTTP_STATUS"
+
+          # Also test externally
+          EXTERNAL_STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://tellmealex.com/ || echo "000")
+          echo "External HTTP status: $EXTERNAL_STATUS"
+
+          if [ "$HTTP_STATUS" != "200" ] && [ "$HTTP_STATUS" != "301" ]; then
+            echo "❌ Deployment verification failed (HTTP $HTTP_STATUS)"
+            ssh ${SSH_USER}@${SSH_HOST} "docker logs react-nginx-app --tail 20"
+            exit 1
+          fi
+
+          echo "✅ Deployment successful!"
+          echo "🌐 Available at: http://tellmealex.com"
+
+      - name: Cleanup old files
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          # Clean up deployment files and old backups
+          ssh ${SSH_USER}@${SSH_HOST} "
+            rm -rf ${SERVER_PATH}/*
+            find /tmp -name 'backup-*' -type d -mtime +7 -exec rm -rf {} + 2>/dev/null || true
+            docker system prune -f
+          "
+
+      - name: Notify deployment status
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "🚀 Portfolio deployed successfully!"
+            echo "📍 URL: http://tellmealex.com"
+            echo "🐳 Container: ${CONTAINER_NAME}"
+          else
+            echo "❌ Deployment failed. Check logs for details."
+          fi
+
+      - name: Update deployment status
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const status = '${{ job.status }}' === 'success' ? 'success' : 'failure';
+            const deploymentUrl = status === 'success' ? 'http://tellmealex.com' : '';
+
+            if (context.payload.deployment?.id) {
+              github.rest.repos.createDeploymentStatus({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                deployment_id: context.payload.deployment.id,
+                state: status,
+                environment_url: deploymentUrl,
+                description: status === 'success' ? 'Deployment successful' : 'Deployment failed'
+              });
+            } else {
+              console.log('No deployment ID found, skipping status update');
+            }
