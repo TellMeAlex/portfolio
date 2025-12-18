@@ -126,6 +126,7 @@ const App: React.FC = () => {
           tabIndex={-1}
           aria-label="Portfolio principal de Alejandro de la Fuente"
         >
+          <h1 className="sr-only">Portfolio de Alejandro de la Fuente</h1>
           <BentoGrid>
             {/* Hero Section - XL (3x2) */}
             <Hero />
@@ -198,6 +199,8 @@ const App: React.FC = () => {
 
         {/* Footer */}
         <footer
+          role="contentinfo"
+          aria-label="Información de contacto y legal"
           style={{
             padding: 'var(--space-16) var(--grid-padding-mobile)',
             textAlign: 'center',
@@ -214,16 +217,7 @@ const App: React.FC = () => {
               fontSize: 'var(--text-sm)',
             }}
           >
-            © 2025 Alejandro de la Fuente. Built with React + TypeScript.
-          </p>
-          <p
-            style={{
-              color: 'var(--color-text-secondary)',
-              fontSize: 'var(--text-xs)',
-              marginTop: 'var(--space-2)',
-            }}
-          >
-            Phase 6: Final Polish & Accessibility ♿
+            © {new Date().getFullYear()} Alejandro de la Fuente. Todos los derechos reservados.
           </p>
         </footer>
       </div>

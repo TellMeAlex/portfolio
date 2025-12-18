@@ -29,7 +29,7 @@ export const projectsData: ProjectsData = {
       impact: {
         innovation: 'Arquitectura MCP',
         community: 'Open Source',
-        students: '50+ desarrolladores',
+        education: 'Recurso formativo',
       },
       technologies: ['TypeScript', 'MCP', 'LLMs', 'Node.js'],
       tags: ['AI', 'Education', 'Open Source'],

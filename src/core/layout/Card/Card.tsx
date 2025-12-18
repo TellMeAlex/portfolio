@@ -12,6 +12,7 @@ export const Card: React.FC<CardProps> = ({
   onClick,
   ariaLabel,
   id,
+  keyboardHint,
 }) => {
   const { ref, isVisible } = useIntersectionObserver({
     threshold: 0.2,
@@ -41,6 +42,11 @@ export const Card: React.FC<CardProps> = ({
       tabIndex={onClick || id ? 0 : undefined}
     >
       {children}
+      {keyboardHint && (
+        <span className="keyboard-shortcut-hint" aria-hidden="true">
+          Alt + {keyboardHint}
+        </span>
+      )}
     </article>
   )
 }

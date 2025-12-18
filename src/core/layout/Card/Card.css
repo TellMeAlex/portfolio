@@ -173,3 +173,49 @@
     left: -100%;
   }
 }
+
+/* Manual reduce motion class */
+html.reduce-motion .card,
+html.reduce-motion .card::before {
+  transition: none !important;
+  animation: none !important;
+}
+
+html.reduce-motion .card:hover,
+html.reduce-motion .card:active {
+  transform: translateZ(0) !important;
+}
+
+html.reduce-motion .card:hover::before {
+  left: -100%;
+}
+
+/* Keyboard shortcut hint */
+.card .keyboard-shortcut-hint {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  color: var(--color-accent);
+  background: rgba(var(--color-accent-rgb), 0.1);
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid rgba(var(--color-accent-rgb), 0.3);
+  border-radius: var(--radius-sm);
+  opacity: 0;
+  transition: opacity var(--transition-base) var(--ease-out);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Show hints on hover/focus when enabled */
+html.show-keyboard-hints .card:hover .keyboard-shortcut-hint,
+html.show-keyboard-hints .card:focus-within .keyboard-shortcut-hint {
+  opacity: 1;
+}
+
+/* Always show on focus-visible for accessibility */
+.card:focus-visible .keyboard-shortcut-hint {
+  opacity: 1;
+}

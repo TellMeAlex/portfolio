@@ -15,8 +15,8 @@ interface KeyboardShortcut {
 }
 
 const shortcuts: KeyboardShortcut[] = [
-  { key: '1', sectionId: 'main-content', label: 'Inicio' },
-  { key: '2', sectionId: 'main-content', label: 'Sobre Mí' },
+  { key: '1', sectionId: 'hero', label: 'Inicio' },
+  { key: '2', sectionId: 'about', label: 'Sobre Mí' },
   { key: '3', sectionId: 'experience', label: 'Experiencia' },
   { key: '4', sectionId: 'projects', label: 'Proyectos' },
   { key: '5', sectionId: 'skills', label: 'Skills' },

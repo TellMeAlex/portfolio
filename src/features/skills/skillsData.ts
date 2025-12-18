@@ -24,7 +24,6 @@ export const skillsData: SkillCategory[] = [
       { name: 'Redux Toolkit', level: 90, proficiency: 'expert' },
       { name: 'TypeScript', level: 85, proficiency: 'expert' },
       { name: 'Microfrontends', level: 80, proficiency: 'advanced' },
-      { name: 'Next.js', level: 75, proficiency: 'advanced' },
     ],
   },
   {
@@ -34,7 +33,6 @@ export const skillsData: SkillCategory[] = [
       { name: 'GenAI', level: 90, proficiency: 'expert' },
       { name: 'Copilot', level: 85, proficiency: 'expert' },
       { name: 'Puppeteer', level: 88, proficiency: 'expert' },
-      { name: 'LangChain', level: 75, proficiency: 'advanced' },
     ],
   },
   {

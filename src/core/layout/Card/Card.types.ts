@@ -11,4 +11,5 @@ export interface CardProps {
   onClick?: () => void
   ariaLabel?: string
   id?: string
+  keyboardHint?: string
 }

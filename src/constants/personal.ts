@@ -1,5 +1,6 @@
 // Personal information constants
 // This file centralizes personal data for easy maintenance
+import { calculateYearsOfExperience } from '@/utils/date'
 
 export const PERSONAL_INFO = {
   name: {
@@ -12,7 +13,7 @@ export const PERSONAL_INFO = {
   location: 'Jaén, Andalucía, Spain',
   company: 'NTT DATA',
   role: 'Technical Leader Specialist',
-  experience: '3+ years leading digital transformation',
+  experience: `${calculateYearsOfExperience('2021-02')}+ years leading digital transformation`,
 
   // Contact information
   contact: {
@@ -48,11 +49,11 @@ export const PERSONAL_INFO = {
       role: 'Full Stack Developer',
     },
   ],
-} as const
+}
 
 // Status message for CI/CD indicator
 export const STATUS_MESSAGE =
-  '✨ Portfolio actualizado - Octubre 2025 - CI/CD Automático Funcionando'
+  `✨ Portfolio actualizado - ${new Intl.DateTimeFormat('es-ES', { month: 'long', year: 'numeric' }).format(new Date())} - CI/CD Automático Funcionando`
 
 // Navigation anchors
 export const NAVIGATION = {

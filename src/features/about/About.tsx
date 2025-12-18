@@ -1,13 +1,26 @@
 import React from 'react'
 import { Card } from '@/core/layout/Card'
+import { calculateYearsOfExperience } from '@/utils/date'
 import './About.css'
 
 export const About: React.FC = () => {
+  const years = calculateYearsOfExperience('2021-02')
+
   return (
-    <Card size="large" ariaLabel="About me section" className="about-card">
+    <Card
+      size="large"
+      ariaLabel="Sobre mí"
+      className="about-card"
+      id="about"
+      keyboardHint="2"
+    >
       <div className="about-header">
-        <h2 className="section-title">Sobre Mí</h2>
-        <div className="badge badge--available">
+        <h2 className="section-title" id="about-heading">Sobre Mí</h2>
+        <div
+          className="badge badge--available"
+          role="status"
+          aria-label="Estado de disponibilidad"
+        >
           <span className="badge-icon" aria-hidden="true">
             🚀
           </span>
@@ -15,9 +28,9 @@ export const About: React.FC = () => {
         </div>
       </div>
 
-      <div className="about-content">
+      <div className="about-content" aria-labelledby="about-heading">
         <p className="about-text">
-          Desarrollador web especializado en ReactJS con más de 3 años liderando
+          Desarrollador web especializado en ReactJS con más de {years} años liderando
           proyectos de transformación digital en NTT DATA. Actualmente me
           desempeño como Technical Leader Specialist, liderando iniciativas de
           IA y automatización para clientes como Inditex.
@@ -29,15 +42,15 @@ export const About: React.FC = () => {
           liderazgo técnico, mentoría y evangelización tecnológica.
         </p>
 
-        <div className="about-highlights">
-          <div className="highlight-item">
+        <div className="about-highlights" role="list" aria-label="Aspectos destacados">
+          <div className="highlight-item" role="listitem">
             <span className="highlight-icon" aria-hidden="true">
               🤖
             </span>
             <span className="highlight-text">Especialista en IA</span>
           </div>
-          <div className="highlight-item">
-            <span className="highlight-value">3+</span>
+          <div className="highlight-item" role="listitem">
+            <span className="highlight-value" aria-label={`${years} años`}>{years}+</span>
             <span className="highlight-label">años de experiencia</span>
           </div>
         </div>

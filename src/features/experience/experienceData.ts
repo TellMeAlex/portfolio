@@ -3,6 +3,7 @@
  * Source: prds/02-CONTENT-SPECIFICATIONS.md#experiencia-profesional
  */
 import type { ExperienceData } from './Experience.types'
+import { calculateYearsOfExperience } from '@/utils/date'
 
 export const experienceData: ExperienceData = {
   companies: [
@@ -17,7 +18,7 @@ export const experienceData: ExperienceData = {
         current: true,
         displayStart: 'Jun 2022',
         displayEnd: 'Presente',
-        totalDuration: '3+ años',
+        totalDuration: `${calculateYearsOfExperience('2022-06')}+ años`,
       },
       positions: [
         {

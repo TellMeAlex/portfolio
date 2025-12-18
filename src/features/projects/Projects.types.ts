@@ -24,6 +24,7 @@ export interface ProjectImpact {
   innovation?: string
   community?: string
   ux?: string
+  education?: string
 }
 
 export interface Project {

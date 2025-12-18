@@ -135,10 +135,10 @@ body {
   animation: fadeIn 0.3s ease-out;
 }
 
-/* Reduced motion support - CRITICAL */
+/* Reduced motion support - System preference */
 @media (prefers-reduced-motion: reduce) {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: auto !important;
   }
 
   *,
@@ -151,10 +151,29 @@ body {
   }
 
   .animate-on-scroll {
-    opacity: 1;
-    transform: none;
-    animation: none;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
   }
+}
+
+/* Reduced motion support - Manual toggle via accessibility panel */
+:root.reduce-motion,
+:root.reduce-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+:root.reduce-motion html {
+  scroll-behavior: auto !important;
+}
+
+:root.reduce-motion .animate-on-scroll {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
 }
 
 /* Performance optimizations */

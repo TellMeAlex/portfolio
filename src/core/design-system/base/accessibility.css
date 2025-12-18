@@ -10,10 +10,7 @@
   outline-offset: 4px;
 }
 
-/* Never remove focus outlines */
-*:focus {
-  /* Preserve browser default focus */
-}
+/* Note: Never remove focus outlines - browser defaults are preserved */
 
 /* Skip Links - WCAG 2.4.1 */
 .skip-links {
@@ -97,7 +94,7 @@ body.keyboard-navigation *:focus {
 }
 
 /* Touch target size - WCAG 2.5.5 (AAA) */
-button,
+button:not(.toggle-button):not(.filter-btn):not(.panel-close-button),
 a,
 input,
 select,

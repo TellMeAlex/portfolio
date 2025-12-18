@@ -34,12 +34,13 @@ export const Experience: React.FC = () => {
   return (
     <Card
       size="xl"
-      ariaLabel="Professional Experience"
+      ariaLabel="Experiencia Profesional"
       className="experience-card"
       id="experience"
+      keyboardHint="3"
     >
       <div className="timeline-header">
-        <h2 className="section-title">
+        <h2 className="section-title" id="experience-heading">
           <span className="title-icon" aria-hidden="true">
             💼
           </span>
@@ -47,7 +48,12 @@ export const Experience: React.FC = () => {
         </h2>
       </div>
 
-      <div className="timeline-container" ref={timelineRef}>
+      <div
+        className="timeline-container"
+        ref={timelineRef}
+        role="list"
+        aria-label="Línea temporal de experiencia profesional"
+      >
         {/* Vertical timeline line */}
         <div className="timeline-line" aria-hidden="true" />
 
@@ -68,13 +74,16 @@ interface TimelineItemProps {
 
 const TimelineItem: React.FC<TimelineItemProps> = ({ company }) => {
   const isCurrentCompany = company.period.current
+  const companyId = company.name.toLowerCase().replace(/\s+/g, '-')
 
   return (
     <article
       className={`timeline-item ${isCurrentCompany ? 'timeline-item--current' : ''}`}
-      data-company={company.name.toLowerCase().replace(/\s+/g, '-')}
+      data-company={companyId}
+      role="listitem"
+      aria-labelledby={`${companyId}-heading`}
     >
-      <div className="timeline-marker">
+      <div className="timeline-marker" aria-hidden="true">
         <div className="timeline-dot" />
         <div className="timeline-date">
           {company.period.displayStart} - {company.period.displayEnd}
@@ -82,21 +91,27 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ company }) => {
       </div>
 
       <div className="timeline-content">
-        <div className="company-header">
-          <h3 className="company-name">{company.name}</h3>
-          <div className="company-location">
+        <header className="company-header">
+          <h3 className="company-name" id={`${companyId}-heading`}>{company.name}</h3>
+          <div className="company-location" aria-label={`Ubicación: ${company.location}`}>
             <span className="location-icon" aria-hidden="true">
               📍
             </span>
             {company.location}
           </div>
-        </div>
+        </header>
 
-        <div className="positions-list">
+        <div
+          className="positions-list"
+          role="list"
+          aria-label={`Posiciones en ${company.name}`}
+        >
           {company.positions.map((position, positionIndex) => (
             <PositionItem
               key={`${position.title}-${positionIndex}`}
               position={position}
+              companyId={companyId}
+              index={positionIndex}
             />
           ))}
         </div>
@@ -107,30 +122,41 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ company }) => {
 
 interface PositionItemProps {
   position: Position
+  companyId: string
+  index: number
 }
 
-const PositionItem: React.FC<PositionItemProps> = ({ position }) => {
+const PositionItem: React.FC<PositionItemProps> = ({ position, companyId, index }) => {
   const isCurrentPosition = position.period.current
+  const positionId = `${companyId}-pos-${index}`
 
   return (
     <div
       className={`position-item ${isCurrentPosition ? 'position-item--current' : ''}`}
       data-position={position.title.toLowerCase().replace(/\s+/g, '-')}
+      role="listitem"
     >
       <div className="position-header">
-        <h4 className="position-title">{position.title}</h4>
-        <div className="position-period">{position.period.display}</div>
+        <h4 className="position-title" id={`${positionId}-title`}>{position.title}</h4>
+        <time className="position-period" dateTime={position.period.display}>{position.period.display}</time>
       </div>
 
-      <ul className="position-achievements">
+      <ul
+        className="position-achievements"
+        aria-label={`Logros como ${position.title}`}
+      >
         {position.responsibilities.map((responsibility, index) => (
           <li key={index}>{responsibility}</li>
         ))}
       </ul>
 
-      <div className="position-skills">
+      <div
+        className="position-skills"
+        role="list"
+        aria-label="Tecnologías utilizadas"
+      >
         {position.technologies.map((tech, index) => (
-          <span key={index} className="skill-tag">
+          <span key={index} className="skill-tag" role="listitem">
             {tech}
           </span>
         ))}

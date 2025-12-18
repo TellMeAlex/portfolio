@@ -15,9 +15,10 @@ export const Skills: React.FC = () => {
   return (
     <Card
       size="large"
-      ariaLabel="Technical Skills"
+      ariaLabel="Habilidades Técnicas"
       className="skills-card"
       id="skills"
+      keyboardHint="5"
     >
       <div className="skills-header">
         <h2 className="section-title">

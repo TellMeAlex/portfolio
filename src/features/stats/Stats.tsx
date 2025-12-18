@@ -7,6 +7,7 @@ import React from 'react'
 import { Card } from '@/core/layout/Card'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useCounterAnimation } from '@/hooks/useCounterAnimation'
+import { calculateYearsOfExperience } from '@/utils/date'
 import './Stats.css'
 
 interface StatCounterProps {
@@ -63,5 +64,6 @@ export const ProjectsCounter: React.FC = () => {
 }
 
 export const ExperienceCounter: React.FC = () => {
-  return <StatCounter value={3} suffix="+" label="Años experiencia" icon="💼" />
+  const years = calculateYearsOfExperience('2021-02')
+  return <StatCounter value={years} suffix="+" label="Años experiencia" icon="💼" />
 }

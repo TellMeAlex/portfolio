@@ -14,19 +14,29 @@ export const Hero: React.FC = () => {
   })
 
   return (
-    <Card size="xl" ariaLabel="Presentation section" className="hero-card">
+    <Card
+      size="xl"
+      ariaLabel="Sección de presentación"
+      className="hero-card"
+      id="hero"
+      keyboardHint="1"
+    >
       <div className="hero-content">
         {/* Hero Text */}
         <div className="hero-text">
-          <h1 className="hero-name">
-            <span role="img" aria-label="waving hand">
+          <h2 id="hero-heading" className="hero-name">
+            <span role="img" aria-label="Mano saludando" aria-hidden="true">
               👋
             </span>{' '}
             Hola, soy Alejandro
-          </h1>
+          </h2>
 
-          <div className="hero-title">
-            <span className="typed-text">
+          <div
+            className="hero-title"
+            aria-live="polite"
+            aria-label="Especialidad profesional con efecto de escritura"
+          >
+            <span className="typed-text" role="text">
               {displayText}
               <span className="typing-cursor" aria-hidden="true" />
             </span>
@@ -36,13 +46,13 @@ export const Hero: React.FC = () => {
             Liderando la transformación digital con IA en NTT DATA
           </p>
 
-          <div className="hero-location">
+          <div className="hero-location" aria-label="Ubicación profesional">
             <span className="location-icon" aria-hidden="true">
               📍
             </span>
             <span>
               Jaén, Andalucía{' '}
-              <span role="img" aria-label="España">
+              <span role="img" aria-label="España" aria-hidden="true">
                 🇪🇸
               </span>
             </span>
@@ -50,11 +60,11 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* CTAs */}
-        <div className="hero-actions">
+        <nav className="hero-actions" aria-label="Acciones principales">
           <Button
             variant="primary"
             onClick={() => scrollToSection('projects')}
-            ariaLabel="Navigate to projects section"
+            ariaLabel="Navegar a la sección de proyectos destacados"
           >
             <span>Ver Proyectos</span>
             <span className="btn-icon" aria-hidden="true">
@@ -64,14 +74,14 @@ export const Hero: React.FC = () => {
           <Button
             variant="secondary"
             onClick={() => scrollToSection('contact')}
-            ariaLabel="Navigate to contact section"
+            ariaLabel="Navegar a la sección de contacto"
           >
             <span className="btn-icon" aria-hidden="true">
               📧
             </span>
             <span>Contactar</span>
           </Button>
-        </div>
+        </nav>
       </div>
     </Card>
   )

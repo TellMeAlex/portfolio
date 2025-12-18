@@ -26,12 +26,13 @@ export const Projects: React.FC = () => {
   return (
     <Card
       size="xl"
-      ariaLabel="Featured Projects"
+      ariaLabel="Proyectos Destacados"
       className="projects-card"
       id="projects"
+      keyboardHint="4"
     >
       <div className="projects-header">
-        <h2 className="section-title">
+        <h2 className="section-title" id="projects-heading">
           <span className="title-icon" aria-hidden="true">
             🚀
           </span>
@@ -40,8 +41,8 @@ export const Projects: React.FC = () => {
 
         <div
           className="projects-filter"
-          role="group"
-          aria-label="Filter projects by category"
+          role="tablist"
+          aria-label="Filtrar proyectos por categoría"
         >
           <FilterButton
             label="Todos"
@@ -76,7 +77,12 @@ export const Projects: React.FC = () => {
         </div>
       </div>
 
-      <div className="projects-grid">
+      <div
+        className="projects-grid"
+        role="tabpanel"
+        id="projects-panel"
+        aria-labelledby={`tab-${activeFilter}`}
+      >
         {filteredProjects.map(project => (
           <ProjectCard key={project.id} project={project} />
         ))}
@@ -101,8 +107,11 @@ const FilterButton: React.FC<FilterButtonProps> = ({
   return (
     <button
       className={`filter-btn ${isActive ? 'filter-btn--active' : ''}`}
+      id={`tab-${filter}`}
+      role="tab"
+      aria-selected={isActive}
+      aria-controls="projects-panel"
       data-filter={filter}
-      aria-pressed={isActive}
       onClick={() => onClick(filter)}
     >
       {label}
@@ -132,18 +141,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const impactEntries = Object.entries(project.impact).slice(0, 3)
 
   const CardWrapper = project.url ? 'a' : 'div'
+  const projectId = `project-${project.id}`
 
   return (
     <article
       className="project-item"
       data-category={project.category}
       data-project={project.id}
+      aria-labelledby={`${projectId}-title`}
     >
       <CardWrapper
         href={project.url}
         target={project.url ? '_blank' : undefined}
         rel={project.url ? 'noopener noreferrer' : undefined}
         className="project-card-link"
+        aria-label={project.url ? `Ver proyecto ${project.name}` : undefined}
         style={{
           textDecoration: 'none',
           color: 'inherit',
@@ -154,7 +166,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       >
         {/* Project Image/Placeholder */}
         <div className="project-image">
-          <div className="project-placeholder">
+          <div className="project-placeholder" aria-hidden="true">
             <span className="placeholder-icon">
               {project.category === 'enterprise'
                 ? '🏢'
@@ -180,32 +192,33 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
         {/* Project Content */}
         <div className="project-content">
-          <div className="project-header">
-            <h3 className="project-title">{project.name}</h3>
-            <div className="project-tags">
+          <header className="project-header">
+            <h3 className="project-title" id={`${projectId}-title`}>{project.name}</h3>
+            <div className="project-tags" role="list" aria-label="Etiquetas">
               {project.tags.map((tag, index) => (
                 <span
                   key={index}
+                  role="listitem"
                   className={`project-tag project-tag--${tag.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   {tag}
                 </span>
               ))}
             </div>
-          </div>
+          </header>
 
           <p className="project-description">{project.description.short}</p>
 
-          <div className="project-tech">
+          <div className="project-tech" role="list" aria-label="Tecnologías">
             {project.technologies.map((tech, index) => (
-              <span key={index} className="tech-tag">
+              <span key={index} className="tech-tag" role="listitem">
                 {tech}
               </span>
             ))}
           </div>
 
           {impactEntries.length > 0 && (
-            <div className="project-impact">
+            <div className="project-impact" aria-label="Impacto del proyecto">
               {impactEntries.map(([key, value]) => (
                 <div key={key} className="impact-metric">
                   <span className="impact-number">{value}</span>
@@ -245,7 +258,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
           <div className="project-footer">
             <span className="project-role">{project.role}</span>
-            <span className="project-period">{project.period.display}</span>
+            <time className="project-period" dateTime={project.period.display}>{project.period.display}</time>
           </div>
         </div>
       </CardWrapper>
