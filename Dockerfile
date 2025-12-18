@@ -14,7 +14,7 @@
 # ============================================================================
 # Use Debian-based Node image instead of Alpine for better compatibility
 # with native modules (Rollup, esbuild, etc.)
-FROM node:20-slim AS builder
+FROM node:25-slim AS builder
 
 # Set working directory
 WORKDIR /app
