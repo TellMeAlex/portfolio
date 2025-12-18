@@ -67,6 +67,12 @@ export const Projects: React.FC = () => {
             isActive={activeFilter === 'iot'}
             onClick={handleFilterChange}
           />
+          <FilterButton
+            label="IA & Agentes"
+            filter="ai"
+            isActive={activeFilter === 'ai'}
+            onClick={handleFilterChange}
+          />
         </div>
       </div>
 
@@ -139,7 +145,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               ? '🏢'
               : project.category === 'web'
                 ? '🌐'
-                : '📡'}
+                : project.category === 'iot'
+                  ? '📡'
+                  : '🤖'}
           </span>
         </div>
         <div className="project-overlay">
@@ -203,7 +211,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                                 ? 'Eventos/día'
                                 : key === 'vehicles'
                                   ? 'Vehículos'
-                                  : key}
+                                  : key === 'students'
+                                    ? 'Estudiantes'
+                                    : key === 'repositories'
+                                      ? 'Repositorios'
+                                      : key}
                 </span>
               </div>
             ))}

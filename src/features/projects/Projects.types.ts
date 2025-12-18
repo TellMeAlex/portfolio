@@ -3,7 +3,7 @@
  * Source: prds/02-CONTENT-SPECIFICATIONS.md#proyectos-destacados
  */
 
-export type ProjectCategory = 'enterprise' | 'web' | 'iot'
+export type ProjectCategory = 'enterprise' | 'web' | 'iot' | 'ai'
 export type ProjectStatus = 'production' | 'completed'
 
 export interface ProjectImpact {
@@ -19,6 +19,8 @@ export interface ProjectImpact {
   vehicles?: string
   responseTime?: string
   mentoring?: string
+  students?: string
+  repositories?: string
 }
 
 export interface Project {

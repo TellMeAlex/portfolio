@@ -7,6 +7,62 @@ import type { ProjectsData } from './Projects.types'
 export const projectsData: ProjectsData = {
   projects: [
     {
+      id: 'ai-agents-workshop',
+      name: 'Taller Agentes IA & MCP',
+      tagline: 'Formación avanzada sobre agentes autónomos y protocolo MCP',
+      category: 'ai',
+      status: 'completed',
+      confidential: false,
+      client: 'Código Sin Siesta (Open Source)',
+      period: {
+        start: '2025-11',
+        end: '2025-12',
+        current: false,
+        display: 'Noviembre 2025 - Diciembre 2025',
+      },
+      description: {
+        short:
+          'Workshop teórico-práctico sobre la creación de agentes de IA utilizando Model Context Protocol.',
+        long: 'Diseño y liderazgo de un taller especializado en la arquitectura de agentes inteligentes. El contenido cubre desde la configuración de servidores MCP hasta la orquestación de LLMs para tareas de automatización complejas, fomentando la adopción de estándares abiertos en la comunidad de desarrolladores.',
+      },
+      role: 'Project Creator & Mentor',
+      impact: {
+        students: '50+ desarrolladores',
+        repositories: '3 repos vinculados',
+        mentoring: 'Soporte técnico directo',
+      },
+      technologies: ['TypeScript', 'MCP', 'LLMs', 'Node.js', 'LangChain'],
+      tags: ['AI', 'Open Source', 'Education'],
+    },
+    {
+      id: 'ai-interactive-presentation',
+      name: 'Interactive AI Storytelling',
+      tagline: 'Experiencia visual interactiva sobre el impacto de la GenAI',
+      category: 'ai',
+      status: 'completed',
+      confidential: false,
+      client: 'Código Sin Siesta',
+      period: {
+        start: '2025-10',
+        end: '2025-11',
+        current: false,
+        display: 'Octubre 2025 - Noviembre 2025',
+      },
+      description: {
+        short:
+          'Plataforma de presentación interactiva construida con Astro para divulgación tecnológica.',
+        long: 'Desarrollo de una plataforma de storytelling interactivo que utiliza Astro y MDX para explicar conceptos de Inteligencia Artificial Generativa. El proyecto prioriza el rendimiento y la experiencia de usuario para llevar temas técnicos complejos a una audiencia diversa.',
+      },
+      role: 'Lead Developer',
+      impact: {
+        performance: '100/100 Lighthouse',
+        reach: 'Comunidad Hispana',
+        scale: 'Despliegue Multi-idioma',
+      },
+      technologies: ['Astro', 'React', 'MDX', 'Tailwind CSS', 'TypeScript'],
+      tags: ['AI', 'State-of-the-Art', 'Interactive'],
+    },
+    {
       id: 'inditex-platform',
       name: 'Plataforma Inditex Store Management',
       tagline: 'Arquitectura microfrontends para gestión integral de tiendas',
