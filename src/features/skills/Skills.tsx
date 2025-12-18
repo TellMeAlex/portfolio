@@ -1,7 +1,6 @@
 /**
  * Skills Visualization Feature - Enhanced with Progress Bars
  * Animated skill bars with Intersection Observer
- * Source: prds/phases/PHASE-03-Advanced-Features.md#step-3
  */
 import React from 'react'
 import { Card } from '@/core/layout/Card'

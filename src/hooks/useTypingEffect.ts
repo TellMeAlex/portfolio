@@ -1,7 +1,6 @@
 /**
  * useTypingEffect Hook
  * Creates a typewriter animation effect for text
- * Source: prds/phases/PHASE-04-Animations.md
  */
 import { useEffect, useState } from 'react'
 

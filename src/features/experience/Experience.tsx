@@ -1,7 +1,6 @@
 /**
  * Experience Timeline Feature
  * Interactive professional experience timeline
- * Source: prds/phases/PHASE-03-Advanced-Features.md#step-1
  */
 import React, { useEffect, useRef } from 'react'
 import { Card } from '@/core/layout/Card'

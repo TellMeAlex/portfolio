@@ -1,6 +1,5 @@
 /**
  * Projects Showcase Feature Types
- * Source: prds/02-CONTENT-SPECIFICATIONS.md#proyectos-destacados
  */
 
 export type ProjectCategory = 'enterprise' | 'web' | 'iot' | 'ai'

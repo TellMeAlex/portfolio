@@ -1,7 +1,6 @@
 /**
  * Projects Showcase Feature
  * Interactive projects showcase with filtering
- * Source: prds/phases/PHASE-03-Advanced-Features.md#step-2
  */
 import React, { useState } from 'react'
 import { Card } from '@/core/layout/Card'

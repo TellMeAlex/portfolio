@@ -1,6 +1,5 @@
 /**
  * Experience Data
- * Source: prds/02-CONTENT-SPECIFICATIONS.md#experiencia-profesional
  */
 import type { ExperienceData } from './Experience.types'
 import { calculateYearsOfExperience } from '@/utils/date'

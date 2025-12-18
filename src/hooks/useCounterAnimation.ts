@@ -1,7 +1,6 @@
 /**
  * useCounterAnimation Hook
  * Animates numbers from 0 to target value
- * Source: prds/phases/PHASE-03-Advanced-Features.md#step-4
  */
 import { useEffect, useState } from 'react'
 

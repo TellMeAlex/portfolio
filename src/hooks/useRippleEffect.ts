@@ -1,7 +1,6 @@
 /**
  * useRippleEffect Hook
  * Creates a ripple effect on button clicks
- * Source: prds/phases/PHASE-04-Animations.md
  */
 import { useEffect, useRef } from 'react'
 

@@ -1,6 +1,5 @@
 /**
  * Experience Timeline Feature Types
- * Source: prds/02-CONTENT-SPECIFICATIONS.md#experiencia-profesional
  */
 
 export interface Position {

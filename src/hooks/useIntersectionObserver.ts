@@ -1,7 +1,6 @@
 /**
  * useIntersectionObserver Hook
  * Reusable hook for scroll-triggered animations
- * Source: prds/phases/PHASE-03-Advanced-Features.md
  */
 import { useEffect, useRef, useState } from 'react'
 

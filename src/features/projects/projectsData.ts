@@ -1,6 +1,5 @@
 /**
  * Projects Data
- * Source: prds/02-CONTENT-SPECIFICATIONS.md#proyectos-destacados
  */
 import type { ProjectsData } from './Projects.types'
 

@@ -1,7 +1,6 @@
 /**
  * Stats Counter Feature - Enhanced with Counter Animation
  * Animated counters with Intersection Observer
- * Source: prds/phases/PHASE-03-Advanced-Features.md#step-4
  */
 import React from 'react'
 import { Card } from '@/core/layout/Card'

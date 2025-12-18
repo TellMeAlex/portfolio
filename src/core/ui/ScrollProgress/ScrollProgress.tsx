@@ -1,7 +1,6 @@
 /**
  * ScrollProgress Component
  * Displays scroll progress indicator at top of page
- * Source: prds/phases/PHASE-04-Animations.md
  */
 import React from 'react'
 import { useScrollProgress } from '@/hooks/useScrollProgress'

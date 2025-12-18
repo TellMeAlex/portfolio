@@ -1,6 +1,5 @@
 /**
  * Skills Data
- * Source: prds/02-CONTENT-SPECIFICATIONS.md#habilidades-técnicas
  */
 
 export interface Skill {
