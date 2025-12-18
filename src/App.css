@@ -21,3 +21,28 @@
   overflow-x: hidden;
   width: 100%;
 }
+
+/* Terminal Logo Styles */
+.terminal-logo {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono), monospace;
+  letter-spacing: -0.5px;
+  cursor: pointer;
+  transition: transform var(--transition-base) var(--ease-out);
+}
+
+.terminal-logo:hover {
+  transform: translateX(4px);
+}
+
+.terminal-cursor {
+  color: var(--color-accent);
+  animation: terminal-blink 1s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes terminal-blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}

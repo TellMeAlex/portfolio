@@ -99,13 +99,18 @@ const App: React.FC = () => {
           <div
             role="banner"
             aria-label="Site logo"
+            className="terminal-logo"
             style={{
-              fontSize: 'var(--text-2xl)',
+              fontSize: 'var(--text-xl)',
               fontWeight: 'var(--font-bold)',
               color: 'var(--color-text-primary)',
             }}
           >
-            Alejandro de la Fuente
+            <span style={{ color: 'var(--color-accent)', marginRight: '0.5rem' }}>
+              &gt;
+            </span>
+            tellmealex
+            <span className="terminal-cursor">_</span>
           </div>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <PaletteSelector />
