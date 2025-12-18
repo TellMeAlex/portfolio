@@ -48,7 +48,9 @@
 
 .filter-btn--active {
   background: var(--color-accent);
-  color: var(--color-bg-primary); /* Use primary background color for contrast */
+  color: var(
+    --color-bg-primary
+  ); /* Use primary background color for contrast */
   border-color: var(--color-accent);
   font-weight: var(--font-semibold);
 }

@@ -106,7 +106,9 @@ const App: React.FC = () => {
               color: 'var(--color-text-primary)',
             }}
           >
-            <span style={{ color: 'var(--color-accent)', marginRight: '0.5rem' }}>
+            <span
+              style={{ color: 'var(--color-accent)', marginRight: '0.5rem' }}
+            >
               &gt;
             </span>
             tellmealex

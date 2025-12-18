@@ -58,7 +58,7 @@ export const Experience: React.FC = () => {
           />
         ))}
       </div>
-    </Card >
+    </Card>
   )
 }
 

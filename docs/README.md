@@ -1,23 +1,14 @@
-# 📚 Documentación del Portfolio
+# 📚 Documentación del Portfolio - Alejandro de la Fuente
 
-Bienvenido a la documentación completa del sistema de portfolio con CI/CD automático.
+Bienvenido a la documentación técnica del sistema de portfolio. Este proyecto utiliza un stack moderno optimizado para rendimiento, accesibilidad y mantenibilidad.
 
 ## 📋 Índice de Documentación
 
 ### 🚀 [CI/CD System](./CI-CD.md)
-Documentación completa del sistema de integración y despliegue continuo automático, incluyendo:
-- Arquitectura del sistema
-- Flujo de trabajo detallado
-- Configuración de componentes
-- Métricas y tiempos
-- Guías de configuración
+Detalles sobre la integración y despliegue continuo con GitHub Actions.
 
 ### 🔧 [Troubleshooting](./TROUBLESHOOTING.md)
-Guía completa para diagnosticar y resolver problemas, incluyendo:
-- Problemas comunes y soluciones
-- Comandos de diagnóstico
-- Procedimientos de emergencia
-- Scripts de health check
+Guía para resolver problemas comunes y procedimientos de mantenimiento.
 
 ## 🎯 Quick Start
 
@@ -28,164 +19,50 @@ git clone https://github.com/TellMeAlex/portfolio.git
 cd portfolio
 
 # 2. Instalar dependencias
-yarn install
+npm install
 
 # 3. Desarrollo local
-yarn dev
+npm run dev
 
-# 4. Deploy automático
+# 4. Integración
 git add .
-git commit -m "feat: nueva funcionalidad"
-git push origin main
-# ✨ CI/CD se ejecuta automáticamente
+git commit -m "feat: descripción de los cambios"
+git push origin feature/nombre-rama
 ```
 
-### Para Administradores
-```bash
-# Verificar estado del sistema
-./scripts/health-check.sh
+## 🏗️ arquitectura General
 
-# Monitorear workflows
-gh run list -R TellMeAlex/portfolio --limit 5
+Este proyecto sigue una arquitectura **basada en características (Feature-based)**:
+- **`src/core`**: Fundamentos compartidos (Design System, Layout, UI).
+- **`src/features`**: Módulos independientes para cada sección del portfolio (Experiencia, Proyectos, Skills).
+- **`src/features/stats`**: Componentes de métricas y contadores.
 
-# Acceder al servidor
-ssh root@198.12.82.184
-```
+## 🛠️ Stack Tecnológico
 
-## 🏗️ Arquitectura General
-
-```mermaid
-graph TB
-    subgraph "🧑‍💻 Development"
-        DEV[Developer]
-        LOCAL[Local Development]
-        GIT[Git Repository]
-    end
-
-    subgraph "🤖 CI/CD Pipeline"
-        QC[Quality Checks]
-        SC[Security Scan]
-        BUILD[Build Test]
-        DEPLOY[Deployment]
-    end
-
-    subgraph "🖥️ Production"
-        SERVER[Servidor 198.12.82.184]
-        CONTAINER[react-nginx-app]
-        WEBSITE[tellmealex.com]
-    end
-
-    DEV --> LOCAL
-    LOCAL --> GIT
-    GIT --> QC
-    QC --> SC
-    SC --> BUILD
-    BUILD --> DEPLOY
-    DEPLOY --> SERVER
-    SERVER --> CONTAINER
-    CONTAINER --> WEBSITE
-```
+- **Framework**: React 19 + TypeScript + Vite
+- **Estilos**: Vanilla CSS con Sistema de Tokens (CSS Variables)
+- **Animaciones**: CSS Transitions & Framer Motion (opcional en algunas features)
+- **Testing**: Vitest + Testing Library
+- **Calidad**: ESLint + Prettier + Husky (pre-commit hooks)
+- **CI/CD**: GitHub Actions
 
 ## 🔄 Flujo de Trabajo
 
-1. **Desarrollo**: Código en local con `yarn dev`
-2. **Validación**: Tests automáticos y quality checks
-3. **Integración**: Push a `main` trigger CI/CD
-4. **Deployment**: Actualización automática del servidor
-5. **Producción**: Sitio web live en tellmealex.com
+1. **Desarrollo**: Servidor local en `localhost:3000`.
+2. **Validación**: Los hooks de Husky ejecutan linting y formato antes de cada commit.
+3. **Integración**: Los cambios se integran en `main` tras validación.
+4. **Producción**: Live en [tellmealex.dev](https://tellmealex.dev/).
 
-## 📊 Estado Actual del Sistema
+## 📅 Historial de Cambios Técnicos
 
-### ✅ Componentes Funcionales
-- **CI/CD Pipeline**: 100% operativo
-- **SSH Deployment**: Automático y funcional
-- **Website**: Live en tellmealex.com
-- **SSL Certificates**: Activos y renovados automáticamente
-- **Container Health**: Monitoring activo
-
-### 🔧 Stack Tecnológico
-- **Frontend**: React 18 + TypeScript + Vite
-- **Styling**: Tailwind CSS
-- **Testing**: Vitest + Testing Library
-- **Quality**: ESLint + Prettier
-- **CI/CD**: GitHub Actions
-- **Infrastructure**: Docker + Nginx + Let's Encrypt
-- **Server**: Ubuntu 20.04 LTS
-
-## 📈 Métricas Clave
-
-- **Tiempo de CI/CD**: ~2 minutos promedio
-- **Uptime**: 99.9% (objetivo)
-- **SSL Score**: A+ (SSLLabs)
-- **Performance**: Core Web Vitals optimized
-- **Security**: Auditorías automáticas con yarn audit
-
-## 🛠️ Scripts Útiles
-
-### Desarrollo
-```bash
-yarn dev          # Servidor de desarrollo
-yarn build        # Build de producción
-yarn preview      # Preview del build
-yarn lint         # Linting
-yarn test         # Tests unitarios
-```
-
-### Deployment
-```bash
-yarn build:production  # Build optimizado para producción
-yarn lint:fix          # Fix automático de linting
-yarn format           # Format código
-yarn type-check       # Verificación TypeScript
-```
-
-### Monitoreo
-```bash
-# Ver estado de workflows
-gh run list -R TellMeAlex/portfolio
-
-# Ver logs de deployment
-gh run view [ID] --log-failed
-
-# Health check del servidor
-ssh root@198.12.82.184 "docker ps && curl -I http://localhost"
-```
-
-## 🔒 Configuración de Seguridad
-
-### GitHub Secrets
-- `SSH_HOST`: IP del servidor de producción
-- `SSH_USER`: Usuario para conexión SSH
-- `SSH_PRIVATE_KEY`: Clave privada para autenticación
-
-### Validaciones Automáticas
-- Code quality con ESLint
-- Security audit con yarn audit
-- Type checking con TypeScript
-- Unit tests con Vitest
-- Build verification
-
-## 🚨 Procedimientos de Emergencia
-
-### Rollback Rápido
-Ver [TROUBLESHOOTING.md](./TROUBLESHOOTING.md#emergency-procedures)
-
-### Contactos
-- **Developer**: llamamealex@gmail.com
-- **Repository**: https://github.com/TellMeAlex/portfolio
-- **Website**: https://tellmealex.com
-
-## 📅 Historial de Cambios
-
-### v1.0.0 (Octubre 2025)
-- ✅ Sistema CI/CD completo implementado
-- ✅ Deployment automático funcionando
-- ✅ Website live en tellmealex.com
-- ✅ Documentación completa creada
-- ✅ Troubleshooting guide implementado
+### v1.1.0 (Diciembre 2025) - Phase 03
+- ✅ Implementación completa de secciones de Experiencia, Proyectos y Habilidades.
+- ✅ Sistema de Temas (Dark/Light) con persistencia.
+- ✅ Mejoras de accesibilidad WCAG 2.1 AA (Contrastes corregidos).
+- ✅ Lazy loading de componentes pesados para optimizar performance.
+- ✅ Logo estilo terminal animado.
 
 ---
 
-**🎉 Sistema Completamente Operativo**
-**📅 Última actualización**: Octubre 2025
-**🔗 URL de producción**: https://tellmealex.com
+**📅 Última actualización**: Diciembre 2025
+**🔗 URL oficial**: [https://tellmealex.dev/](https://tellmealex.dev/)
