@@ -21,6 +21,9 @@ export interface ProjectImpact {
   mentoring?: string
   students?: string
   repositories?: string
+  innovation?: string
+  community?: string
+  ux?: string
 }
 
 export interface Project {
