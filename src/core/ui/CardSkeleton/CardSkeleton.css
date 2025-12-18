@@ -1,0 +1,113 @@
+/* CardSkeleton - Loading placeholder for lazy-loaded cards */
+
+.card-skeleton {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  padding: var(--space-6);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+/* Size variants matching Bento Grid cards */
+.card-skeleton--small {
+  min-height: 200px;
+}
+
+.card-skeleton--medium {
+  min-height: 250px;
+}
+
+.card-skeleton--large {
+  min-height: 400px;
+}
+
+.card-skeleton--xl {
+  min-height: 500px;
+}
+
+/* Skeleton elements */
+.card-skeleton__header {
+  margin-bottom: var(--space-4);
+}
+
+.card-skeleton__title {
+  height: 28px;
+  width: 60%;
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-3);
+}
+
+.card-skeleton__subtitle {
+  height: 20px;
+  width: 40%;
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+  opacity: 0.6;
+}
+
+.card-skeleton__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.card-skeleton__line {
+  height: 16px;
+  width: 100%;
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+  opacity: 0.4;
+}
+
+.card-skeleton__line--short {
+  width: 70%;
+}
+
+/* Pulsing animation */
+@keyframes skeleton-pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .card-skeleton {
+    animation: none;
+  }
+
+  .card-skeleton__title,
+  .card-skeleton__subtitle,
+  .card-skeleton__line {
+    opacity: 0.6;
+  }
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .card-skeleton--large {
+    min-height: 450px;
+  }
+
+  .card-skeleton--xl {
+    min-height: 550px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-skeleton--large {
+    min-height: 500px;
+  }
+
+  .card-skeleton--xl {
+    min-height: 600px;
+  }
+}

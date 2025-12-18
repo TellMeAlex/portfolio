@@ -8,7 +8,7 @@ export const experienceData: ExperienceData = {
   companies: [
     {
       name: 'NTT DATA',
-      location: 'Madrid, España',
+      location: 'Jaén, España',
       website: 'https://www.nttdata.com',
       industry: 'IT Services & Consulting',
       period: {
@@ -109,7 +109,7 @@ export const experienceData: ExperienceData = {
     },
     {
       name: 'HelloAuto',
-      location: 'Madrid, España',
+      location: 'Jaén, España',
       website: 'https://www.helloauto.com',
       industry: 'InsurTech / IoT',
       period: {

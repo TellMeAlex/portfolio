@@ -24,7 +24,12 @@ export const Projects: React.FC = () => {
   }
 
   return (
-    <Card size="xl" ariaLabel="Featured Projects" className="projects-card">
+    <Card
+      size="xl"
+      ariaLabel="Featured Projects"
+      className="projects-card"
+      id="projects"
+    >
       <div className="projects-header">
         <h2 className="section-title">
           <span className="title-icon" aria-hidden="true">

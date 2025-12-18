@@ -15,6 +15,7 @@ Implement sophisticated content sections featuring an interactive professional t
 ## 🎯 OBJECTIVES
 
 ### Primary Goals
+
 - ✅ Create interactive professional experience timeline
 - ✅ Build project showcase with detailed overlay system
 - ✅ Implement technical stack visualization
@@ -23,6 +24,7 @@ Implement sophisticated content sections featuring an interactive professional t
 - ✅ Establish testimonials and values presentation
 
 ### Success Metrics
+
 - Timeline interactions work seamlessly on touch and desktop
 - Project overlays load without layout shift
 - Counter animations trigger precisely on scroll intersection
@@ -37,8 +39,12 @@ Implement sophisticated content sections featuring an interactive professional t
 **Grid Placement**: `grid-column: span 3; grid-row: span 2;`
 
 **Timeline Structure**:
+
 ```html
-<section class="timeline-card card card--xl" aria-label="Professional Experience">
+<section
+  class="timeline-card card card--xl"
+  aria-label="Professional Experience"
+>
   <div class="timeline-header">
     <h2 class="section-title">Experiencia Laboral</h2>
   </div>
@@ -47,7 +53,10 @@ Implement sophisticated content sections featuring an interactive professional t
     <div class="timeline-line" aria-hidden="true"></div>
 
     <!-- NTT DATA Experience -->
-    <article class="timeline-item timeline-item--current" data-company="ntt-data">
+    <article
+      class="timeline-item timeline-item--current"
+      data-company="ntt-data"
+    >
       <div class="timeline-marker">
         <div class="timeline-dot"></div>
         <div class="timeline-date">2022 - Presente</div>
@@ -56,12 +65,15 @@ Implement sophisticated content sections featuring an interactive professional t
       <div class="timeline-content">
         <div class="company-header">
           <h3 class="company-name">NTT DATA</h3>
-          <div class="company-location">Madrid, España</div>
+          <div class="company-location">Jaén, España</div>
         </div>
 
         <!-- Multiple positions within company -->
         <div class="positions-list">
-          <div class="position-item position-item--current" data-position="technical-leader">
+          <div
+            class="position-item position-item--current"
+            data-position="technical-leader"
+          >
             <div class="position-header">
               <h4 class="position-title">Technical Leader Specialist</h4>
               <div class="position-period">Jul 2025 - Presente</div>
@@ -159,7 +171,7 @@ Implement sophisticated content sections featuring an interactive professional t
       <div class="timeline-content">
         <div class="company-header">
           <h3 class="company-name">HelloAuto</h3>
-          <div class="company-location">Madrid, España</div>
+          <div class="company-location">Jaén, España</div>
         </div>
 
         <div class="positions-list">
@@ -188,6 +200,7 @@ Implement sophisticated content sections featuring an interactive professional t
 ```
 
 **Timeline Interactions**:
+
 - Progressive line drawing animation on scroll
 - Hover expansion for each position with additional details
 - Click to expand/collapse position details
@@ -199,12 +212,15 @@ Implement sophisticated content sections featuring an interactive professional t
 **Grid Placement**: `grid-column: span 3; grid-row: span 3;`
 
 **Project Structure**:
+
 ```html
 <section class="projects-card card card--xl" aria-label="Featured Projects">
   <div class="projects-header">
     <h2 class="section-title">Proyectos Destacados</h2>
     <div class="projects-filter">
-      <button class="filter-btn filter-btn--active" data-filter="all">Todos</button>
+      <button class="filter-btn filter-btn--active" data-filter="all">
+        Todos
+      </button>
       <button class="filter-btn" data-filter="enterprise">Enterprise</button>
       <button class="filter-btn" data-filter="web">Web Apps</button>
       <button class="filter-btn" data-filter="iot">IoT</button>
@@ -213,11 +229,16 @@ Implement sophisticated content sections featuring an interactive professional t
 
   <div class="projects-grid">
     <!-- Project 1: Inditex Platform -->
-    <article class="project-item project-item--enterprise" data-project="inditex">
+    <article
+      class="project-item project-item--enterprise"
+      data-project="inditex"
+    >
       <div class="project-image">
-        <img src="images/projects/inditex-platform.webp"
-             alt="Inditex Store Management Platform"
-             loading="lazy">
+        <img
+          src="images/projects/inditex-platform.webp"
+          alt="Inditex Store Management Platform"
+          loading="lazy"
+        />
         <div class="project-overlay">
           <div class="project-status">
             <span class="status-indicator status-indicator--live">🟢</span>
@@ -236,8 +257,8 @@ Implement sophisticated content sections featuring an interactive professional t
         </div>
 
         <p class="project-description">
-          Arquitectura microfrontends para gestión integral de tiendas.
-          Primera plataforma RRHH publicada globalmente en el grupo Inditex.
+          Arquitectura microfrontends para gestión integral de tiendas. Primera
+          plataforma RRHH publicada globalmente en el grupo Inditex.
         </p>
 
         <div class="project-tech">
@@ -262,7 +283,10 @@ Implement sophisticated content sections featuring an interactive professional t
           <button class="btn btn--primary btn--small" data-action="case-study">
             Caso de Estudio
           </button>
-          <button class="btn btn--secondary btn--small" data-action="tech-details">
+          <button
+            class="btn btn--secondary btn--small"
+            data-action="tech-details"
+          >
             Detalles Técnicos
           </button>
         </div>
@@ -272,9 +296,11 @@ Implement sophisticated content sections featuring an interactive professional t
     <!-- Project 2: RTVE Play CMS -->
     <article class="project-item project-item--web" data-project="rtve">
       <div class="project-image">
-        <img src="images/projects/rtve-cms.webp"
-             alt="RTVE Play Content Management System"
-             loading="lazy">
+        <img
+          src="images/projects/rtve-cms.webp"
+          alt="RTVE Play Content Management System"
+          loading="lazy"
+        />
         <div class="project-overlay">
           <div class="project-status">
             <span class="status-indicator status-indicator--completed">✅</span>
@@ -316,9 +342,11 @@ Implement sophisticated content sections featuring an interactive professional t
         </div>
 
         <div class="project-actions">
-          <a href="https://github.com/TellMeAlex/rtve-project"
-             class="btn btn--primary btn--small"
-             target="_blank">
+          <a
+            href="https://github.com/TellMeAlex/rtve-project"
+            class="btn btn--primary btn--small"
+            target="_blank"
+          >
             Ver Código
           </a>
           <button class="btn btn--secondary btn--small" data-action="demo">
@@ -331,9 +359,11 @@ Implement sophisticated content sections featuring an interactive professional t
     <!-- Project 3: HelloAuto Telemetry -->
     <article class="project-item project-item--iot" data-project="helloauto">
       <div class="project-image">
-        <img src="images/projects/helloauto-dashboard.webp"
-             alt="HelloAuto Telemetry Dashboard"
-             loading="lazy">
+        <img
+          src="images/projects/helloauto-dashboard.webp"
+          alt="HelloAuto Telemetry Dashboard"
+          loading="lazy"
+        />
         <div class="project-overlay">
           <div class="project-status">
             <span class="status-indicator status-indicator--completed">✅</span>
@@ -352,8 +382,8 @@ Implement sophisticated content sections featuring an interactive professional t
         </div>
 
         <p class="project-description">
-          Panel de control IoT para monitorización de flotas vehiculares
-          con procesamiento de datos en tiempo real.
+          Panel de control IoT para monitorización de flotas vehiculares con
+          procesamiento de datos en tiempo real.
         </p>
 
         <div class="project-tech">
@@ -376,7 +406,10 @@ Implement sophisticated content sections featuring an interactive professional t
         </div>
 
         <div class="project-actions">
-          <button class="btn btn--primary btn--small" data-action="architecture">
+          <button
+            class="btn btn--primary btn--small"
+            data-action="architecture"
+          >
             Arquitectura
           </button>
           <button class="btn btn--secondary btn--small" data-action="metrics">
@@ -390,6 +423,7 @@ Implement sophisticated content sections featuring an interactive professional t
 ```
 
 **Project Overlay System**:
+
 - Detailed project information modal
 - Image gallery with project screenshots
 - Architecture diagrams and technical details
@@ -401,6 +435,7 @@ Implement sophisticated content sections featuring an interactive professional t
 **Grid Placement**: `grid-column: span 2; grid-row: span 2;`
 
 **Skills Categories**:
+
 ```html
 <section class="skills-card card card--large" aria-label="Technical Skills">
   <div class="skills-header">
@@ -564,6 +599,7 @@ Implement sophisticated content sections featuring an interactive professional t
 ```
 
 **Skills Animation**:
+
 - Skill bars animate on scroll with stagger effect
 - Hover interactions show detailed proficiency information
 - Category-based filtering and highlighting
@@ -574,8 +610,12 @@ Implement sophisticated content sections featuring an interactive professional t
 **Grid Placement**: `grid-column: span 2; grid-row: span 1;`
 
 **Statistics Implementation**:
+
 ```html
-<section class="stats-card card card--medium" aria-label="Professional Statistics">
+<section
+  class="stats-card card card--medium"
+  aria-label="Professional Statistics"
+>
   <div class="stats-header">
     <h2 class="section-title">Estadísticas & Logros</h2>
   </div>
@@ -615,29 +655,30 @@ Implement sophisticated content sections featuring an interactive professional t
 ```
 
 **Counter Animation Logic**:
+
 ```javascript
 // Intersection Observer for triggering animations
 const observerOptions = {
   threshold: 0.5,
-  rootMargin: '0px 0px -50px 0px'
-};
+  rootMargin: '0px 0px -50px 0px',
+}
 
 function animateCounter(element) {
-  const target = parseInt(element.dataset.count);
-  const suffix = element.dataset.suffix || '';
-  const duration = 2000; // 2 seconds
-  const step = target / (duration / 16); // 60fps
+  const target = parseInt(element.dataset.count)
+  const suffix = element.dataset.suffix || ''
+  const duration = 2000 // 2 seconds
+  const step = target / (duration / 16) // 60fps
 
-  let current = 0;
+  let current = 0
   const timer = setInterval(() => {
-    current += step;
+    current += step
     if (current >= target) {
-      current = target;
-      clearInterval(timer);
-      element.classList.add('stat-complete');
+      current = target
+      clearInterval(timer)
+      element.classList.add('stat-complete')
     }
-    element.textContent = Math.floor(current) + suffix;
-  }, 16);
+    element.textContent = Math.floor(current) + suffix
+  }, 16)
 }
 ```
 
@@ -646,8 +687,12 @@ function animateCounter(element) {
 **Grid Placement**: `grid-column: span 2; grid-row: span 1;`
 
 **Content Structure**:
+
 ```html
-<section class="education-card card card--medium" aria-label="Education and Certifications">
+<section
+  class="education-card card card--medium"
+  aria-label="Education and Certifications"
+>
   <div class="education-header">
     <h2 class="section-title">Certificaciones & Educación</h2>
   </div>
@@ -666,8 +711,10 @@ function animateCounter(element) {
             <div class="cert-date">2025</div>
           </div>
           <div class="cert-badge">
-            <img src="images/certs/genai-yellow-belt.svg"
-                 alt="GenAI Yellow Belt Certification">
+            <img
+              src="images/certs/genai-yellow-belt.svg"
+              alt="GenAI Yellow Belt Certification"
+            />
           </div>
         </div>
 
@@ -678,8 +725,10 @@ function animateCounter(element) {
             <div class="cert-date">2025</div>
           </div>
           <div class="cert-badge">
-            <img src="images/certs/genai-white-belt.svg"
-                 alt="GenAI White Belt Certification">
+            <img
+              src="images/certs/genai-white-belt.svg"
+              alt="GenAI White Belt Certification"
+            />
           </div>
         </div>
 
@@ -705,15 +754,9 @@ function animateCounter(element) {
         Educación
       </h3>
       <div class="education-item">
-        <h4 class="education-degree">
-          Ciclo Formativo Grado Superior
-        </h4>
-        <div class="education-field">
-          Desarrollo de Aplicaciones Web
-        </div>
-        <div class="education-institution">
-          Las Fuentezuelas
-        </div>
+        <h4 class="education-degree">Ciclo Formativo Grado Superior</h4>
+        <div class="education-field">Desarrollo de Aplicaciones Web</div>
+        <div class="education-institution">Las Fuentezuelas</div>
         <div class="education-period">2017-2019</div>
       </div>
     </div>
@@ -726,8 +769,12 @@ function animateCounter(element) {
 **Grid Placement**: `grid-column: span 2; grid-row: span 2;`
 
 **Content Structure**:
+
 ```html
-<section class="values-card card card--large" aria-label="Professional Values and Philosophy">
+<section
+  class="values-card card card--large"
+  aria-label="Professional Values and Philosophy"
+>
   <div class="values-header">
     <h2 class="section-title">Valores & Filosofía</h2>
   </div>
@@ -735,8 +782,8 @@ function animateCounter(element) {
   <div class="values-content">
     <blockquote class="personal-quote">
       <p class="quote-text">
-        "Me motiva aprender y compartir. Soy una persona curiosa y entusiasta
-        de los nuevos retos, que busca mantenerse siempre actualizada con las
+        "Me motiva aprender y compartir. Soy una persona curiosa y entusiasta de
+        los nuevos retos, que busca mantenerse siempre actualizada con las
         últimas tendencias del ecosistema frontend."
       </p>
       <cite class="quote-author">Alejandro de la Fuente</cite>
@@ -803,6 +850,7 @@ function animateCounter(element) {
 ## 📦 DELIVERABLES
 
 ### File Structure
+
 ```
 src/
 ├── images/
@@ -833,6 +881,7 @@ src/
 ```
 
 ### Interactive Features
+
 - Timeline navigation and expansion
 - Project filtering and detailed overlays
 - Skills category filtering and animations
@@ -843,6 +892,7 @@ src/
 ## 🧪 TESTING & VALIDATION
 
 ### Interaction Testing
+
 - [ ] Timeline interactions work on touch and desktop
 - [ ] Project overlays load without layout shift
 - [ ] Skills animations trigger correctly on scroll
@@ -851,6 +901,7 @@ src/
 - [ ] Mobile touch interactions feel responsive
 
 ### Performance Validation
+
 - [ ] Complex animations maintain 60fps
 - [ ] Image loading doesn't block interactions
 - [ ] Intersection Observer performance optimized
@@ -858,6 +909,7 @@ src/
 - [ ] No layout thrashing during scroll
 
 ### Data Integrity
+
 - [ ] All professional information is accurate
 - [ ] Project descriptions match actual work
 - [ ] Technical skills reflect genuine proficiency
@@ -867,6 +919,7 @@ src/
 ## 🚀 DEFINITION OF DONE
 
 ### Functional Criteria
+
 - ✅ Interactive timeline displays professional journey
 - ✅ Project showcase presents work with compelling visuals
 - ✅ Technical skills visualization demonstrates expertise
@@ -875,6 +928,7 @@ src/
 - ✅ All interactions work seamlessly across devices
 
 ### Quality Gates
+
 - ✅ Complex animations perform at 60fps
 - ✅ Touch interactions feel natural and responsive
 - ✅ All content is factually accurate and current
@@ -883,6 +937,7 @@ src/
 - ✅ Mobile experience is intuitive and fast
 
 ### Technical Excellence
+
 - [ ] Component architecture supports maintainability
 - [ ] Animation performance optimized
 - [ ] Data-driven components enable easy updates

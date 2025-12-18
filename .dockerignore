@@ -1,0 +1,52 @@
+# Node modules (se instalan en el build)
+node_modules/
+
+# Build output (se genera durante docker build)
+dist/
+build/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# CI/CD
+.github/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+.DS_Store
+Thumbs.db
+*.md
+!README.md
+
+# Documentation
+docs/
+prds/
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml

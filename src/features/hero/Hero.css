@@ -43,6 +43,30 @@
   font-weight: var(--font-semibold);
   color: var(--color-accent);
   line-height: var(--leading-normal);
+  min-height: 1.5em;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Typing cursor animation */
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background-color: var(--color-accent);
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 
 .hero-subtitle {
@@ -107,5 +131,13 @@
 
   .hero-name {
     font-size: var(--text-5xl);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .typing-cursor {
+    animation: none;
+    opacity: 1;
   }
 }

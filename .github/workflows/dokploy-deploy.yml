@@ -1,0 +1,29 @@
+name: Deployment Notification
+
+# Simple notification workflow after CI/CD passes
+# Manual deployment via Dokploy UI: http://100.122.202.103:3000
+
+on:
+  workflow_run:
+    workflows: ["CI/CD Pipeline"]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    # Only notify if CI/CD passed successfully
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+    - name: Deployment Ready Notification
+      run: |
+        echo "✅ CI/CD Pipeline passed successfully"
+        echo "🚀 Ready for deployment"
+        echo ""
+        echo "Manual deployment steps:"
+        echo "1. Access Dokploy: http://100.122.202.103:3000"
+        echo "2. Navigate to: Projects → portfolio → portfolio-app"
+        echo "3. Click 'Deploy' button"
+        echo ""
+        echo "Live site: https://tellmealex.dev"

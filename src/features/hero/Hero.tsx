@@ -1,9 +1,18 @@
 import React from 'react'
 import { Card } from '@/core/layout/Card'
 import { Button } from '@/core/ui/Button'
+import { useTypingEffect } from '@/hooks/useTypingEffect'
+import { scrollToSection } from '@/utils/scroll'
 import './Hero.css'
 
 export const Hero: React.FC = () => {
+  const { displayText } = useTypingEffect({
+    text: 'Technical Leader Specialist | Experto en IA',
+    speed: 80,
+    loop: false,
+    startDelay: 800,
+  })
+
   return (
     <Card size="xl" ariaLabel="Presentation section" className="hero-card">
       <div className="hero-content">
@@ -18,7 +27,8 @@ export const Hero: React.FC = () => {
 
           <div className="hero-title">
             <span className="typed-text">
-              Technical Leader Specialist | Experto en IA
+              {displayText}
+              <span className="typing-cursor" aria-hidden="true" />
             </span>
           </div>
 
@@ -41,13 +51,21 @@ export const Hero: React.FC = () => {
 
         {/* CTAs */}
         <div className="hero-actions">
-          <Button variant="primary">
+          <Button
+            variant="primary"
+            onClick={() => scrollToSection('projects')}
+            ariaLabel="Navigate to projects section"
+          >
             <span>Ver Proyectos</span>
             <span className="btn-icon" aria-hidden="true">
               →
             </span>
           </Button>
-          <Button variant="secondary">
+          <Button
+            variant="secondary"
+            onClick={() => scrollToSection('contact')}
+            ariaLabel="Navigate to contact section"
+          >
             <span className="btn-icon" aria-hidden="true">
               📧
             </span>

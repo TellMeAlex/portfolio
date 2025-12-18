@@ -15,6 +15,7 @@ Transform the portfolio into a production-ready, professionally polished website
 ## 🎯 OBJECTIVES
 
 ### Primary Goals
+
 - ✅ Achieve WCAG 2.1 AA compliance with 100% Lighthouse Accessibility score
 - ✅ Implement comprehensive keyboard navigation system
 - ✅ Optimize for screen readers and assistive technologies
@@ -23,6 +24,7 @@ Transform the portfolio into a production-ready, professionally polished website
 - ✅ Add premium finishing touches and micro-interactions
 
 ### Success Metrics
+
 - Lighthouse Accessibility score: 100
 - WAVE accessibility tool: 0 errors, 0 contrast errors
 - axe-core automated testing: 0 violations
@@ -35,91 +37,110 @@ Transform the portfolio into a production-ready, professionally polished website
 ### WCAG 2.1 AA Compliance Implementation
 
 **Comprehensive Accessibility Foundation**:
+
 ```html
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alejandro de la Fuente - Technical Leader Specialist | Portfolio Profesional</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Alejandro de la Fuente - Technical Leader Specialist | Portfolio
+      Profesional
+    </title>
+  </head>
 
-<body>
-  <!-- Skip Links for Screen Readers -->
-  <div class="skip-links">
-    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-    <a href="#navigation" class="skip-link">Saltar a la navegación</a>
-    <a href="#contact" class="skip-link">Saltar al contacto</a>
-  </div>
+  <body>
+    <!-- Skip Links for Screen Readers -->
+    <div class="skip-links">
+      <a href="#main-content" class="skip-link"
+        >Saltar al contenido principal</a
+      >
+      <a href="#navigation" class="skip-link">Saltar a la navegación</a>
+      <a href="#contact" class="skip-link">Saltar al contacto</a>
+    </div>
 
-  <!-- Main Landmark -->
-  <main id="main-content" role="main" tabindex="-1">
-    <h1 class="sr-only">Portfolio de Alejandro de la Fuente</h1>
+    <!-- Main Landmark -->
+    <main id="main-content" role="main" tabindex="-1">
+      <h1 class="sr-only">Portfolio de Alejandro de la Fuente</h1>
 
-    <!-- Hero Section with Proper Hierarchy -->
-    <section class="hero-card" aria-labelledby="hero-heading" role="banner">
-      <div class="hero-content">
-        <img src="images/alejandro-profile.webp"
-             alt="Fotografía profesional de Alejandro de la Fuente, Technical Leader Specialist"
-             class="profile-image"
-             role="img">
+      <!-- Hero Section with Proper Hierarchy -->
+      <section class="hero-card" aria-labelledby="hero-heading" role="banner">
+        <div class="hero-content">
+          <img
+            src="images/alejandro-profile.webp"
+            alt="Fotografía profesional de Alejandro de la Fuente, Technical Leader Specialist"
+            class="profile-image"
+            role="img"
+          />
 
-        <div class="hero-text">
-          <h2 id="hero-heading" class="hero-name">Alejandro de la Fuente</h2>
+          <div class="hero-text">
+            <h2 id="hero-heading" class="hero-name">Alejandro de la Fuente</h2>
 
-          <div class="hero-title"
-               aria-live="polite"
-               aria-label="Título profesional con efecto de escritura">
-            <span class="typing-text" role="text">Technical Leader Specialist | Experto en IA</span>
+            <div
+              class="hero-title"
+              aria-live="polite"
+              aria-label="Título profesional con efecto de escritura"
+            >
+              <span class="typing-text" role="text"
+                >Technical Leader Specialist | Experto en IA</span
+              >
+            </div>
+
+            <p class="hero-subtitle">
+              Liderando la transformación digital con IA en NTT DATA
+            </p>
+
+            <div class="hero-location" aria-label="Ubicación profesional">
+              <span class="location-icon" aria-hidden="true">📍</span>
+              <span>Jaén, Andalucía, España</span>
+            </div>
           </div>
 
-          <p class="hero-subtitle">
-            Liderando la transformación digital con IA en NTT DATA
-          </p>
+          <nav class="hero-actions" aria-label="Acciones principales">
+            <button
+              class="btn btn--primary"
+              data-scroll-to="projects"
+              aria-describedby="projects-description"
+            >
+              Ver Proyectos
+            </button>
+            <div id="projects-description" class="sr-only">
+              Navegar a la sección de proyectos destacados
+            </div>
 
-          <div class="hero-location" aria-label="Ubicación profesional">
-            <span class="location-icon" aria-hidden="true">📍</span>
-            <span>Jaén, Andalucía, España</span>
-          </div>
+            <a
+              href="assets/cv-alejandro-fuente.pdf"
+              class="btn btn--secondary"
+              download="CV-Alejandro-de-la-Fuente.pdf"
+              aria-describedby="cv-description"
+            >
+              Descargar CV
+            </a>
+            <div id="cv-description" class="sr-only">
+              Descargar currículum vitae en formato PDF, 1.2MB
+            </div>
+
+            <button
+              class="btn btn--tertiary"
+              data-scroll-to="contact"
+              aria-describedby="contact-description"
+            >
+              Contactar
+            </button>
+            <div id="contact-description" class="sr-only">
+              Navegar a la sección de información de contacto
+            </div>
+          </nav>
         </div>
-
-        <nav class="hero-actions" aria-label="Acciones principales">
-          <button class="btn btn--primary"
-                  data-scroll-to="projects"
-                  aria-describedby="projects-description">
-            Ver Proyectos
-          </button>
-          <div id="projects-description" class="sr-only">
-            Navegar a la sección de proyectos destacados
-          </div>
-
-          <a href="assets/cv-alejandro-fuente.pdf"
-             class="btn btn--secondary"
-             download="CV-Alejandro-de-la-Fuente.pdf"
-             aria-describedby="cv-description">
-            Descargar CV
-          </a>
-          <div id="cv-description" class="sr-only">
-            Descargar currículum vitae en formato PDF, 1.2MB
-          </div>
-
-          <button class="btn btn--tertiary"
-                  data-scroll-to="contact"
-                  aria-describedby="contact-description">
-            Contactar
-          </button>
-          <div id="contact-description" class="sr-only">
-            Navegar a la sección de información de contacto
-          </div>
-        </nav>
-      </div>
-    </section>
-  </main>
-</body>
+      </section>
+    </main>
+  </body>
 </html>
 ```
 
 **Screen Reader Optimized CSS**:
+
 ```css
 /* Screen Reader Only Content */
 .sr-only {
@@ -183,24 +204,25 @@ select:focus {
 /* Ensure sufficient contrast ratios */
 :root {
   /* WCAG AA Compliant Colors */
-  --color-text-primary: #FFFFFF; /* 15.3:1 ratio on navy */
-  --color-text-secondary: #CDD7ED; /* 7.2:1 ratio on navy */
-  --color-accent: #64FFDA; /* 8.9:1 ratio on navy */
-  --color-error: #FF6B6B; /* 4.5:1 ratio on navy */
-  --color-success: #51CF66; /* 5.2:1 ratio on navy */
+  --color-text-primary: #ffffff; /* 15.3:1 ratio on navy */
+  --color-text-secondary: #cdd7ed; /* 7.2:1 ratio on navy */
+  --color-accent: #64ffda; /* 8.9:1 ratio on navy */
+  --color-error: #ff6b6b; /* 4.5:1 ratio on navy */
+  --color-success: #51cf66; /* 5.2:1 ratio on navy */
 }
 
 /* Light theme contrast adjustments */
-[data-theme="light"] {
-  --color-text-primary: #2D3748; /* 12.6:1 ratio on light */
-  --color-text-secondary: #4A5568; /* 7.0:1 ratio on light */
-  --color-accent: #00A3C4; /* 4.5:1 ratio on light */
+[data-theme='light'] {
+  --color-text-primary: #2d3748; /* 12.6:1 ratio on light */
+  --color-text-secondary: #4a5568; /* 7.0:1 ratio on light */
+  --color-accent: #00a3c4; /* 4.5:1 ratio on light */
 }
 ```
 
 ### Advanced Keyboard Navigation
 
 **Comprehensive Keyboard Navigation System**:
+
 ```javascript
 class KeyboardNavigationManager {
   constructor() {
@@ -211,176 +233,181 @@ class KeyboardNavigationManager {
       'select:not([disabled])',
       'textarea:not([disabled])',
       '[tabindex]:not([tabindex="-1"])',
-      '[contenteditable="true"]'
-    ].join(', ');
+      '[contenteditable="true"]',
+    ].join(', ')
 
-    this.currentFocusIndex = -1;
-    this.focusableElementsList = [];
-    this.isMouseUser = false;
+    this.currentFocusIndex = -1
+    this.focusableElementsList = []
+    this.isMouseUser = false
 
-    this.init();
+    this.init()
   }
 
   init() {
-    this.updateFocusableElements();
-    this.bindEvents();
-    this.setupFocusTraps();
-    this.handleMouseKeyboardUsers();
+    this.updateFocusableElements()
+    this.bindEvents()
+    this.setupFocusTraps()
+    this.handleMouseKeyboardUsers()
   }
 
   updateFocusableElements() {
     this.focusableElementsList = Array.from(
       document.querySelectorAll(this.focusableElements)
-    ).filter(el => this.isVisible(el));
+    ).filter(el => this.isVisible(el))
   }
 
   isVisible(element) {
-    const style = window.getComputedStyle(element);
+    const style = window.getComputedStyle(element)
     return (
       style.display !== 'none' &&
       style.visibility !== 'hidden' &&
       style.opacity !== '0' &&
       element.offsetParent !== null
-    );
+    )
   }
 
   bindEvents() {
-    document.addEventListener('keydown', this.handleKeyDown.bind(this));
-    document.addEventListener('focusin', this.handleFocusIn.bind(this));
+    document.addEventListener('keydown', this.handleKeyDown.bind(this))
+    document.addEventListener('focusin', this.handleFocusIn.bind(this))
 
     // Update focusable elements when DOM changes
     const observer = new MutationObserver(() => {
-      this.updateFocusableElements();
-    });
+      this.updateFocusableElements()
+    })
 
     observer.observe(document.body, {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ['disabled', 'tabindex', 'aria-hidden']
-    });
+      attributeFilter: ['disabled', 'tabindex', 'aria-hidden'],
+    })
   }
 
   handleKeyDown(event) {
-    const { key, shiftKey, altKey, ctrlKey } = event;
+    const { key, shiftKey, altKey, ctrlKey } = event
 
     // Skip link activation
-    if (key === 'Tab' && !shiftKey && document.activeElement === document.body) {
-      const skipLink = document.querySelector('.skip-link');
+    if (
+      key === 'Tab' &&
+      !shiftKey &&
+      document.activeElement === document.body
+    ) {
+      const skipLink = document.querySelector('.skip-link')
       if (skipLink) {
-        skipLink.focus();
-        return;
+        skipLink.focus()
+        return
       }
     }
 
     // Escape key handling
     if (key === 'Escape') {
-      this.handleEscape();
+      this.handleEscape()
     }
 
     // Home/End navigation
     if (key === 'Home' && ctrlKey) {
-      event.preventDefault();
-      this.focusFirst();
+      event.preventDefault()
+      this.focusFirst()
     }
 
     if (key === 'End' && ctrlKey) {
-      event.preventDefault();
-      this.focusLast();
+      event.preventDefault()
+      this.focusLast()
     }
 
     // Custom navigation shortcuts
     if (altKey) {
       switch (key) {
         case '1':
-          event.preventDefault();
-          this.navigateToSection('hero');
-          break;
+          event.preventDefault()
+          this.navigateToSection('hero')
+          break
         case '2':
-          event.preventDefault();
-          this.navigateToSection('about');
-          break;
+          event.preventDefault()
+          this.navigateToSection('about')
+          break
         case '3':
-          event.preventDefault();
-          this.navigateToSection('projects');
-          break;
+          event.preventDefault()
+          this.navigateToSection('projects')
+          break
         case '4':
-          event.preventDefault();
-          this.navigateToSection('contact');
-          break;
+          event.preventDefault()
+          this.navigateToSection('contact')
+          break
       }
     }
   }
 
   handleEscape() {
     // Close any open modals or overlays
-    const openModal = document.querySelector('.modal.open, .overlay.open');
+    const openModal = document.querySelector('.modal.open, .overlay.open')
     if (openModal) {
-      this.closeModal(openModal);
-      return;
+      this.closeModal(openModal)
+      return
     }
 
     // Return focus to main content
-    const mainContent = document.getElementById('main-content');
+    const mainContent = document.getElementById('main-content')
     if (mainContent) {
-      mainContent.focus();
+      mainContent.focus()
     }
   }
 
   navigateToSection(sectionId) {
-    const section = document.getElementById(sectionId) ||
-                   document.querySelector(`[data-section="${sectionId}"]`);
+    const section =
+      document.getElementById(sectionId) ||
+      document.querySelector(`[data-section="${sectionId}"]`)
 
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-      section.focus();
+      section.scrollIntoView({ behavior: 'smooth' })
+      section.focus()
 
       // Announce navigation to screen readers
-      this.announceToScreenReader(`Navegando a la sección ${sectionId}`);
+      this.announceToScreenReader(`Navegando a la sección ${sectionId}`)
     }
   }
 
   focusFirst() {
     if (this.focusableElementsList.length > 0) {
-      this.focusableElementsList[0].focus();
+      this.focusableElementsList[0].focus()
     }
   }
 
   focusLast() {
     if (this.focusableElementsList.length > 0) {
-      this.focusableElementsList[this.focusableElementsList.length - 1].focus();
+      this.focusableElementsList[this.focusableElementsList.length - 1].focus()
     }
   }
 
   // Mouse vs Keyboard user detection
   handleMouseKeyboardUsers() {
     document.addEventListener('mousedown', () => {
-      this.isMouseUser = true;
-      document.body.classList.add('mouse-user');
-      document.body.classList.remove('keyboard-user');
-    });
+      this.isMouseUser = true
+      document.body.classList.add('mouse-user')
+      document.body.classList.remove('keyboard-user')
+    })
 
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', e => {
       if (e.key === 'Tab') {
-        this.isMouseUser = false;
-        document.body.classList.add('keyboard-user');
-        document.body.classList.remove('mouse-user');
+        this.isMouseUser = false
+        document.body.classList.add('keyboard-user')
+        document.body.classList.remove('mouse-user')
       }
-    });
+    })
   }
 
   announceToScreenReader(message) {
-    const announcement = document.createElement('div');
-    announcement.setAttribute('aria-live', 'polite');
-    announcement.setAttribute('aria-atomic', 'true');
-    announcement.classList.add('sr-only');
-    announcement.textContent = message;
+    const announcement = document.createElement('div')
+    announcement.setAttribute('aria-live', 'polite')
+    announcement.setAttribute('aria-atomic', 'true')
+    announcement.classList.add('sr-only')
+    announcement.textContent = message
 
-    document.body.appendChild(announcement);
+    document.body.appendChild(announcement)
 
     setTimeout(() => {
-      document.body.removeChild(announcement);
-    }, 1000);
+      document.body.removeChild(announcement)
+    }, 1000)
   }
 }
 ```
@@ -388,19 +415,25 @@ class KeyboardNavigationManager {
 ### Screen Reader Optimization
 
 **Enhanced Screen Reader Support**:
+
 ```html
 <!-- Timeline with Screen Reader Navigation -->
 <section class="timeline-card" aria-labelledby="timeline-heading" role="region">
   <h2 id="timeline-heading">Experiencia Laboral</h2>
 
-  <div class="timeline-container" role="list" aria-label="Línea temporal de experiencia profesional">
+  <div
+    class="timeline-container"
+    role="list"
+    aria-label="Línea temporal de experiencia profesional"
+  >
     <div class="timeline-line" aria-hidden="true"></div>
 
-    <article class="timeline-item"
-             role="listitem"
-             aria-labelledby="ntt-data-heading"
-             aria-describedby="ntt-data-description">
-
+    <article
+      class="timeline-item"
+      role="listitem"
+      aria-labelledby="ntt-data-heading"
+      aria-describedby="ntt-data-description"
+    >
       <div class="timeline-marker" aria-hidden="true">
         <div class="timeline-dot"></div>
         <time class="timeline-date" datetime="2022/2025">2022 - Presente</time>
@@ -409,16 +442,20 @@ class KeyboardNavigationManager {
       <div class="timeline-content">
         <header class="company-header">
           <h3 id="ntt-data-heading" class="company-name">NTT DATA</h3>
-          <div class="company-location">Madrid, España</div>
+          <div class="company-location">Jaén, España</div>
         </header>
 
         <div id="ntt-data-description" class="positions-list">
           <p class="company-summary">
-            Empresa multinacional de servicios de TI donde lidero proyectos de transformación
-            digital e innovación con inteligencia artificial.
+            Empresa multinacional de servicios de TI donde lidero proyectos de
+            transformación digital e innovación con inteligencia artificial.
           </p>
 
-          <div class="positions" role="list" aria-label="Posiciones en NTT DATA">
+          <div
+            class="positions"
+            role="list"
+            aria-label="Posiciones en NTT DATA"
+          >
             <div class="position-item" role="listitem">
               <h4 class="position-title">Technical Leader Specialist</h4>
               <time class="position-period" datetime="2025-07/P">
@@ -431,9 +468,11 @@ class KeyboardNavigationManager {
                 <li>Arquitectura microfrontends para Inditex</li>
               </ul>
 
-              <div class="position-skills"
-                   role="list"
-                   aria-label="Tecnologías utilizadas">
+              <div
+                class="position-skills"
+                role="list"
+                aria-label="Tecnologías utilizadas"
+              >
                 <span class="skill-tag" role="listitem">Leadership</span>
                 <span class="skill-tag" role="listitem">GenAI</span>
                 <span class="skill-tag" role="listitem">Microfrontends</span>
@@ -451,45 +490,57 @@ class KeyboardNavigationManager {
   <header class="projects-header">
     <h2 id="projects-heading">Proyectos Destacados</h2>
 
-    <div class="projects-filter"
-         role="tablist"
-         aria-label="Filtros de proyectos">
-      <button class="filter-btn filter-btn--active"
-              role="tab"
-              aria-selected="true"
-              aria-controls="projects-panel"
-              data-filter="all">
+    <div
+      class="projects-filter"
+      role="tablist"
+      aria-label="Filtros de proyectos"
+    >
+      <button
+        class="filter-btn filter-btn--active"
+        role="tab"
+        aria-selected="true"
+        aria-controls="projects-panel"
+        data-filter="all"
+      >
         Todos los proyectos
       </button>
-      <button class="filter-btn"
-              role="tab"
-              aria-selected="false"
-              aria-controls="projects-panel"
-              data-filter="enterprise">
+      <button
+        class="filter-btn"
+        role="tab"
+        aria-selected="false"
+        aria-controls="projects-panel"
+        data-filter="enterprise"
+      >
         Proyectos empresariales
       </button>
     </div>
   </header>
 
-  <div class="projects-grid"
-       id="projects-panel"
-       role="tabpanel"
-       aria-labelledby="projects-heading">
-
-    <article class="project-item"
-             aria-labelledby="inditex-title"
-             aria-describedby="inditex-description">
-
+  <div
+    class="projects-grid"
+    id="projects-panel"
+    role="tabpanel"
+    aria-labelledby="projects-heading"
+  >
+    <article
+      class="project-item"
+      aria-labelledby="inditex-title"
+      aria-describedby="inditex-description"
+    >
       <div class="project-image">
-        <img src="images/projects/inditex-platform.webp"
-             alt="Captura de pantalla de la plataforma de gestión de tiendas Inditex mostrando el dashboard principal con métricas de rendimiento"
-             loading="lazy">
+        <img
+          src="images/projects/inditex-platform.webp"
+          alt="Captura de pantalla de la plataforma de gestión de tiendas Inditex mostrando el dashboard principal con métricas de rendimiento"
+          loading="lazy"
+        />
 
         <div class="project-overlay" aria-hidden="true">
           <div class="project-status">
-            <span class="status-indicator status-indicator--live"
-                  role="img"
-                  aria-label="Estado: En producción"></span>
+            <span
+              class="status-indicator status-indicator--live"
+              role="img"
+              aria-label="Estado: En producción"
+            ></span>
             <span class="status-text">En Producción</span>
           </div>
         </div>
@@ -501,7 +552,11 @@ class KeyboardNavigationManager {
             Plataforma Inditex Store Management
           </h3>
 
-          <div class="project-tags" role="list" aria-label="Etiquetas del proyecto">
+          <div
+            class="project-tags"
+            role="list"
+            aria-label="Etiquetas del proyecto"
+          >
             <span class="project-tag project-tag--enterprise" role="listitem">
               Empresarial
             </span>
@@ -517,9 +572,11 @@ class KeyboardNavigationManager {
             Primera plataforma RRHH publicada globalmente en el grupo Inditex.
           </p>
 
-          <div class="project-tech"
-               role="list"
-               aria-label="Tecnologías utilizadas">
+          <div
+            class="project-tech"
+            role="list"
+            aria-label="Tecnologías utilizadas"
+          >
             <span class="tech-tag" role="listitem">React</span>
             <span class="tech-tag" role="listitem">Microfrontends</span>
             <span class="tech-tag" role="listitem">RTK Query</span>
@@ -539,13 +596,16 @@ class KeyboardNavigationManager {
         </div>
 
         <div class="project-actions">
-          <button class="btn btn--primary btn--small"
-                  data-action="case-study"
-                  aria-describedby="case-study-description">
+          <button
+            class="btn btn--primary btn--small"
+            data-action="case-study"
+            aria-describedby="case-study-description"
+          >
             Ver Caso de Estudio
           </button>
           <div id="case-study-description" class="sr-only">
-            Abrir información detallada sobre el desarrollo y implementación del proyecto
+            Abrir información detallada sobre el desarrollo y implementación del
+            proyecto
           </div>
         </div>
       </div>
@@ -557,6 +617,7 @@ class KeyboardNavigationManager {
 ### Loading States & Skeleton Screens
 
 **Professional Loading Experience**:
+
 ```css
 /* Skeleton Screen Styles */
 .skeleton {
@@ -633,16 +694,17 @@ class KeyboardNavigationManager {
 ```
 
 **Loading State Management**:
+
 ```javascript
 class LoadingStateManager {
   constructor() {
-    this.loadingElements = new Map();
-    this.init();
+    this.loadingElements = new Map()
+    this.init()
   }
 
   init() {
-    this.showInitialLoading();
-    this.setupProgressiveLoading();
+    this.showInitialLoading()
+    this.setupProgressiveLoading()
   }
 
   showInitialLoading() {
@@ -653,32 +715,32 @@ class LoadingStateManager {
       'timeline',
       'projects',
       'skills',
-      'contact'
-    ];
+      'contact',
+    ]
 
     contentSections.forEach(section => {
-      this.showSkeleton(section);
-    });
+      this.showSkeleton(section)
+    })
 
     // Simulate progressive loading
-    this.loadContentProgressively();
+    this.loadContentProgressively()
   }
 
   showSkeleton(sectionId) {
-    const section = document.querySelector(`[data-section="${sectionId}"]`);
-    if (!section) return;
+    const section = document.querySelector(`[data-section="${sectionId}"]`)
+    if (!section) return
 
-    const skeleton = this.createSkeleton(sectionId);
-    section.appendChild(skeleton);
+    const skeleton = this.createSkeleton(sectionId)
+    section.appendChild(skeleton)
 
-    this.loadingElements.set(sectionId, skeleton);
+    this.loadingElements.set(sectionId, skeleton)
   }
 
   createSkeleton(type) {
-    const skeleton = document.createElement('div');
-    skeleton.className = `${type}-skeleton`;
-    skeleton.setAttribute('aria-label', 'Contenido cargando');
-    skeleton.setAttribute('aria-live', 'polite');
+    const skeleton = document.createElement('div')
+    skeleton.className = `${type}-skeleton`
+    skeleton.setAttribute('aria-label', 'Contenido cargando')
+    skeleton.setAttribute('aria-live', 'polite')
 
     switch (type) {
       case 'hero':
@@ -689,37 +751,47 @@ class LoadingStateManager {
             <div class="skeleton skeleton-text"></div>
             <div class="skeleton skeleton-text"></div>
           </div>
-        `;
-        break;
+        `
+        break
 
       case 'timeline':
         skeleton.innerHTML = `
           <div class="timeline-skeleton">
-            ${Array(3).fill(0).map(() => `
+            ${Array(3)
+              .fill(0)
+              .map(
+                () => `
               <div class="skeleton-item">
                 <div class="skeleton skeleton-dot"></div>
                 <div class="skeleton skeleton-text"></div>
                 <div class="skeleton skeleton-text"></div>
               </div>
-            `).join('')}
+            `
+              )
+              .join('')}
           </div>
-        `;
-        break;
+        `
+        break
 
       case 'projects':
         skeleton.innerHTML = `
           <div class="projects-skeleton">
-            ${Array(3).fill(0).map(() => `
+            ${Array(3)
+              .fill(0)
+              .map(
+                () => `
               <div class="project-skeleton">
                 <div class="skeleton skeleton-image"></div>
                 <div class="skeleton skeleton-header"></div>
                 <div class="skeleton skeleton-text"></div>
                 <div class="skeleton skeleton-text"></div>
               </div>
-            `).join('')}
+            `
+              )
+              .join('')}
           </div>
-        `;
-        break;
+        `
+        break
 
       default:
         skeleton.innerHTML = `
@@ -729,10 +801,10 @@ class LoadingStateManager {
             <div class="skeleton skeleton-text"></div>
             <div class="skeleton skeleton-text"></div>
           </div>
-        `;
+        `
     }
 
-    return skeleton;
+    return skeleton
   }
 
   loadContentProgressively() {
@@ -742,59 +814,59 @@ class LoadingStateManager {
       { section: 'timeline', delay: 1200 },
       { section: 'projects', delay: 1500 },
       { section: 'skills', delay: 1800 },
-      { section: 'contact', delay: 2000 }
-    ];
+      { section: 'contact', delay: 2000 },
+    ]
 
     loadSequence.forEach(({ section, delay }) => {
       setTimeout(() => {
-        this.showContent(section);
-      }, delay);
-    });
+        this.showContent(section)
+      }, delay)
+    })
   }
 
   showContent(sectionId) {
-    const skeleton = this.loadingElements.get(sectionId);
-    const section = document.querySelector(`[data-section="${sectionId}"]`);
+    const skeleton = this.loadingElements.get(sectionId)
+    const section = document.querySelector(`[data-section="${sectionId}"]`)
 
     if (skeleton && section) {
       // Fade out skeleton
-      skeleton.style.opacity = '0';
-      skeleton.style.transition = 'opacity 0.3s ease-out';
+      skeleton.style.opacity = '0'
+      skeleton.style.transition = 'opacity 0.3s ease-out'
 
       setTimeout(() => {
-        skeleton.remove();
-        this.loadingElements.delete(sectionId);
+        skeleton.remove()
+        this.loadingElements.delete(sectionId)
 
         // Show actual content with fade in
-        const content = section.querySelector('.actual-content');
+        const content = section.querySelector('.actual-content')
         if (content) {
-          content.style.opacity = '0';
-          content.style.display = 'block';
+          content.style.opacity = '0'
+          content.style.display = 'block'
 
           requestAnimationFrame(() => {
-            content.style.transition = 'opacity 0.5s ease-in';
-            content.style.opacity = '1';
-          });
+            content.style.transition = 'opacity 0.5s ease-in'
+            content.style.opacity = '1'
+          })
         }
 
         // Announce content loaded to screen readers
-        this.announceContentLoaded(sectionId);
-      }, 300);
+        this.announceContentLoaded(sectionId)
+      }, 300)
     }
   }
 
   announceContentLoaded(sectionId) {
-    const announcement = document.createElement('div');
-    announcement.setAttribute('aria-live', 'polite');
-    announcement.setAttribute('aria-atomic', 'true');
-    announcement.classList.add('sr-only');
-    announcement.textContent = `Sección ${sectionId} cargada completamente`;
+    const announcement = document.createElement('div')
+    announcement.setAttribute('aria-live', 'polite')
+    announcement.setAttribute('aria-atomic', 'true')
+    announcement.classList.add('sr-only')
+    announcement.textContent = `Sección ${sectionId} cargada completamente`
 
-    document.body.appendChild(announcement);
+    document.body.appendChild(announcement)
 
     setTimeout(() => {
-      document.body.removeChild(announcement);
-    }, 2000);
+      document.body.removeChild(announcement)
+    }, 2000)
   }
 }
 ```
@@ -802,167 +874,173 @@ class LoadingStateManager {
 ### Error Handling & Fallbacks
 
 **Comprehensive Error Handling**:
+
 ```javascript
 class ErrorHandler {
   constructor() {
-    this.errors = [];
-    this.init();
+    this.errors = []
+    this.init()
   }
 
   init() {
-    this.setupGlobalErrorHandling();
-    this.setupImageFallbacks();
-    this.setupAnimationFallbacks();
-    this.setupNetworkErrorHandling();
+    this.setupGlobalErrorHandling()
+    this.setupImageFallbacks()
+    this.setupAnimationFallbacks()
+    this.setupNetworkErrorHandling()
   }
 
   setupGlobalErrorHandling() {
-    window.addEventListener('error', (event) => {
+    window.addEventListener('error', event => {
       this.logError({
         type: 'javascript',
         message: event.message,
         filename: event.filename,
         lineno: event.lineno,
         colno: event.colno,
-        error: event.error
-      });
-    });
+        error: event.error,
+      })
+    })
 
-    window.addEventListener('unhandledrejection', (event) => {
+    window.addEventListener('unhandledrejection', event => {
       this.logError({
         type: 'promise',
         message: event.reason.message || 'Unhandled promise rejection',
-        reason: event.reason
-      });
-    });
+        reason: event.reason,
+      })
+    })
   }
 
   setupImageFallbacks() {
-    document.addEventListener('error', (event) => {
-      if (event.target.tagName === 'IMG') {
-        this.handleImageError(event.target);
-      }
-    }, true);
+    document.addEventListener(
+      'error',
+      event => {
+        if (event.target.tagName === 'IMG') {
+          this.handleImageError(event.target)
+        }
+      },
+      true
+    )
   }
 
   handleImageError(img) {
     // Try alternative formats
-    const src = img.src;
-    const baseName = src.replace(/\.[^/.]+$/, '');
+    const src = img.src
+    const baseName = src.replace(/\.[^/.]+$/, '')
 
     const fallbacks = [
       `${baseName}.jpg`,
       `${baseName}.png`,
-      'images/placeholder-image.svg'
-    ];
+      'images/placeholder-image.svg',
+    ]
 
-    this.tryImageFallbacks(img, fallbacks, 0);
+    this.tryImageFallbacks(img, fallbacks, 0)
   }
 
   tryImageFallbacks(img, fallbacks, index) {
     if (index >= fallbacks.length) {
       // Show error placeholder
-      this.showImagePlaceholder(img);
-      return;
+      this.showImagePlaceholder(img)
+      return
     }
 
-    const testImg = new Image();
+    const testImg = new Image()
     testImg.onload = () => {
-      img.src = fallbacks[index];
-    };
+      img.src = fallbacks[index]
+    }
 
     testImg.onerror = () => {
-      this.tryImageFallbacks(img, fallbacks, index + 1);
-    };
+      this.tryImageFallbacks(img, fallbacks, index + 1)
+    }
 
-    testImg.src = fallbacks[index];
+    testImg.src = fallbacks[index]
   }
 
   showImagePlaceholder(img) {
-    const placeholder = document.createElement('div');
-    placeholder.className = 'image-placeholder';
-    placeholder.setAttribute('role', 'img');
-    placeholder.setAttribute('aria-label', 'Imagen no disponible');
+    const placeholder = document.createElement('div')
+    placeholder.className = 'image-placeholder'
+    placeholder.setAttribute('role', 'img')
+    placeholder.setAttribute('aria-label', 'Imagen no disponible')
     placeholder.innerHTML = `
       <div class="placeholder-content">
         <span class="placeholder-icon" aria-hidden="true">📷</span>
         <span class="placeholder-text">Imagen no disponible</span>
       </div>
-    `;
+    `
 
-    img.parentNode.replaceChild(placeholder, img);
+    img.parentNode.replaceChild(placeholder, img)
   }
 
   setupAnimationFallbacks() {
     // Detect animation support
-    const hasAnimationSupport = 'animation' in document.createElement('div').style;
+    const hasAnimationSupport =
+      'animation' in document.createElement('div').style
 
     if (!hasAnimationSupport) {
-      document.body.classList.add('no-animations');
-      this.showStaticContent();
+      document.body.classList.add('no-animations')
+      this.showStaticContent()
     }
   }
 
   showStaticContent() {
     // Show final states of animated elements immediately
-    const animatedElements = document.querySelectorAll('[data-animation]');
+    const animatedElements = document.querySelectorAll('[data-animation]')
     animatedElements.forEach(element => {
-      element.classList.add('animation-complete');
-    });
+      element.classList.add('animation-complete')
+    })
   }
 
   setupNetworkErrorHandling() {
     // Monitor online/offline status
     window.addEventListener('online', () => {
-      this.handleNetworkRestore();
-    });
+      this.handleNetworkRestore()
+    })
 
     window.addEventListener('offline', () => {
-      this.handleNetworkLoss();
-    });
+      this.handleNetworkLoss()
+    })
 
     // Check initial network status
     if (!navigator.onLine) {
-      this.handleNetworkLoss();
+      this.handleNetworkLoss()
     }
   }
 
   handleNetworkLoss() {
-    this.showNetworkError();
+    this.showNetworkError()
   }
 
   handleNetworkRestore() {
-    this.hideNetworkError();
-    this.retryFailedRequests();
+    this.hideNetworkError()
+    this.retryFailedRequests()
   }
 
   showNetworkError() {
-    const errorBanner = document.createElement('div');
-    errorBanner.className = 'network-error-banner';
-    errorBanner.setAttribute('role', 'alert');
-    errorBanner.setAttribute('aria-live', 'assertive');
+    const errorBanner = document.createElement('div')
+    errorBanner.className = 'network-error-banner'
+    errorBanner.setAttribute('role', 'alert')
+    errorBanner.setAttribute('aria-live', 'assertive')
     errorBanner.innerHTML = `
       <div class="error-content">
         <span class="error-icon" aria-hidden="true">⚠️</span>
         <span class="error-message">Sin conexión a internet. Algunos elementos pueden no estar disponibles.</span>
         <button class="error-dismiss" aria-label="Cerrar notificación">×</button>
       </div>
-    `;
+    `
 
-    document.body.prepend(errorBanner);
+    document.body.prepend(errorBanner)
 
     // Auto-dismiss after 10 seconds
     setTimeout(() => {
       if (errorBanner.parentNode) {
-        this.hideNetworkError();
+        this.hideNetworkError()
       }
-    }, 10000);
+    }, 10000)
   }
 
   hideNetworkError() {
-    const errorBanner = document.querySelector('.network-error-banner');
+    const errorBanner = document.querySelector('.network-error-banner')
     if (errorBanner) {
-      errorBanner.remove();
+      errorBanner.remove()
     }
   }
 
@@ -971,18 +1049,18 @@ class ErrorHandler {
       ...errorInfo,
       timestamp: new Date().toISOString(),
       userAgent: navigator.userAgent,
-      url: window.location.href
-    });
+      url: window.location.href,
+    })
 
     // Send to analytics in production
     if (typeof gtag !== 'undefined') {
       gtag('event', 'exception', {
         description: errorInfo.message,
-        fatal: false
-      });
+        fatal: false,
+      })
     }
 
-    console.warn('Error logged:', errorInfo);
+    console.warn('Error logged:', errorInfo)
   }
 }
 ```
@@ -990,6 +1068,7 @@ class ErrorHandler {
 ### Premium Finishing Touches
 
 **Custom Cursor Implementation**:
+
 ```css
 /* Custom Cursor */
 .custom-cursor {
@@ -1002,7 +1081,9 @@ class ErrorHandler {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
   mix-blend-mode: difference;
 }
 
@@ -1023,7 +1104,7 @@ class ErrorHandler {
 
 .custom-cursor-active a,
 .custom-cursor-active button,
-.custom-cursor-active [role="button"] {
+.custom-cursor-active [role='button'] {
   cursor: none;
 }
 
@@ -1042,83 +1123,87 @@ class ErrorHandler {
 ```
 
 **Custom Cursor JavaScript**:
+
 ```javascript
 class CustomCursor {
   constructor() {
-    this.cursor = null;
-    this.isVisible = false;
-    this.isSupported = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    this.cursor = null
+    this.isVisible = false
+    this.isSupported = window.matchMedia(
+      '(hover: hover) and (pointer: fine)'
+    ).matches
 
     if (this.isSupported && !this.isTouchDevice()) {
-      this.init();
+      this.init()
     }
   }
 
   isTouchDevice() {
-    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0
   }
 
   init() {
-    this.createCursor();
-    this.bindEvents();
-    document.body.classList.add('custom-cursor-active');
+    this.createCursor()
+    this.bindEvents()
+    document.body.classList.add('custom-cursor-active')
   }
 
   createCursor() {
-    this.cursor = document.createElement('div');
-    this.cursor.className = 'custom-cursor';
-    this.cursor.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(this.cursor);
+    this.cursor = document.createElement('div')
+    this.cursor.className = 'custom-cursor'
+    this.cursor.setAttribute('aria-hidden', 'true')
+    document.body.appendChild(this.cursor)
   }
 
   bindEvents() {
-    document.addEventListener('mousemove', this.updatePosition.bind(this));
-    document.addEventListener('mouseenter', this.show.bind(this));
-    document.addEventListener('mouseleave', this.hide.bind(this));
+    document.addEventListener('mousemove', this.updatePosition.bind(this))
+    document.addEventListener('mouseenter', this.show.bind(this))
+    document.addEventListener('mouseleave', this.hide.bind(this))
 
     // Interactive element events
-    const interactiveElements = 'a, button, [role="button"], input, textarea, select';
+    const interactiveElements =
+      'a, button, [role="button"], input, textarea, select'
 
-    document.addEventListener('mouseover', (e) => {
+    document.addEventListener('mouseover', e => {
       if (e.target.matches(interactiveElements)) {
-        this.cursor.classList.add('custom-cursor--hover');
+        this.cursor.classList.add('custom-cursor--hover')
       }
-    });
+    })
 
-    document.addEventListener('mouseout', (e) => {
+    document.addEventListener('mouseout', e => {
       if (e.target.matches(interactiveElements)) {
-        this.cursor.classList.remove('custom-cursor--hover');
+        this.cursor.classList.remove('custom-cursor--hover')
       }
-    });
+    })
 
     document.addEventListener('mousedown', () => {
-      this.cursor.classList.add('custom-cursor--click');
-    });
+      this.cursor.classList.add('custom-cursor--click')
+    })
 
     document.addEventListener('mouseup', () => {
-      this.cursor.classList.remove('custom-cursor--click');
-    });
+      this.cursor.classList.remove('custom-cursor--click')
+    })
   }
 
   updatePosition(e) {
-    if (!this.cursor) return;
+    if (!this.cursor) return
 
     requestAnimationFrame(() => {
-      this.cursor.style.left = `${e.clientX - 10}px`;
-      this.cursor.style.top = `${e.clientY - 10}px`;
-    });
+      this.cursor.style.left = `${e.clientX - 10}px`
+      this.cursor.style.top = `${e.clientY - 10}px`
+    })
   }
 
   show() {
-    if (!this.cursor) return;
-    this.cursor.style.opacity = '1';
-    this.isVisible = true;
+    if (!this.cursor) return
+    this.cursor.style.opacity = '1'
+    this.isVisible = true
   }
 
   hide() {
-    if (!this.cursor) return;
-    this.cursor.style.opacity = '0';
-    this.isVisible = false;
+    if (!this.cursor) return
+    this.cursor.style.opacity = '0'
+    this.isVisible = false
   }
 }
 ```
@@ -1126,6 +1211,7 @@ class CustomCursor {
 ## 📦 DELIVERABLES
 
 ### Accessibility Implementation
+
 ```
 accessibility/
 ├── wcag-compliance/
@@ -1148,6 +1234,7 @@ accessibility/
 ```
 
 ### Premium Features
+
 ```
 premium/
 ├── loading-states/
@@ -1171,6 +1258,7 @@ premium/
 ## 🧪 TESTING & VALIDATION
 
 ### Accessibility Testing
+
 - [ ] Lighthouse Accessibility audit: 100 score
 - [ ] axe-core automated testing: 0 violations
 - [ ] WAVE accessibility tool: 0 errors
@@ -1179,6 +1267,7 @@ premium/
 - [ ] Color contrast validation (4.5:1 ratio minimum)
 
 ### User Experience Testing
+
 - [ ] Loading states function smoothly
 - [ ] Error handling works correctly
 - [ ] Custom cursor performs well on supported devices
@@ -1186,6 +1275,7 @@ premium/
 - [ ] Touch interactions remain unaffected
 
 ### Cross-Platform Validation
+
 - [ ] Accessibility features work across browsers
 - [ ] Screen reader compatibility verified
 - [ ] High contrast mode support
@@ -1195,6 +1285,7 @@ premium/
 ## 🚀 DEFINITION OF DONE
 
 ### Accessibility Excellence
+
 - ✅ WCAG 2.1 AA compliance verified
 - ✅ Lighthouse Accessibility score: 100
 - ✅ Zero violations in automated accessibility testing
@@ -1203,6 +1294,7 @@ premium/
 - ✅ Keyboard navigation fully functional
 
 ### Professional Polish
+
 - ✅ Loading states and skeleton screens implemented
 - ✅ Comprehensive error handling and fallbacks
 - ✅ Custom cursor for enhanced desktop experience
@@ -1211,6 +1303,7 @@ premium/
 - ✅ Print styles and high contrast mode support
 
 ### Production Excellence
+
 - ✅ All user scenarios tested and validated
 - ✅ Performance impact of accessibility features minimized
 - ✅ Documentation complete for accessibility features

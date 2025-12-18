@@ -30,8 +30,8 @@
   /* Bento Grid */
   --grid-gap: 1.5rem; /* 24px */
   --grid-max-width: 1400px;
-  --grid-padding-mobile: 2rem;
-  --grid-padding-desktop: 4rem;
+  --grid-padding-mobile: 1.5rem;
+  --grid-padding-desktop: 2rem;
 
   /* Breakpoints (For reference in media queries) */
   --breakpoint-sm: 640px;

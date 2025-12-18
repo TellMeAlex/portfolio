@@ -1,0 +1,23 @@
+/* ============================================
+   APP LAYOUT STYLES
+   Global layout and responsive header/footer
+   ============================================ */
+
+/* Desktop responsive padding for header and footer */
+@media (min-width: 1024px) {
+  header#navigation {
+    padding-left: var(--grid-padding-desktop) !important;
+    padding-right: var(--grid-padding-desktop) !important;
+  }
+
+  footer {
+    padding-left: var(--grid-padding-desktop) !important;
+    padding-right: var(--grid-padding-desktop) !important;
+  }
+}
+
+/* Prevent horizontal overflow */
+.min-h-screen {
+  overflow-x: hidden;
+  width: 100%;
+}
