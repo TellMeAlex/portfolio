@@ -31,7 +31,7 @@ export const projectsData: ProjectsData = {
         community: 'Open Source',
         students: '50+ desarrolladores',
       },
-      technologies: ['TypeScript', 'MCP', 'LLMs', 'Node.js', 'LangChain'],
+      technologies: ['TypeScript', 'MCP', 'LLMs', 'Node.js'],
       tags: ['AI', 'Education', 'Open Source'],
     },
     {
