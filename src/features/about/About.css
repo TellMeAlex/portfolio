@@ -36,9 +36,9 @@
 }
 
 .badge--available {
-  background: rgba(100, 255, 218, 0.1);
+  background: rgba(var(--color-accent-rgb), 0.1);
   color: var(--color-accent);
-  border: 1px solid var(--color-cyan);
+  border: 1px solid var(--color-accent);
 }
 
 .badge-icon {
@@ -87,7 +87,7 @@
 .highlight-value {
   font-size: var(--text-4xl);
   font-weight: var(--font-extrabold);
-  color: var(--color-cyan);
+  color: var(--color-accent);
   line-height: 1;
 }
 

@@ -55,10 +55,10 @@
 .counter-value {
   font-size: var(--text-6xl);
   font-weight: var(--font-extrabold);
-  color: var(--color-cyan);
+  color: var(--color-accent);
   line-height: 1;
   font-family: var(--font-mono);
-  text-shadow: 0 0 20px rgba(100, 255, 218, 0.5);
+  text-shadow: 0 0 20px rgba(var(--color-accent-rgb), 0.5);
 }
 
 .counter {
@@ -94,7 +94,7 @@
 
 /* Hover Effects */
 .stats-counter:hover .counter-value {
-  text-shadow: 0 0 30px rgba(100, 255, 218, 0.8);
+  text-shadow: 0 0 30px rgba(var(--color-accent-rgb), 0.8);
   transform: scale(1.05);
 }
 

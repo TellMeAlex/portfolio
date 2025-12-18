@@ -74,7 +74,7 @@ pre {
 }
 
 code {
-  background: rgba(100, 255, 218, 0.1);
+  background: rgba(var(--color-accent-rgb), 0.1);
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
   color: var(--color-accent);

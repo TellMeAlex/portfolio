@@ -10,7 +10,7 @@
   left: 0;
   width: 100%;
   height: 4px;
-  background: rgba(100, 255, 218, 0.1);
+  background: rgba(var(--color-accent-rgb), 0.1);
   z-index: var(--z-fixed);
   overflow: hidden;
 }

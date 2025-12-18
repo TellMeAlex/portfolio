@@ -23,12 +23,12 @@
 }
 
 .theme-toggle:hover {
-  border-color: var(--color-cyan);
+  border-color: var(--color-accent);
   transform: scale(1.05);
 }
 
 .theme-toggle:focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--color-accent);
   outline-offset: 4px;
 }
 

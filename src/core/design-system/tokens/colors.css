@@ -27,6 +27,7 @@
   --color-text-primary: var(--color-white);
   --color-text-secondary: var(--color-gray-light);
   --color-accent: var(--color-cyan);
+  --color-accent-rgb: 100, 255, 218; /* RGB for #64ffda */
 
   /* Status Colors */
   --color-error: #ff6b6b;
@@ -37,9 +38,9 @@
   /* Light Theme Colors */
   --color-bg-primary-light: #f8fafc;
   --color-bg-secondary-light: #ffffff;
-  --color-text-primary-light: #2d3748;
+  --color-text-primary-light: #1a202c; /* Darker than #2d3748 */
   --color-text-secondary-light: #4a5568;
-  --color-accent-light: #00a3c4;
+  --color-accent-light: #007c91; /* Darker than #00a3c4 for AA contrast */
 }
 
 /* Light Theme Overrides - Default Palette */
@@ -49,6 +50,7 @@
   --color-text-primary: var(--color-text-primary-light);
   --color-text-secondary: var(--color-text-secondary-light);
   --color-accent: var(--color-accent-light);
+  --color-accent-rgb: 0, 124, 145; /* RGB for #007c91 */
 
   /* Adjusted shadows for light theme */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.08);
@@ -82,6 +84,7 @@
   --color-text-primary: #f0f4f8;
   --color-text-secondary: #b8c5d0;
   --color-accent: #6c5ce7;
+  --color-accent-rgb: 108, 92, 231; /* RGB for #6c5ce7 */
 
   /* Status Colors */
   --color-error: #ff6b8a;
@@ -103,6 +106,7 @@
   --color-text-primary: var(--color-text-primary-light);
   --color-text-secondary: var(--color-text-secondary-light);
   --color-accent: var(--color-accent-light);
+  --color-accent-rgb: 108, 92, 231;
 
   --shadow-sm: 0 1px 2px 0 rgba(108, 92, 231, 0.08);
   --shadow-md:
@@ -137,6 +141,7 @@
   --color-text-primary: #e6edf3;
   --color-text-secondary: #9ca3af;
   --color-accent: #10b981;
+  --color-accent-rgb: 16, 185, 129; /* RGB for #10b981 */
 
   /* Status Colors */
   --color-error: #f87171;
@@ -158,6 +163,7 @@
   --color-text-primary: var(--color-text-primary-light);
   --color-text-secondary: var(--color-text-secondary-light);
   --color-accent: var(--color-accent-light);
+  --color-accent-rgb: 5, 150, 105; /* RGB for #059669 */
 
   --shadow-sm: 0 1px 2px 0 rgba(5, 150, 105, 0.08);
   --shadow-md:
@@ -192,6 +198,7 @@
   --color-text-primary: #f8fafc;
   --color-text-secondary: #cbd5e1;
   --color-accent: #f59e0b;
+  --color-accent-rgb: 245, 158, 11; /* RGB for #f59e0b */
 
   /* Status Colors */
   --color-error: #f87171;
@@ -213,6 +220,7 @@
   --color-text-primary: var(--color-text-primary-light);
   --color-text-secondary: var(--color-text-secondary-light);
   --color-accent: var(--color-accent-light);
+  --color-accent-rgb: 217, 119, 6; /* RGB for #d97706 */
 
   --shadow-sm: 0 1px 2px 0 rgba(217, 119, 6, 0.08);
   --shadow-md:
@@ -247,6 +255,7 @@
   --color-text-primary: #fafafa;
   --color-text-secondary: #a1a1aa;
   --color-accent: #fb7185;
+  --color-accent-rgb: 251, 113, 133; /* RGB for #fb7185 */
 
   /* Status Colors */
   --color-error: #fda4af;
@@ -268,6 +277,7 @@
   --color-text-primary: var(--color-text-primary-light);
   --color-text-secondary: var(--color-text-secondary-light);
   --color-accent: var(--color-accent-light);
+  --color-accent-rgb: 225, 29, 72; /* RGB for #e11d48 */
 
   --shadow-sm: 0 1px 2px 0 rgba(225, 29, 72, 0.08);
   --shadow-md:

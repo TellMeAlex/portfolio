@@ -11,7 +11,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(10, 25, 47, 0.8);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
   z-index: var(--z-modal-backdrop, 1000);
   animation: fadeIn 0.2s ease-out;
@@ -35,7 +35,7 @@
   width: 100%;
   max-width: 400px;
   background: var(--color-bg-secondary);
-  border-left: 1px solid rgba(100, 255, 218, 0.2);
+  border-left: 1px solid rgba(var(--color-accent-rgb), 0.2);
   box-shadow: var(--shadow-xl);
   z-index: var(--z-modal, 1001);
   overflow-y: auto;
@@ -65,7 +65,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-6);
-  border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+  border-bottom: 1px solid rgba(var(--color-accent-rgb), 0.1);
   background: var(--color-bg-primary);
   position: sticky;
   top: 0;
@@ -94,7 +94,7 @@
   height: 40px;
   padding: 0;
   background: transparent;
-  border: 1px solid rgba(100, 255, 218, 0.2);
+  border: 1px solid rgba(var(--color-accent-rgb), 0.2);
   border-radius: var(--radius-md);
   color: var(--color-text-primary);
   font-size: var(--text-xl);
@@ -103,13 +103,13 @@
 }
 
 .panel-close-button:hover {
-  background: rgba(100, 255, 218, 0.1);
+  background: rgba(var(--color-accent-rgb), 0.1);
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
 
 .panel-close-button:focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
@@ -146,8 +146,8 @@
   justify-content: space-between;
   gap: var(--space-4);
   padding: var(--space-4);
-  background: rgba(100, 255, 218, 0.05);
-  border: 1px solid rgba(100, 255, 218, 0.1);
+  background: rgba(var(--color-accent-rgb), 0.05);
+  border: 1px solid rgba(var(--color-accent-rgb), 0.1);
   border-radius: var(--radius-md);
   margin-bottom: var(--space-3);
 }
@@ -176,8 +176,8 @@
   position: relative;
   width: 52px;
   height: 28px;
-  background: rgba(100, 255, 218, 0.1);
-  border: 1px solid rgba(100, 255, 218, 0.3);
+  background: rgba(var(--color-accent-rgb), 0.1);
+  border: 1px solid rgba(var(--color-accent-rgb), 0.3);
   border-radius: 14px;
   cursor: pointer;
   transition: all var(--transition-base) var(--ease-out);
@@ -186,18 +186,18 @@
 }
 
 .toggle-button:hover {
-  background: rgba(100, 255, 218, 0.15);
+  background: rgba(var(--color-accent-rgb), 0.15);
   border-color: var(--color-accent);
 }
 
 .toggle-button:focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
 .toggle-button--active {
-  background: var(--color-cyan);
-  border-color: var(--color-cyan);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .toggle-slider {
@@ -231,7 +231,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-3);
-  background: rgba(100, 255, 218, 0.05);
+  background: rgba(var(--color-accent-rgb), 0.05);
   border-radius: var(--radius-sm);
 }
 
@@ -239,10 +239,10 @@
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
-  color: var(--color-cyan);
-  background: rgba(100, 255, 218, 0.1);
+  color: var(--color-accent);
+  background: rgba(var(--color-accent-rgb), 0.1);
   padding: var(--space-1) var(--space-3);
-  border: 1px solid rgba(100, 255, 218, 0.3);
+  border: 1px solid rgba(var(--color-accent-rgb), 0.3);
   border-radius: var(--radius-sm);
 }
 
@@ -255,7 +255,7 @@
 .panel-footer {
   margin-top: var(--space-6);
   padding-top: var(--space-6);
-  border-top: 1px solid rgba(100, 255, 218, 0.1);
+  border-top: 1px solid rgba(var(--color-accent-rgb), 0.1);
 }
 
 .reset-button {
@@ -265,20 +265,20 @@
   font-weight: var(--font-medium);
   color: var(--color-text-secondary);
   background: transparent;
-  border: 1px solid rgba(100, 255, 218, 0.2);
+  border: 1px solid rgba(var(--color-accent-rgb), 0.2);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-base) var(--ease-out);
 }
 
 .reset-button:hover {
-  background: rgba(100, 255, 218, 0.05);
+  background: rgba(var(--color-accent-rgb), 0.05);
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
 
 .reset-button:focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 

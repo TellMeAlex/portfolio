@@ -12,8 +12,8 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
-  background: var(--color-cyan);
-  color: var(--color-navy);
+  background: var(--color-accent);
+  color: var(--color-bg-primary);
   border: none;
   border-radius: var(--radius-full);
   font-size: var(--text-sm);
@@ -29,13 +29,14 @@
 }
 
 .accessibility-button:hover {
-  background: var(--color-cyan-light);
+  background: var(--color-accent);
+  filter: brightness(1.1);
   transform: translateY(-4px);
   box-shadow: var(--shadow-xl);
 }
 
 .accessibility-button:focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--color-accent);
   outline-offset: 4px;
 }
 

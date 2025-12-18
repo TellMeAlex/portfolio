@@ -6,7 +6,7 @@
 
 /* Focus Indicators - WCAG 2.4.7 */
 *:focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--color-accent);
   outline-offset: 4px;
 }
 
@@ -29,7 +29,7 @@
   top: 0;
   z-index: var(--z-skip-link);
   padding: var(--space-4) var(--space-6);
-  background: var(--color-cyan);
+  background: var(--color-accent);
   color: var(--color-navy);
   font-weight: var(--font-bold);
   text-decoration: none;
@@ -69,7 +69,7 @@
 
 /* Keyboard navigation indicator */
 body.keyboard-navigation *:focus {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--color-accent);
   outline-offset: 4px;
 }
 
@@ -119,21 +119,21 @@ select:focus-visible,
 textarea:focus-visible,
 [role='button']:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--color-accent);
   outline-offset: 4px;
   border-radius: var(--radius-sm);
 }
 
 /* Card focus styles */
 .card:focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--color-accent);
   outline-offset: 4px;
-  box-shadow: 0 0 0 4px rgba(100, 255, 218, 0.1);
+  box-shadow: 0 0 0 4px rgba(var(--color-accent-rgb), 0.1);
 }
 
 /* Filter button focus styles */
 .filter-btn:focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
@@ -151,7 +151,7 @@ a:not(.btn):not(.contact-social-link):not(.skip-link):hover {
 
 /* Focus within for containers */
 .card:focus-within {
-  box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
+  box-shadow: 0 0 0 2px rgba(var(--color-accent-rgb), 0.2);
 }
 
 /* Visible keyboard shortcuts hint */

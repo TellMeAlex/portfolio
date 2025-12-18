@@ -89,7 +89,7 @@ const App: React.FC = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             background: 'var(--color-bg-secondary)',
-            borderBottom: '1px solid rgba(100, 255, 218, 0.1)',
+            borderBottom: '1px solid rgba(var(--color-accent-rgb), 0.1)',
             maxWidth: 'var(--grid-max-width)',
             margin: '0 auto',
             width: '100%',
@@ -194,7 +194,7 @@ const App: React.FC = () => {
           style={{
             padding: 'var(--space-16) var(--grid-padding-mobile)',
             textAlign: 'center',
-            borderTop: '1px solid rgba(100, 255, 218, 0.1)',
+            borderTop: '1px solid rgba(var(--color-accent-rgb), 0.1)',
             maxWidth: 'var(--grid-max-width)',
             margin: '0 auto',
             width: '100%',

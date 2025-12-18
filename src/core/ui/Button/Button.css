@@ -33,14 +33,14 @@
 
 /* Primary Button */
 .btn--primary {
-  background: var(--color-cyan);
+  background: var(--color-accent);
   color: var(--color-navy);
 }
 
 .btn--primary:hover {
   background: var(--color-white);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(100, 255, 218, 0.4);
+  box-shadow: 0 4px 12px rgba(var(--color-accent-rgb), 0.4);
 }
 
 .btn--primary:active {
@@ -50,12 +50,12 @@
 /* Secondary Button */
 .btn--secondary {
   background: transparent;
-  color: var(--color-cyan);
-  border: 2px solid var(--color-cyan);
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
 }
 
 .btn--secondary:hover {
-  background: var(--color-cyan);
+  background: var(--color-accent);
   color: var(--color-navy);
 }
 
@@ -67,8 +67,8 @@
 }
 
 .btn--tertiary:hover {
-  color: var(--color-cyan);
-  border-color: var(--color-cyan);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 /* Button States */
@@ -79,7 +79,7 @@
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--color-accent);
   outline-offset: 4px;
 }
 
@@ -124,7 +124,7 @@
   transform: translateY(-2px) scale(1.05);
   box-shadow:
     0 10px 25px rgba(0, 0, 0, 0.2),
-    0 0 15px rgba(100, 255, 218, 0.2);
+    0 0 15px rgba(var(--color-accent-rgb), 0.2);
 }
 
 .btn--primary:active,
