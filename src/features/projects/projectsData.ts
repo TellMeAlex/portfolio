@@ -33,6 +33,7 @@ export const projectsData: ProjectsData = {
       },
       technologies: ['TypeScript', 'MCP', 'LLMs', 'Node.js'],
       tags: ['AI', 'Education', 'Open Source'],
+      url: 'https://github.com/CodigoSinSiesta/taller-ia-agentes-mcp',
     },
     {
       id: 'codigo-sin-siesta-platform',
@@ -61,6 +62,7 @@ export const projectsData: ProjectsData = {
       },
       technologies: ['JavaScript', 'CSS', 'Markdown', 'Git'],
       tags: ['Community', 'Education', 'Content'],
+      url: 'https://codigosinsiesta.github.io/',
     },
     {
       id: 'inditex-platform',
@@ -125,6 +127,7 @@ export const projectsData: ProjectsData = {
       },
       technologies: ['Node.js', 'Swig.js', 'Puppeteer', 'CI/CD'],
       tags: ['Public Sector', 'APIs', 'Automation'],
+      url: 'https://www.rtve.es/play/',
     },
     {
       id: 'helloauto-telemetry',
@@ -154,6 +157,7 @@ export const projectsData: ProjectsData = {
       },
       technologies: ['React', 'Node.js', 'Express', 'Azure', 'Cypress'],
       tags: ['IoT', 'Real-time', 'Microservices'],
+      url: 'https://helloauto.com/',
     },
   ],
 }

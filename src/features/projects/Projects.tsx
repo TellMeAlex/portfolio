@@ -131,108 +131,124 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   // Get first 2 impact metrics
   const impactEntries = Object.entries(project.impact).slice(0, 3)
 
+  const CardWrapper = project.url ? 'a' : 'div'
+
   return (
     <article
       className="project-item"
       data-category={project.category}
       data-project={project.id}
     >
-      {/* Project Image/Placeholder */}
-      <div className="project-image">
-        <div className="project-placeholder">
-          <span className="placeholder-icon">
-            {project.category === 'enterprise'
-              ? '🏢'
-              : project.category === 'web'
-                ? '🌐'
-                : project.category === 'iot'
-                  ? '📡'
-                  : '🤖'}
-          </span>
-        </div>
-        <div className="project-overlay">
-          <div className="project-status">
-            <span
-              className={`status-indicator status-indicator--${project.status}`}
-              aria-label={statusText}
-            >
-              {statusIcon}
+      <CardWrapper
+        href={project.url}
+        target={project.url ? '_blank' : undefined}
+        rel={project.url ? 'noopener noreferrer' : undefined}
+        className="project-card-link"
+        style={{
+          textDecoration: 'none',
+          color: 'inherit',
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+        }}
+      >
+        {/* Project Image/Placeholder */}
+        <div className="project-image">
+          <div className="project-placeholder">
+            <span className="placeholder-icon">
+              {project.category === 'enterprise'
+                ? '🏢'
+                : project.category === 'web'
+                  ? '🌐'
+                  : project.category === 'iot'
+                    ? '📡'
+                    : '🤖'}
             </span>
-            <span className="status-text">{statusText}</span>
+          </div>
+          <div className="project-overlay">
+            <div className="project-status">
+              <span
+                className={`status-indicator status-indicator--${project.status}`}
+                aria-label={statusText}
+              >
+                {statusIcon}
+              </span>
+              <span className="status-text">{statusText}</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Project Content */}
-      <div className="project-content">
-        <div className="project-header">
-          <h3 className="project-title">{project.name}</h3>
-          <div className="project-tags">
-            {project.tags.map((tag, index) => (
-              <span
-                key={index}
-                className={`project-tag project-tag--${tag.toLowerCase().replace(/\s+/g, '-')}`}
-              >
-                {tag}
+        {/* Project Content */}
+        <div className="project-content">
+          <div className="project-header">
+            <h3 className="project-title">{project.name}</h3>
+            <div className="project-tags">
+              {project.tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className={`project-tag project-tag--${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <p className="project-description">{project.description.short}</p>
+
+          <div className="project-tech">
+            {project.technologies.map((tech, index) => (
+              <span key={index} className="tech-tag">
+                {tech}
               </span>
             ))}
           </div>
-        </div>
 
-        <p className="project-description">{project.description.short}</p>
+          {impactEntries.length > 0 && (
+            <div className="project-impact">
+              {impactEntries.map(([key, value]) => (
+                <div key={key} className="impact-metric">
+                  <span className="impact-number">{value}</span>
+                  <span className="impact-label">
+                    {key === 'coverage'
+                      ? 'Cobertura'
+                      : key === 'performance'
+                        ? 'Rendimiento'
+                        : key === 'scale'
+                          ? 'Escalabilidad'
+                          : key === 'reach'
+                            ? 'Impacto'
+                            : key === 'errorReduction'
+                              ? 'Calidad'
+                              : key === 'uptime'
+                                ? 'Disponibilidad'
+                                : key === 'eventsPerDay'
+                                  ? 'Carga'
+                                  : key === 'vehicles'
+                                    ? 'Unidades'
+                                    : key === 'students'
+                                      ? 'Participantes'
+                                      : key === 'repositories'
+                                        ? 'Repositorios'
+                                        : key === 'innovation'
+                                          ? 'Innovación'
+                                          : key === 'community'
+                                            ? 'Comunidad'
+                                            : key === 'ux'
+                                              ? 'Experiencia'
+                                              : key}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
 
-        <div className="project-tech">
-          {project.technologies.map((tech, index) => (
-            <span key={index} className="tech-tag">
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        {impactEntries.length > 0 && (
-          <div className="project-impact">
-            {impactEntries.map(([key, value]) => (
-              <div key={key} className="impact-metric">
-                <span className="impact-number">{value}</span>
-                <span className="impact-label">
-                  {key === 'coverage'
-                    ? 'Cobertura'
-                    : key === 'performance'
-                      ? 'Rendimiento'
-                      : key === 'scale'
-                        ? 'Escalabilidad'
-                        : key === 'reach'
-                          ? 'Impacto'
-                          : key === 'errorReduction'
-                            ? 'Calidad'
-                            : key === 'uptime'
-                              ? 'Disponibilidad'
-                              : key === 'eventsPerDay'
-                                ? 'Carga'
-                                : key === 'vehicles'
-                                  ? 'Unidades'
-                                  : key === 'students'
-                                    ? 'Participantes'
-                                    : key === 'repositories'
-                                      ? 'Repositorios'
-                                      : key === 'innovation'
-                                        ? 'Innovación'
-                                        : key === 'community'
-                                          ? 'Comunidad'
-                                          : key === 'ux'
-                                            ? 'Experiencia'
-                                            : key}
-                </span>
-              </div>
-            ))}
+          <div className="project-footer">
+            <span className="project-role">{project.role}</span>
+            <span className="project-period">{project.period.display}</span>
           </div>
-        )}
-
-        <div className="project-footer">
-          <span className="project-role">{project.role}</span>
-          <span className="project-period">{project.period.display}</span>
         </div>
-      </div>
+      </CardWrapper>
     </article>
   )
 }

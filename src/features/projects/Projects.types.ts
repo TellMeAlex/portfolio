@@ -51,6 +51,7 @@ export interface Project {
   images?: {
     hero?: string
   }
+  url?: string
 }
 
 export interface ProjectsData {
