@@ -229,7 +229,7 @@ jobs:
 
     - name: Create issue for major updates
       if: steps.major-updates.outputs.has_major == 'true'
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           const majorUpdates = '${{ steps.major-updates.outputs.major_updates }}';
