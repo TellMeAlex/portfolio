@@ -139,7 +139,7 @@ jobs:
         echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
 
     - name: Comment preview URL
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           github.rest.issues.createComment({
@@ -163,7 +163,7 @@ jobs:
 
     steps:
     - name: Auto-assign reviewers
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           const reviewers = ['alejandro']; // Add your reviewers here
@@ -180,7 +180,7 @@ jobs:
 
     steps:
     - name: Auto-label PR
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           const { data: files } = await github.rest.pulls.listFiles({
