@@ -15,7 +15,9 @@ export const About: React.FC = () => {
       keyboardHint="2"
     >
       <div className="about-header">
-        <h2 className="section-title" id="about-heading">Sobre Mí</h2>
+        <h2 className="section-title" id="about-heading">
+          Sobre Mí
+        </h2>
         <div
           className="badge badge--available"
           role="status"
@@ -30,10 +32,10 @@ export const About: React.FC = () => {
 
       <div className="about-content" aria-labelledby="about-heading">
         <p className="about-text">
-          Desarrollador web especializado en ReactJS con más de {years} años liderando
-          proyectos de transformación digital en NTT DATA. Actualmente me
-          desempeño como Technical Leader Specialist, liderando iniciativas de
-          IA y automatización para clientes como Inditex.
+          Desarrollador web especializado en ReactJS con más de {years} años
+          liderando proyectos de transformación digital en NTT DATA. Actualmente
+          me desempeño como Technical Leader Specialist, liderando iniciativas
+          de IA y automatización para clientes como Inditex.
         </p>
 
         <p className="about-text">
@@ -42,7 +44,11 @@ export const About: React.FC = () => {
           liderazgo técnico, mentoría y evangelización tecnológica.
         </p>
 
-        <div className="about-highlights" role="list" aria-label="Aspectos destacados">
+        <div
+          className="about-highlights"
+          role="list"
+          aria-label="Aspectos destacados"
+        >
           <div className="highlight-item" role="listitem">
             <span className="highlight-icon" aria-hidden="true">
               🤖
@@ -50,7 +56,9 @@ export const About: React.FC = () => {
             <span className="highlight-text">Especialista en IA</span>
           </div>
           <div className="highlight-item" role="listitem">
-            <span className="highlight-value" aria-label={`${years} años`}>{years}+</span>
+            <span className="highlight-value" aria-label={`${years} años`}>
+              {years}+
+            </span>
             <span className="highlight-label">años de experiencia</span>
           </div>
         </div>

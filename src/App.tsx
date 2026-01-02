@@ -176,7 +176,8 @@ const App: React.FC = () => {
               fontSize: 'var(--text-sm)',
             }}
           >
-            © {new Date().getFullYear()} Alejandro de la Fuente. Todos los derechos reservados.
+            © {new Date().getFullYear()} Alejandro de la Fuente. Todos los
+            derechos reservados.
           </p>
         </footer>
       </div>

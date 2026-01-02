@@ -4,7 +4,11 @@ import './AILeadership.css'
 
 export const AILeadership: React.FC = () => {
   return (
-    <Card size="large" ariaLabel="Liderazgo en IA e Innovación" id="ai-leadership">
+    <Card
+      size="large"
+      ariaLabel="Liderazgo en IA e Innovación"
+      id="ai-leadership"
+    >
       <div className="ai-leadership-card">
         <div className="section-header">
           <h2 className="section-title" id="ai-leadership-heading">
@@ -20,7 +24,10 @@ export const AILeadership: React.FC = () => {
             Como Technical Leader Specialist en NTT DATA, lidero:
           </p>
 
-          <ul className="responsibilities-list" aria-labelledby="ai-leadership-heading">
+          <ul
+            className="responsibilities-list"
+            aria-labelledby="ai-leadership-heading"
+          >
             <li className="responsibility-item">
               <span className="check-icon" aria-hidden="true">
                 ✓
@@ -38,7 +45,10 @@ export const AILeadership: React.FC = () => {
               </span>
               <div className="responsibility-text">
                 <strong>Talleres de GenAI y herramientas de IA:</strong>
-                <ul className="workshop-list" aria-label="Temas de talleres impartidos">
+                <ul
+                  className="workshop-list"
+                  aria-label="Temas de talleres impartidos"
+                >
                   <li>
                     "Sacarle partido a la IA: Instructions de Copilot y Agentes"
                   </li>
@@ -70,7 +80,11 @@ export const AILeadership: React.FC = () => {
           </ul>
 
           <div className="certifications">
-            <span className="certification-badge" role="status" aria-label="Certificación actual">
+            <span
+              className="certification-badge"
+              role="status"
+              aria-label="Certificación actual"
+            >
               <span aria-hidden="true">🏅</span>
               Certificado GenAI Yellow Belt
             </span>

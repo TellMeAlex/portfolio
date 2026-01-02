@@ -64,5 +64,7 @@ export const ProjectsCounter: React.FC = () => {
 
 export const ExperienceCounter: React.FC = () => {
   const years = calculateYearsOfExperience('2021-02')
-  return <StatCounter value={years} suffix="+" label="Años experiencia" icon="💼" />
+  return (
+    <StatCounter value={years} suffix="+" label="Años experiencia" icon="💼" />
+  )
 }

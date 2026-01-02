@@ -1,0 +1,36 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "./dist",
+      "url": ["http://localhost:3000/index.html"],
+      "numberOfRuns": 3,
+      "headless": true,
+      "settings": {
+        "chromeFlags": "--no-sandbox --disable-gpu",
+        "onlyCategories": ["performance", "accessibility", "best-practices", "seo"]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    },
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "categories:performance": ["warning", { "minScore": 0.75 }],
+        "categories:accessibility": ["warning", { "minScore": 0.80 }],
+        "categories:best-practices": ["warning", { "minScore": 0.80 }],
+        "categories:seo": ["warning", { "minScore": 0.85 }],
+        "aria-allowed-role": ["off"],
+        "errors-in-console": ["off"],
+        "label-content-name-mismatch": ["off"],
+        "network-dependency-tree-insight": ["off"],
+        "unused-javascript": ["off"],
+        "modern-javascript-modules": "off",
+        "unsized-images": "off",
+        "offscreen-images": ["warning", { "maxLength": 5 }],
+        "unused-css-rules": ["warning", { "maxLength": 1000 }],
+        "render-blocking-resources": ["warning", { "maxLength": 5 }]
+      }
+    }
+  }
+}

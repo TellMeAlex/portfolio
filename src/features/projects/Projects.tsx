@@ -192,7 +192,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         {/* Project Content */}
         <div className="project-content">
           <header className="project-header">
-            <h3 className="project-title" id={`${projectId}-title`}>{project.name}</h3>
+            <h3 className="project-title" id={`${projectId}-title`}>
+              {project.name}
+            </h3>
             <div className="project-tags" role="list" aria-label="Etiquetas">
               {project.tags.map((tag, index) => (
                 <span
@@ -257,7 +259,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
           <div className="project-footer">
             <span className="project-role">{project.role}</span>
-            <time className="project-period" dateTime={project.period.display}>{project.period.display}</time>
+            <time className="project-period" dateTime={project.period.display}>
+              {project.period.display}
+            </time>
           </div>
         </div>
       </CardWrapper>

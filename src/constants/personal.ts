@@ -52,8 +52,7 @@ export const PERSONAL_INFO = {
 }
 
 // Status message for CI/CD indicator
-export const STATUS_MESSAGE =
-  `✨ Portfolio actualizado - ${new Intl.DateTimeFormat('es-ES', { month: 'long', year: 'numeric' }).format(new Date())} - CI/CD Automático Funcionando`
+export const STATUS_MESSAGE = `✨ Portfolio actualizado - ${new Intl.DateTimeFormat('es-ES', { month: 'long', year: 'numeric' }).format(new Date())} - CI/CD Automático Funcionando`
 
 // Navigation anchors
 export const NAVIGATION = {
