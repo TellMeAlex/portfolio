@@ -67,7 +67,7 @@ jobs:
 
     - name: Upload bundle report
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: bundle-analysis
         path: bundle-report.txt
@@ -104,7 +104,7 @@ jobs:
         LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
     - name: Upload Lighthouse reports
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: lighthouse-reports
         path: .lighthouseci/
@@ -252,7 +252,7 @@ jobs:
       run: kill $APP_PID
 
     - name: Upload Web Vitals report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: web-vitals-report
         path: web-vitals.json
@@ -304,7 +304,7 @@ jobs:
         echo "- Use performance budgets" >> performance-report.md
 
     - name: Upload performance report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: performance-report
         path: performance-report.md
