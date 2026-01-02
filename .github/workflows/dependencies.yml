@@ -33,7 +33,7 @@ jobs:
         cat outdated.json | jq -r 'keys[]' || echo "No outdated packages found"
 
     - name: Upload outdated report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: outdated-report
         path: outdated.json
@@ -331,7 +331,7 @@ jobs:
         echo "Check the workflow logs for details on any automated updates applied." >> dependency-report.md
 
     - name: Upload dependency report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: dependency-report
         path: |
