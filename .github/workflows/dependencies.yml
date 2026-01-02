@@ -80,7 +80,7 @@ jobs:
 
     - name: Create pull request for safe updates
       if: steps.changes.outputs.changes == 'true'
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           const branchName = `automated/dependency-updates-${Date.now()}`;
@@ -168,7 +168,7 @@ jobs:
 
     - name: Create security update PR
       if: env.VULNERABILITY_COUNT != '0'
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           const { execSync } = require('child_process');
@@ -249,7 +249,7 @@ jobs:
 
     - name: Create issue for major updates
       if: steps.major-updates.outputs.has_major == 'true'
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           const majorUpdates = '${{ steps.major-updates.outputs.major_updates }}';
