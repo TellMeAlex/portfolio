@@ -36,10 +36,12 @@ jobs:
     - name: Analyze bundle size
       run: |
         # Vite builds to dist/, not build/
+        # Create simple bundle size report since vite-plugin-visualizer requires dev server
         if [ -d dist/assets ]; then
-          npx vite-plugin-visualizer dist --open false --filename bundle-report.html || true
+          find dist/assets -name "*.js" -type f -exec sh -c 'echo "$(wc -c < "$1") bytes: $1" >> bundle-report.txt' _ {} \;
+          echo "✅ Bundle analysis completed" >> bundle-report.txt
         else
-          echo "⚠️ No dist/assets directory found"
+          echo "⚠️ No dist/assets directory found" > bundle-report.txt
         fi
 
     - name: Bundle size check
@@ -64,10 +66,11 @@ jobs:
         echo "✅ Bundle size is within acceptable limits"
 
     - name: Upload bundle report
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: bundle-analysis
-        path: bundle-report.html
+        path: bundle-report.txt
 
   # Lighthouse CI
   lighthouse-ci:
