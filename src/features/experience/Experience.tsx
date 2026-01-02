@@ -91,8 +91,13 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ company }) => {
 
       <div className="timeline-content">
         <header className="company-header">
-          <h3 className="company-name" id={`${companyId}-heading`}>{company.name}</h3>
-          <div className="company-location" aria-label={`Ubicación: ${company.location}`}>
+          <h3 className="company-name" id={`${companyId}-heading`}>
+            {company.name}
+          </h3>
+          <div
+            className="company-location"
+            aria-label={`Ubicación: ${company.location}`}
+          >
             <span className="location-icon" aria-hidden="true">
               📍
             </span>
@@ -125,7 +130,11 @@ interface PositionItemProps {
   index: number
 }
 
-const PositionItem: React.FC<PositionItemProps> = ({ position, companyId, index }) => {
+const PositionItem: React.FC<PositionItemProps> = ({
+  position,
+  companyId,
+  index,
+}) => {
   const isCurrentPosition = position.period.current
   const positionId = `${companyId}-pos-${index}`
 
@@ -136,8 +145,12 @@ const PositionItem: React.FC<PositionItemProps> = ({ position, companyId, index 
       role="listitem"
     >
       <div className="position-header">
-        <h4 className="position-title" id={`${positionId}-title`}>{position.title}</h4>
-        <time className="position-period" dateTime={position.period.display}>{position.period.display}</time>
+        <h4 className="position-title" id={`${positionId}-title`}>
+          {position.title}
+        </h4>
+        <time className="position-period" dateTime={position.period.display}>
+          {position.period.display}
+        </time>
       </div>
 
       <ul

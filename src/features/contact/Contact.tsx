@@ -12,10 +12,16 @@ export const Contact: React.FC = () => {
       keyboardHint="6"
     >
       <div className="card-header">
-        <h2 className="card-title" id="contact-heading">Contacto</h2>
+        <h2 className="card-title" id="contact-heading">
+          Contacto
+        </h2>
       </div>
       <div className="card-body">
-        <div className="contact-info" role="list" aria-label="Detalles de contacto">
+        <div
+          className="contact-info"
+          role="list"
+          aria-label="Detalles de contacto"
+        >
           <div role="listitem">
             <a
               href="mailto:llamamealex@gmail.com"
