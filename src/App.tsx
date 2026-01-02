@@ -1,8 +1,7 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { BentoGrid } from './core/layout/BentoGrid'
 import { SkipLinks } from './core/layout/SkipLinks'
-import { ThemeToggle } from './core/ui/ThemeToggle'
-import { PaletteSelector } from './core/ui/PaletteSelector'
+import { Header } from './core/layout/Header'
 import { ScrollProgress } from './core/ui/ScrollProgress'
 import { CardSkeleton } from './core/ui/CardSkeleton'
 import { AccessibilityButton } from './core/ui/AccessibilityButton'
@@ -77,48 +76,8 @@ const App: React.FC = () => {
 
       {/* Main Content */}
       <div className="min-h-screen">
-        {/* Header with Theme Toggle */}
-        <header
-          id="navigation"
-          style={{
-            position: 'sticky',
-            top: 0,
-            zIndex: 100,
-            padding: '1rem var(--grid-padding-mobile)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            background: 'var(--color-bg-secondary)',
-            borderBottom: '1px solid rgba(var(--color-accent-rgb), 0.1)',
-            maxWidth: 'var(--grid-max-width)',
-            margin: '0 auto',
-            width: '100%',
-            boxSizing: 'border-box',
-          }}
-        >
-          <div
-            role="banner"
-            aria-label="Site logo"
-            className="terminal-logo"
-            style={{
-              fontSize: 'var(--text-xl)',
-              fontWeight: 'var(--font-bold)',
-              color: 'var(--color-text-primary)',
-            }}
-          >
-            <span
-              style={{ color: 'var(--color-accent)', marginRight: '0.5rem' }}
-            >
-              &gt;
-            </span>
-            tellmealex
-            <span className="terminal-cursor">_</span>
-          </div>
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-            <PaletteSelector />
-            <ThemeToggle />
-          </div>
-        </header>
+        {/* Header with Navigation and Theme Toggle */}
+        <Header />
 
         {/* Main Portfolio Grid */}
         <main
