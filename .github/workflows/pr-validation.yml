@@ -150,39 +150,50 @@ jobs:
 
     - name: Comment preview URL
       uses: actions/github-script@v6
+      continue-on-error: true
       with:
         script: |
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: `🚀 **Preview deployed successfully!**
+          try {
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🚀 **Preview deployed successfully!**
 
-            📱 **Preview URL**: ${{ steps.preview.outputs.preview_url }}
+              📱 **Preview URL**: ${{ steps.preview.outputs.preview_url }}
 
-            This preview will be automatically updated when you push new commits.
+              This preview will be automatically updated when you push new commits.
 
-            ---
-            Built with commit: ${{ github.sha }}`
-          })
+              ---
+              Built with commit: ${{ github.sha }}`
+            })
+          } catch (error) {
+            console.log('Preview comment skipped (insufficient permissions)');
+          }
 
   # Auto-assign reviewers
   assign-reviewers:
     runs-on: ubuntu-latest
     if: github.event.action == 'opened'
+    continue-on-error: true
 
     steps:
     - name: Auto-assign reviewers
       uses: actions/github-script@v6
+      continue-on-error: true
       with:
         script: |
-          const reviewers = ['alejandro']; // Add your reviewers here
-          await github.rest.pulls.requestReviewers({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.issue.number,
-            reviewers: reviewers
-          });
+          try {
+            const reviewers = ['alejandro']; // Add your reviewers here
+            await github.rest.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              reviewers: reviewers
+            });
+          } catch (error) {
+            console.log('Auto-assign reviewers skipped (insufficient permissions or user not found)');
+          }
 
   # Label management
   label-management:
