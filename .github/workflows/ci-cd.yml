@@ -25,34 +25,30 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
+        cache: 'npm'
 
-    - name: Configure yarn registry
+    - name: Configure npm registry
       run: |
-        yarn config set registry https://registry.yarnpkg.com
-        yarn config set always-auth false
-        yarn config delete @inditex:registry
-        yarn config delete //inditex.jfrog.io/inditex/api/npm/node-public/:_auth
         npm config set registry https://registry.npmjs.org/
         npm config delete //inditex.jfrog.io/inditex/api/npm/node-public/:_auth
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
 
     - name: Run linting
-      run: yarn lint
+      run: npm run lint
       continue-on-error: false
 
     - name: Run format check
-      run: yarn format:check
+      run: npm run format:check
       continue-on-error: false
 
     - name: Run type checking
-      run: yarn type-check
+      run: npm run type-check
       continue-on-error: false
 
     - name: Run unit tests
-      run: yarn test:unit --coverage
+      run: npm run test:unit -- --coverage
       continue-on-error: false
 
     - name: Upload coverage reports
@@ -75,19 +71,17 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
+        cache: 'npm'
 
-    - name: Configure yarn registry
+    - name: Configure npm registry
       run: |
-        yarn config set registry https://registry.yarnpkg.com
-        yarn config set always-auth false
         npm config set registry https://registry.npmjs.org/
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
 
-    - name: Run yarn audit
-      run: yarn audit --level moderate
+    - name: Run npm audit
+      run: npm audit --audit-level moderate
       continue-on-error: true
 
 # CodeQL análisis removido temporalmente por problemas de permisos
@@ -112,19 +106,17 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
+        cache: 'npm'
 
-    - name: Configure yarn registry
+    - name: Configure npm registry
       run: |
-        yarn config set registry https://registry.yarnpkg.com
-        yarn config set always-auth false
         npm config set registry https://registry.npmjs.org/
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
 
     - name: Build for production
-      run: yarn build
+      run: npm run build
       env:
         CI: true
 

@@ -25,13 +25,13 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
+        cache: 'npm'
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
 
     - name: Build for production
-      run: yarn build
+      run: npm run build
 
     - name: Analyze bundle size
       run: |
@@ -72,24 +72,22 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
+        cache: 'npm'
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
 
     - name: Build application
-      run: yarn build
+      run: npm run build
 
     - name: Serve application
       run: |
-        yarn global add serve
-        serve -s build -l 3000 &
+        npx serve -s dist -l 3000 &
         sleep 10  # Wait for server to start
 
     - name: Run Lighthouse CI
       run: |
-        yarn global add @lhci/cli
-        lhci autorun
+        npx @lhci/cli@latest autorun
       env:
         LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
@@ -115,17 +113,17 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
 
     - name: Build PR version
-      run: yarn build
+      run: npm run build
 
     - name: Measure PR performance
       run: |
         # Add your performance measurement script here
         echo "Measuring PR performance..."
         # Example: Run performance tests and save results
-        yarn test:performance -- --outputFile=pr-performance.json
+        npm run test:performance -- --outputFile=pr-performance.json
 
     - name: Checkout main branch
       uses: actions/checkout@v4
@@ -135,13 +133,13 @@ jobs:
 
     - name: Build main version
       run: |
-        yarn install --frozen-lockfile
-        yarn build
+        npm ci
+        npm run build
 
     - name: Measure main performance
       run: |
         echo "Measuring main branch performance..."
-        yarn test:performance -- --outputFile=main-performance.json
+        npm run test:performance -- --outputFile=main-performance.json
 
     - name: Compare performance
       run: |
@@ -180,15 +178,14 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
 
     - name: Build application
-      run: yarn build
+      run: npm run build
 
     - name: Start application
       run: |
-        yarn global add serve
-        serve -s build -l 3000 &
+        npx serve -s dist -l 3000 &
         APP_PID=$!
         echo "APP_PID=$APP_PID" >> $GITHUB_ENV
         sleep 10
@@ -196,10 +193,7 @@ jobs:
     - name: Measure Core Web Vitals
       run: |
         # Install web-vitals measurement tool
-        yarn global add web-vitals-cli
-
-        # Measure Core Web Vitals
-        web-vitals-cli --url http://localhost:3000 --output web-vitals.json
+        npx web-vitals-cli --url http://localhost:3000 --output web-vitals.json
 
     - name: Validate Web Vitals thresholds
       run: |
