@@ -27,6 +27,7 @@ jobs:
           perf
           test
           chore
+          ci
         requireScope: false
 
     - name: Check PR size
