@@ -60,7 +60,7 @@ RUN test -d dist || (echo "Build failed: dist directory not found" && exit 1) &&
 # ============================================================================
 # STAGE 2: RUNTIME
 # ============================================================================
-FROM nginx:1.29-alpine
+FROM nginx:1.31-alpine
 
 # Set working directory
 WORKDIR /app
