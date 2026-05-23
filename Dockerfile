@@ -19,13 +19,10 @@ FROM node:25-slim AS builder
 # Set working directory
 WORKDIR /app
 
-# Install build dependencies for native modules
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    python3 \
-    make \
-    g++ \
-    && rm -rf /var/lib/apt/lists/*
+# No build deps needed: our deps (react + vite + typescript + eslint) are
+# all pure JS. The previous `apt-get install python3 make g++` was leftover
+# from a template; skipping it avoids touching deb.debian.org during build
+# (works around overlay-network DNS flakiness on the host).
 
 # Copy package management files first for better Docker layer caching
 # This allows Docker to cache the node_modules layer if dependencies haven't changed
