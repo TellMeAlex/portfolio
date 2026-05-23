@@ -29,7 +29,10 @@ jobs:
 
     env:
       DOKPLOY_URL: http://198.12.82.184:3000
-      DOKPLOY_APPLICATION_ID: R02khAu1mJJTnpSlkiu2v
+      # Application ID for portfolio-app (service: portfolio-portfolioapp-ibhhj9)
+      # Created 2025-12-18 after the original app was deleted in the Nov 2025 incident.
+      # Verified via: SELECT "applicationId" FROM application WHERE "appName" LIKE '%portfolio%'
+      DOKPLOY_APPLICATION_ID: -t_HVHq5aV19Q0mIUuWdN
 
     steps:
       - name: Trigger Dokploy deploy
