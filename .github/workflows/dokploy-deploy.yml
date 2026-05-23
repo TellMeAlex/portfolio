@@ -1,29 +1,68 @@
-name: Deployment Notification
+name: Dokploy Auto Deploy
 
-# Simple notification workflow after CI/CD passes
-# Manual deployment via Dokploy UI: http://100.122.202.103:3000
+# Triggers a real deploy on the Dokploy instance after CI/CD passes.
+# Uses the application-scoped /api/deploy/{refreshToken} endpoint — no
+# admin auth needed; the token in the URL is per-app and unguessable.
+#
+# Configuration:
+#   - DOKPLOY_APP_REFRESH_TOKEN: GitHub secret with the application's
+#     refreshToken (Dokploy → app → Deployments → Deploy URL).
+#   - DOKPLOY_URL: defaults to the VPS public HTTP endpoint.
+#
+# Manual trigger: workflow_dispatch (Run workflow button in Actions UI).
 
 on:
   workflow_run:
-    workflows: ["CI/CD Pipeline"]
+    workflows: ['CI/CD Pipeline']
     types: [completed]
     branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  notify:
+  deploy:
     runs-on: ubuntu-latest
-    # Only notify if CI/CD passed successfully
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+
+    env:
+      DOKPLOY_URL: http://198.12.82.184:3000
 
     steps:
-    - name: Deployment Ready Notification
-      run: |
-        echo "✅ CI/CD Pipeline passed successfully"
-        echo "🚀 Ready for deployment"
-        echo ""
-        echo "Manual deployment steps:"
-        echo "1. Access Dokploy: http://100.122.202.103:3000"
-        echo "2. Navigate to: Projects → portfolio → portfolio-app"
-        echo "3. Click 'Deploy' button"
-        echo ""
-        echo "Live site: https://tellmealex.dev"
+      - name: Trigger Dokploy deploy
+        env:
+          DOKPLOY_APP_REFRESH_TOKEN: ${{ secrets.DOKPLOY_APP_REFRESH_TOKEN }}
+        run: |
+          set -e
+
+          if [ -z "$DOKPLOY_APP_REFRESH_TOKEN" ]; then
+            echo "::error::DOKPLOY_APP_REFRESH_TOKEN secret is not set"
+            exit 1
+          fi
+
+          # Dokploy's /api/deploy/{refreshToken} parses a GitHub-shaped
+          # webhook payload to validate the branch (compares body.ref vs
+          # app's configured branch). Send the minimum fields it needs.
+          response=$(curl -sS -w "\n%{http_code}" \
+            -X POST "$DOKPLOY_URL/api/deploy/$DOKPLOY_APP_REFRESH_TOKEN" \
+            -H "Content-Type: application/json" \
+            -H "X-GitHub-Event: push" \
+            -d '{"ref":"refs/heads/main"}')
+
+          body=$(echo "$response" | sed '$d')
+          http_status=$(echo "$response" | tail -n1)
+
+          echo "HTTP $http_status"
+          echo "Response: $body"
+
+          # Dokploy returns 301 with body explaining why deploy was rejected
+          # (e.g. "Branch Not Match", "Watch Paths Not Match"). Treat anything
+          # outside 2xx as failure.
+          if [ "$http_status" -lt 200 ] || [ "$http_status" -ge 300 ]; then
+            echo "::error::Deploy trigger failed with HTTP $http_status — $body"
+            exit 1
+          fi
+
+          echo "Deploy triggered. Build runs in Dokploy (~2-5 min)."
+          echo "Site: https://tellmealex.dev"
