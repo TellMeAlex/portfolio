@@ -13,112 +13,79 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Validate PR title
-      uses: amannn/action-semantic-pull-request@v6
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        types: |
-          feat
-          fix
-          docs
-          style
-          refactor
-          perf
-          test
-          chore
-        requireScope: false
+      - name: Validate PR title
+        uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            docs
+            style
+            refactor
+            perf
+            test
+            chore
+          requireScope: false
 
-    - name: Check PR size
-      uses: actions/github-script@v8
-      with:
-        script: |
-          const { data: files } = await github.rest.pulls.listFiles({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.issue.number
-          });
+      - name: Check PR size
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
 
-          const filesChanged = files.length;
-          if (filesChanged > 20) {
-            core.setFailed(`❌ PR is too large (${filesChanged} files). Consider breaking it down.`);
-          } else {
-            console.log(`✅ PR size is acceptable (${filesChanged} files)`);
-          }
+            const filesChanged = files.length;
+            if (filesChanged > 20) {
+              core.setFailed(`❌ PR is too large (${filesChanged} files). Consider breaking it down.`);
+            } else {
+              console.log(`✅ PR size is acceptable (${filesChanged} files)`);
+            }
 
   # Code quality analysis
   code-analysis:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Run tests with coverage
-      run: npm run test:coverage
+      - name: Run tests with coverage
+        run: npm run test:coverage
 
-    - name: Check coverage threshold
-      run: |
-        if [ -f coverage/coverage-summary.json ]; then
-          COVERAGE=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
-          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
-            echo "❌ Coverage is below 80% ($COVERAGE%)"
-            exit 1
+      - name: Check coverage threshold
+        run: |
+          if [ -f coverage/coverage-summary.json ]; then
+            COVERAGE=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
+            if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+              echo "❌ Coverage is below 80% ($COVERAGE%)"
+              exit 1
+            fi
+            echo "✅ Coverage is acceptable ($COVERAGE%)"
+          else
+            echo "⚠️ No coverage summary found, skipping check"
           fi
-          echo "✅ Coverage is acceptable ($COVERAGE%)"
-        else
-          echo "⚠️ No coverage summary found, skipping check"
-        fi
 
-    - name: Run performance regression test
-      run: npm run test:performance:regression
-
-    - name: Analyze bundle size
-      run: |
-        npm run build
-        npm run analyze:bundle
-        # Compare with main branch bundle size
-
-  # Accessibility testing
-  accessibility-test:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-
-    - name: Install dependencies
-      run: npm ci
-
-    - name: Build application
-      run: npm run build
-
-    - name: Run accessibility tests
-      run: npm run test:a11y
-
-    - name: Upload accessibility report
-      uses: actions/upload-artifact@v6
-      if: always()
-      with:
-        name: accessibility-report
-        path: reports/accessibility/
+      - name: Analyze bundle size
+        run: |
+          npm run build
+          npm run analyze:bundle
+          # Compare with main branch bundle size
 
   # Preview deployment
   preview-deploy:
@@ -126,50 +93,50 @@ jobs:
     needs: [pr-validation, code-analysis]
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Build for preview
-      run: npm run build:preview
+      - name: Build for preview
+        run: npm run build:preview
 
-    - name: Deploy preview
-      id: preview
-      run: |
-        # Add preview deployment logic here
-        PREVIEW_URL="https://pr-${{ github.event.pull_request.number }}.preview.your-domain.com"
-        echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+      - name: Deploy preview
+        id: preview
+        run: |
+          # Add preview deployment logic here
+          PREVIEW_URL="https://pr-${{ github.event.pull_request.number }}.preview.your-domain.com"
+          echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
 
-    - name: Comment preview URL
-      uses: actions/github-script@v8
-      continue-on-error: true
-      with:
-        script: |
-          try {
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `🚀 **Preview deployed successfully!**
+      - name: Comment preview URL
+        uses: actions/github-script@v8
+        continue-on-error: true
+        with:
+          script: |
+            try {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `🚀 **Preview deployed successfully!**
 
-              📱 **Preview URL**: ${{ steps.preview.outputs.preview_url }}
+                📱 **Preview URL**: ${{ steps.preview.outputs.preview_url }}
 
-              This preview will be automatically updated when you push new commits.
+                This preview will be automatically updated when you push new commits.
 
-              ---
-              Built with commit: ${{ github.sha }}`
-            })
-          } catch (error) {
-            console.log('Preview comment skipped (insufficient permissions)');
-          }
+                ---
+                Built with commit: ${{ github.sha }}`
+              })
+            } catch (error) {
+              console.log('Preview comment skipped (insufficient permissions)');
+            }
 
   # Auto-assign reviewers
   assign-reviewers:
@@ -178,22 +145,22 @@ jobs:
     continue-on-error: true
 
     steps:
-    - name: Auto-assign reviewers
-      uses: actions/github-script@v8
-      continue-on-error: true
-      with:
-        script: |
-          try {
-            const reviewers = ['alejandro']; // Add your reviewers here
-            await github.rest.pulls.requestReviewers({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number,
-              reviewers: reviewers
-            });
-          } catch (error) {
-            console.log('Auto-assign reviewers skipped (insufficient permissions or user not found)');
-          }
+      - name: Auto-assign reviewers
+        uses: actions/github-script@v8
+        continue-on-error: true
+        with:
+          script: |
+            try {
+              const reviewers = ['alejandro']; // Add your reviewers here
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                reviewers: reviewers
+              });
+            } catch (error) {
+              console.log('Auto-assign reviewers skipped (insufficient permissions or user not found)');
+            }
 
   # Label management
   label-management:
@@ -202,41 +169,41 @@ jobs:
     continue-on-error: true
 
     steps:
-    - name: Auto-label PR
-      uses: actions/github-script@v8
-      with:
-        script: |
-          try {
-            const { data: files } = await github.rest.pulls.listFiles({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            });
-
-            const labels = [];
-
-            // Auto-label based on file changes
-            if (files.some(f => f.filename.includes('.github/workflows'))) {
-              labels.push('ci/cd');
-            }
-            if (files.some(f => f.filename.includes('src/'))) {
-              labels.push('enhancement');
-            }
-            if (files.some(f => f.filename.includes('test/') || f.filename.includes('.test.'))) {
-              labels.push('testing');
-            }
-            if (files.some(f => f.filename.includes('docs/') || f.filename.includes('.md'))) {
-              labels.push('documentation');
-            }
-
-            if (labels.length > 0) {
-              await github.rest.issues.addLabels({
+      - name: Auto-label PR
+        uses: actions/github-script@v8
+        with:
+          script: |
+            try {
+              const { data: files } = await github.rest.pulls.listFiles({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: context.issue.number,
-                labels: labels
+                pull_number: context.issue.number
               });
+
+              const labels = [];
+
+              // Auto-label based on file changes
+              if (files.some(f => f.filename.includes('.github/workflows'))) {
+                labels.push('ci/cd');
+              }
+              if (files.some(f => f.filename.includes('src/'))) {
+                labels.push('enhancement');
+              }
+              if (files.some(f => f.filename.includes('test/') || f.filename.includes('.test.'))) {
+                labels.push('testing');
+              }
+              if (files.some(f => f.filename.includes('docs/') || f.filename.includes('.md'))) {
+                labels.push('documentation');
+              }
+
+              if (labels.length > 0) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  labels: labels
+                });
+              }
+            } catch (error) {
+              console.log('Label management skipped (insufficient permissions)');
             }
-          } catch (error) {
-            console.log('Label management skipped (insufficient permissions)');
-          }

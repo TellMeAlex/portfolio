@@ -16,17 +16,12 @@
     "test": "vitest",
     "test:unit": "vitest run",
     "test:integration": "vitest run --reporter=verbose",
-    "test:e2e": "echo 'E2E tests placeholder'",
     "test:coverage": "vitest run --coverage",
-    "test:a11y": "echo 'Accessibility tests placeholder'",
-    "test:performance": "echo 'Performance tests placeholder'",
-    "test:performance:regression": "echo 'Performance regression tests placeholder'",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "type-check": "tsc --noEmit",
-    "audit:performance": "echo 'Performance audit placeholder'",
     "analyze:bundle": "npm run build && npx vite-bundle-analyzer dist/stats.json",
     "prepare": "husky install"
   },
@@ -79,19 +74,11 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "npm run lint:fix",
-      "npm run format",
-      "git add"
+      "prettier --write"
     ],
-    "*.{json,md,yml,yaml}": [
-      "npm run format",
-      "git add"
+    "*.{json,md,yml,yaml,css}": [
+      "prettier --write"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run test"
-    }
   },
   "repository": {
     "type": "git",
