@@ -50,23 +50,23 @@ sequenceDiagram
 ```mermaid
 graph LR
     subgraph "Quality Checks (~28s)"
-        QC1[📦 yarn install]
-        QC2[✨ yarn lint]
-        QC3[🎨 yarn format:check]
-        QC4[🔍 yarn type-check]
-        QC5[🧪 yarn test:unit]
+        QC1[📦 npm install]
+        QC2[✨ npm run lint]
+        QC3[🎨 npm run format:check]
+        QC4[🔍 npm run type-check]
+        QC5[🧪 npm run test:unit]
         QC1 --> QC2 --> QC3 --> QC4 --> QC5
     end
 
     subgraph "Security Scan (~16s)"
-        SC1[📦 yarn install]
-        SC2[🛡️ yarn audit]
+        SC1[📦 npm install]
+        SC2[🛡️ npm audit]
         SC1 --> SC2
     end
 
     subgraph "Build Test (~21s)"
-        BT1[📦 yarn install]
-        BT2[🏗️ yarn build]
+        BT1[📦 npm install]
+        BT2[🏗️ npm run build]
         BT1 --> BT2
     end
 
@@ -102,11 +102,13 @@ sequenceDiagram
 ### Archivos de Configuración
 
 #### `.github/workflows/ci-cd.yml`
+
 - **Propósito**: Pipeline principal de validación
 - **Triggers**: Push/PR a rama `main`
 - **Jobs**: quality-checks → security-scan → build-test → deployment-trigger
 
 #### `.github/workflows/deploy-ssh.yml`
+
 - **Propósito**: Despliegue automático al servidor
 - **Trigger**: Completion exitosa de ci-cd.yml
 - **Estrategia**: Actualización in-place del container existente
@@ -208,9 +210,9 @@ gantt
 ### GitHub Secrets Requeridos
 
 ```yaml
-SSH_HOST: "198.12.82.184"           # IP del servidor
-SSH_USER: "root"                     # Usuario SSH
-SSH_PRIVATE_KEY: "-----BEGIN..."     # Clave privada SSH
+SSH_HOST: '198.12.82.184' # IP del servidor
+SSH_USER: 'root' # Usuario SSH
+SSH_PRIVATE_KEY: '-----BEGIN...' # Clave privada SSH
 ```
 
 ### Validaciones de Seguridad
@@ -218,7 +220,7 @@ SSH_PRIVATE_KEY: "-----BEGIN..."     # Clave privada SSH
 ```mermaid
 graph TD
     CODE[📝 Código] --> LINT[🔍 ESLint]
-    LINT --> AUDIT[🛡️ yarn audit]
+    LINT --> AUDIT[🛡️ npm audit]
     AUDIT --> TYPE[📘 TypeScript]
     TYPE --> TEST[🧪 Unit Tests]
     TEST --> BUILD[🏗️ Build Verification]
@@ -234,6 +236,7 @@ graph TD
 ## 📁 Estructura de Archivos
 
 ### En el Repositorio
+
 ```
 portfolio/
 ├── .github/workflows/
@@ -243,12 +246,13 @@ portfolio/
 ├── public/                    # Assets estáticos
 ├── docs/                      # Documentación
 ├── package.json               # Dependencias y scripts
-├── yarn.lock                  # Lock de dependencias
+├── package-lock.json                  # Lock de dependencias
 ├── vite.config.ts            # Configuración Vite
 └── tailwind.config.js        # Configuración Tailwind
 ```
 
 ### En el Servidor (Container)
+
 ```
 /usr/share/nginx/html/
 ├── index.html                 # Aplicación principal
@@ -272,6 +276,7 @@ graph LR
 ```
 
 ### Comando de Rollback Manual
+
 ```bash
 # Conectar al servidor
 ssh root@198.12.82.184
@@ -326,18 +331,21 @@ graph TD
 ## 📈 Beneficios del Sistema
 
 ### Para el Desarrollo
+
 - ✅ **Automatización Completa**: Cero intervención manual
 - ✅ **Calidad Garantizada**: Múltiples gates de validación
 - ✅ **Feedback Inmediato**: Errores detectados en minutos
 - ✅ **Deployment Seguro**: Backup automático y rollback
 
 ### Para la Producción
+
 - ✅ **Zero Downtime**: Actualizaciones sin interrupciones
 - ✅ **SSL Preservation**: Certificados mantenidos automáticamente
 - ✅ **Performance**: Assets optimizados con Vite
 - ✅ **Monitoring**: Logs y métricas integradas
 
 ### Para el Mantenimiento
+
 - ✅ **Reproducibilidad**: Mismo proceso cada vez
 - ✅ **Trazabilidad**: Logs completos de cada deployment
 - ✅ **Escalabilidad**: Fácil extensión para nuevos ambientes
@@ -365,6 +373,7 @@ stateDiagram-v2
 ## 🎯 Próximos Pasos Sugeridos
 
 ### Mejoras Potenciales
+
 1. **Monitoring Avanzado**: Integración con Datadog/New Relic
 2. **Testing E2E**: Playwright tests automáticos
 3. **Multiple Environments**: Staging environment
@@ -372,6 +381,7 @@ stateDiagram-v2
 5. **Notifications**: Slack/Discord integration
 
 ### Escalabilidad
+
 ```mermaid
 graph LR
     CURRENT[🎯 Actual<br/>Single Server] --> STAGING[🔄 Staging<br/>Environment]

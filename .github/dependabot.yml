@@ -1,58 +1,100 @@
 version: 2
 updates:
-  # Enable version updates for npm
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "08:00"
-    open-pull-requests-limit: 10
-    reviewers:
-      - "alejandro"
-    assignees:
-      - "alejandro"
-    commit-message:
-      prefix: "chore"
-      include: "scope"
-    labels:
-      - "dependencies"
-      - "automated"
-
-  # Enable version updates for GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "08:00"
+      interval: 'weekly'
+      day: 'monday'
+      time: '08:00'
     open-pull-requests-limit: 5
-    reviewers:
-      - "alejandro"
-    assignees:
-      - "alejandro"
     commit-message:
-      prefix: "ci"
-      include: "scope"
+      prefix: 'chore'
+      include: 'scope'
     labels:
-      - "github-actions"
-      - "automated"
+      - 'dependencies'
+      - 'automated'
+    groups:
+      eslint-prettier:
+        patterns:
+          - 'eslint*'
+          - '@eslint/*'
+          - '@typescript-eslint/*'
+          - 'prettier*'
+      testing:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
+          - '@testing-library/*'
+          - 'jsdom'
+      types:
+        patterns:
+          - '@types/*'
+        exclude-patterns:
+          - '@types/react'
+          - '@types/react-dom'
+      other-dev-deps:
+        dependency-type: 'development'
+        update-types:
+          - 'minor'
+          - 'patch'
+        exclude-patterns:
+          - 'eslint*'
+          - '@eslint/*'
+          - '@typescript-eslint/*'
+          - 'prettier*'
+          - 'vitest'
+          - '@vitest/*'
+          - '@testing-library/*'
+          - 'jsdom'
+          - '@types/*'
+    ignore:
+      - dependency-name: 'react'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'react-dom'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@types/react'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@types/react-dom'
+        update-types: ['version-update:semver-major']
 
-  # Enable version updates for Docker (if using)
-  - package-ecosystem: "docker"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "08:00"
-    open-pull-requests-limit: 3
-    reviewers:
-      - "alejandro"
-    assignees:
-      - "alejandro"
+      interval: 'weekly'
+      day: 'monday'
+      time: '08:00'
+    open-pull-requests-limit: 2
     commit-message:
-      prefix: "docker"
-      include: "scope"
+      prefix: 'ci'
+      include: 'scope'
     labels:
-      - "docker"
-      - "automated"
+      - 'github-actions'
+      - 'automated'
+    groups:
+      actions-all:
+        patterns:
+          - '*'
+
+  - package-ecosystem: 'docker'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '08:00'
+    open-pull-requests-limit: 2
+    commit-message:
+      prefix: 'docker'
+      include: 'scope'
+    labels:
+      - 'docker'
+      - 'automated'
+    groups:
+      docker-images:
+        patterns:
+          - '*'
+        update-types:
+          - 'minor'
+          - 'patch'
+    ignore:
+      - dependency-name: 'node'
+        update-types: ['version-update:semver-major']

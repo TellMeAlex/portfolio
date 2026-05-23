@@ -29,13 +29,13 @@ RUN apt-get update && \
 
 # Copy package management files first for better Docker layer caching
 # This allows Docker to cache the node_modules layer if dependencies haven't changed
-COPY package.json package-lock.json yarn.lock* ./
+COPY package.json package-lock.json ./
 
 # Install all dependencies (production + development needed for build)
 # First install Rollup's native binary explicitly due to npm optional deps bug
 # See: https://github.com/npm/cli/issues/4828
 RUN npm install @rollup/rollup-linux-x64-gnu --no-save --legacy-peer-deps && \
-    npm ci --frozen-lockfile
+    npm ci
 
 # Copy application source code
 COPY . .
