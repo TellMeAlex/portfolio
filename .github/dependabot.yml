@@ -47,30 +47,12 @@ updates:
           - '@testing-library/*'
           - 'jsdom'
           - '@types/*'
+    # Block ALL npm majors by default. Majors require manual evaluation
+    # (peer dep changes, breaking config, ecosystem readiness). Dependabot
+    # handles minors and patches automatically via the groups above; to
+    # accept a major bump, do it manually with `npm install <pkg>@latest`.
     ignore:
-      - dependency-name: 'react'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'react-dom'
-        update-types: ['version-update:semver-major']
-      - dependency-name: '@types/react'
-        update-types: ['version-update:semver-major']
-      - dependency-name: '@types/react-dom'
-        update-types: ['version-update:semver-major']
-      # eslint v10 not yet supported by eslint-plugin-react (peer dep max ^9)
-      - dependency-name: 'eslint'
-        update-types: ['version-update:semver-major']
-      - dependency-name: '@eslint/js'
-        update-types: ['version-update:semver-major']
-      # @types/node 25+ ships experimental localStorage that broke jsdom tests
-      - dependency-name: '@types/node'
-        update-types: ['version-update:semver-major']
-      # TypeScript and lint-staged majors typically require config migration
-      - dependency-name: 'typescript'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'lint-staged'
-        update-types: ['version-update:semver-major']
-      # @vitejs/plugin-react@6 requires vite@8 (not yet released stable)
-      - dependency-name: '@vitejs/plugin-react'
+      - dependency-name: '*'
         update-types: ['version-update:semver-major']
 
   - package-ecosystem: 'github-actions'
