@@ -65,13 +65,12 @@ FROM nginx:1.31.1-alpine
 # Set working directory
 WORKDIR /app
 
-# Update system packages and install minimal runtime dependencies
-RUN apk update && \
-    apk add --no-cache \
-    curl \
-    ca-certificates && \
-    rm -rf /var/cache/apk/* && \
-    rm -rf /etc/nginx/conf.d/default.conf
+# Remove default nginx config so our custom one (copied below) takes over.
+# Intentionally skip `apk add curl/ca-certificates` to avoid touching the
+# alpine package index during build — works around overlay-network DNS
+# flakiness on the host, and the runtime needs nothing beyond what the
+# base nginx:alpine image ships (wget is included for the healthcheck).
+RUN rm -f /etc/nginx/conf.d/default.conf
 
 # Copy custom Nginx configuration
 # Includes SPA routing, compression, caching, and security headers
@@ -97,7 +96,7 @@ EXPOSE 80
 # - start-period: allow 5 seconds for startup
 # - retries: 3 failed checks = unhealthy
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost/ || exit 1
+    CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
 
 # Start Nginx in foreground mode
 # This keeps the container running and allows proper signal handling
