@@ -7,9 +7,9 @@ export const PERSONAL_INFO = {
     first: 'Alejandro',
     full: 'Alejandro de la Fuente de la Rosa',
   },
-  title: 'Full Stack Developer',
+  title: 'Technical Leader Specialist · Agentic AI',
   description:
-    'Full Stack Developer passionate about creating innovative web solutions with modern technologies',
+    'Technical Leader Specialist en NTT DATA, especializado en IA agéntica, harness engineering y arquitectura microfrontends. Diseño sistemas donde humanos y agentes colaboran sin perder el techo de calidad.',
   location: 'Jaén, Andalucía, Spain',
   company: 'NTT DATA',
   role: 'Technical Leader Specialist',
@@ -25,10 +25,10 @@ export const PERSONAL_INFO = {
 
   // Specializations
   specializations: [
-    'AI Integration',
-    'ReactJS Development',
-    'Microfrontends Architecture',
-    'Technical Leadership',
+    'Agentic AI & Harness Engineering',
+    'Claude Code & Multi-agent Orchestration',
+    'Microfrontends Architecture (React + TS)',
+    'Technical Leadership & Mentoring',
   ],
 
   // Key projects

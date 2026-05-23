@@ -3,6 +3,7 @@
 A premium, highly accessible, and modern portfolio built with **React 19**, **TypeScript**, and **Vanilla CSS**. This project demonstrates advanced frontend architecture, a robust design system, and state-of-the-art accessibility features.
 
 ## 🚀 Live Demo
+
 [Check it out here!](https://tellmealex.dev/)
 
 ## ✨ Key Features
@@ -27,9 +28,9 @@ A premium, highly accessible, and modern portfolio built with **React 19**, **Ty
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Bundler**: [Vite](https://vitejs.dev/)
 - **Styling**: Vanilla CSS with Design Tokens (CSS Variables)
-- **Icons**: [Lucide React](https://lucide.dev/) (via feature imports)
+- **Icons**: Native Unicode/Emoji (zero icon-library dependency)
 - **Testing**: [Vitest](https://vitest.dev/) & [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-- **Animations**: CSS Animations & Transitions
+- **Animations**: CSS Animations & Transitions (Intersection Observer-driven)
 
 ## 📁 Project Structure
 

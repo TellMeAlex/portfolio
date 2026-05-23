@@ -44,16 +44,32 @@ export const AILeadership: React.FC = () => {
                 ✓
               </span>
               <div className="responsibility-text">
-                <strong>Talleres de GenAI y herramientas de IA:</strong>
+                <strong>Talleres y charlas de IA agéntica:</strong>
                 <ul
                   className="workshop-list"
                   aria-label="Temas de talleres impartidos"
                 >
                   <li>
-                    "Sacarle partido a la IA: Instructions de Copilot y Agentes"
+                    <strong>Talleres comunidad Código Sin Siesta</strong> (abril
+                    2026): Agentes IA + MCP Servers, Graphify (knowledge graphs)
+                    y LLM Wiki (estilo Karpathy)
                   </li>
-                  <li>"Dev Containers: estandarización de entornos"</li>
-                  <li>Novedades en React y arquitecturas modernas</li>
+                  <li>
+                    <strong>Pipeline agéntico aplicado al desarrollo</strong> —
+                    charla interna en Inditex (mayo 2026)
+                  </li>
+                  <li>
+                    <strong>Patrones de Orquestación de Agentes IA</strong> —
+                    material modular de 3 piezas (en preparación)
+                  </li>
+                  <li>
+                    "Sacarle partido a la IA: Instructions de Copilot y Agentes"
+                    (interno NTT)
+                  </li>
+                  <li>
+                    <strong>Dev Containers</strong> y estandarización de
+                    entornos de desarrollo
+                  </li>
                 </ul>
               </div>
             </li>

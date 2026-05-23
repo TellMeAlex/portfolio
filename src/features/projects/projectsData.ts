@@ -6,6 +6,100 @@ import type { ProjectsData } from './Projects.types'
 export const projectsData: ProjectsData = {
   projects: [
     {
+      id: 'graphify-workshop',
+      name: 'Taller Graphify — Knowledge Graphs',
+      tagline:
+        'Knowledge graphs persistentes para corpus heterogéneo de código y docs',
+      category: 'ai',
+      status: 'completed',
+      confidential: false,
+      client: 'Código Sin Siesta (Open Source)',
+      period: {
+        start: '2026-04',
+        end: '2026-04',
+        current: false,
+        display: 'Abril 2026',
+      },
+      description: {
+        short:
+          'Taller hands-on (90-120 min) para indexar un repo o un /raw heterogéneo con Graphify y decidir cuándo merece la pena vs alternativas.',
+        long: 'Taller práctico para construir y consumir knowledge graphs sobre corpus reales (código + docs + papers + imágenes). Cubre la anatomía de Graphify (AST + extracción semántica + clustering Leiden + outputs persistentes), el cuadrante de decisión vs GitNexus / vector RAG / agentic search, y termina con cada asistente con su propio graph.json + skill instalada en Claude Code. Material publicado: starter en TypeScript + 12 slides Astro/Svelte desplegadas vía GitHub Actions.',
+      },
+      role: 'Creator & Speaker',
+      impact: {
+        education: 'Material formativo público',
+        community: 'Código Sin Siesta',
+        innovation: 'Adopción razonada de knowledge graphs',
+      },
+      technologies: [
+        'Graphify',
+        'Claude Code',
+        'TypeScript',
+        'Astro',
+        'Svelte',
+      ],
+      tags: ['AI', 'Education', 'Open Source'],
+      url: 'https://github.com/CodigoSinSiesta/taller-graphify-starter',
+    },
+    {
+      id: 'llm-wiki-workshop',
+      name: 'Taller LLM Wiki — Knowledge Base personal',
+      tagline: 'Wiki personal estilo Karpathy mantenido por tu agente de IA',
+      category: 'ai',
+      status: 'completed',
+      confidential: false,
+      client: 'Código Sin Siesta (Open Source)',
+      period: {
+        start: '2026-04',
+        end: '2026-04',
+        current: false,
+        display: 'Abril 2026',
+      },
+      description: {
+        short:
+          'Taller hands-on para montar un wiki personal en markdown + YAML mantenido por tu agente (Claude Code, Codex, Copilot, Cursor…) — agent-agnóstico.',
+        long: 'Taller práctico para materializar el patrón LLM Wiki de Andrej Karpathy adaptado a la finalidad de cada asistente. Cubre la arquitectura del baúl (raw → wiki → mantenimiento), plantillas con frontmatter YAML para Dataview, flujos de ingesta y archivado de respuestas, y la frontera humano/agente. Repos publicados: starter como template repository + 12 slides desplegadas en GitHub Pages.',
+      },
+      role: 'Creator & Speaker',
+      impact: {
+        education: 'Template público + slides en vivo',
+        community: 'Código Sin Siesta',
+        innovation: 'Patrón Karpathy aterrizado',
+      },
+      technologies: ['Markdown', 'Obsidian', 'Claude Code', 'Astro', 'Svelte'],
+      tags: ['AI', 'Education', 'Open Source'],
+      url: 'https://github.com/CodigoSinSiesta/taller-llm-wiki-starter',
+    },
+    {
+      id: 'devcontainer-workshop',
+      name: 'Dev Containers Workshop',
+      tagline:
+        'Estandarización de entornos de desarrollo con VS Code + DevContainers',
+      category: 'web',
+      status: 'completed',
+      confidential: false,
+      client: 'NTT DATA / Equipos cliente',
+      period: {
+        start: '2025-03',
+        end: null,
+        current: true,
+        display: 'Marzo 2025 - Presente',
+      },
+      description: {
+        short:
+          'Taller práctico sobre cómo configurar y compartir entornos de desarrollo reproducibles con Dev Containers en VS Code.',
+        long: 'Material formativo para equipos cliente sobre cómo estandarizar entornos de desarrollo: configuración de devcontainer.json, gestión de extensiones, debugging, integración con flujos CI/CD y resolución de problemas comunes de onboarding. Repo público con proyecto de ejemplo y guía paso a paso.',
+      },
+      role: 'Creator & Speaker',
+      impact: {
+        education: 'Material formativo reutilizable',
+        innovation: 'Reducción de fricción de onboarding',
+      },
+      technologies: ['Dev Containers', 'VS Code', 'Docker', 'Node.js'],
+      tags: ['Education', 'DevOps', 'Open Source'],
+      url: 'https://github.com/TellMeAlex/devcontainer-workshop',
+    },
+    {
       id: 'ai-agents-workshop',
       name: 'Taller Agentes IA & MCP',
       tagline: 'Formación avanzada sobre agentes autónomos y protocolo MCP',
