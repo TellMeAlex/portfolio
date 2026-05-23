@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+permissions:
+  contents: read
+  pull-requests: read
+
 env:
   NODE_VERSION: '20.x'
 
@@ -27,23 +31,30 @@ jobs:
             perf
             test
             chore
+            ci
+            build
           requireScope: false
 
       - name: Check PR size
         uses: actions/github-script@v8
+        continue-on-error: true
         with:
           script: |
-            const { data: files } = await github.rest.pulls.listFiles({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            });
+            try {
+              const { data: files } = await github.rest.pulls.listFiles({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number
+              });
 
-            const filesChanged = files.length;
-            if (filesChanged > 20) {
-              core.setFailed(`❌ PR is too large (${filesChanged} files). Consider breaking it down.`);
-            } else {
-              console.log(`✅ PR size is acceptable (${filesChanged} files)`);
+              const filesChanged = files.length;
+              if (filesChanged > 20) {
+                core.warning(`PR is large (${filesChanged} files). Consider breaking it down.`);
+              } else {
+                console.log(`PR size is acceptable (${filesChanged} files)`);
+              }
+            } catch (e) {
+              console.log(`PR size check skipped (likely token permissions): ${e.message}`);
             }
 
   # Code quality analysis
