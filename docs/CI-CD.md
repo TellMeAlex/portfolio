@@ -1,355 +1,344 @@
-# 📚 Documentación del Sistema CI/CD Automático
+# 📚 Documentación del Sistema CI/CD
 
-Este documento describe el sistema de integración y despliegue continuo (CI/CD) configurado para el portfolio de Alejandro de la Fuente.
+Este documento describe el pipeline real de integración y despliegue continuo del portfolio de Alejandro de la Fuente.
 
 ## 🎯 Resumen Ejecutivo
 
-El sistema automatiza completamente el proceso desde el desarrollo hasta la producción, garantizando calidad y desplegando automáticamente cambios validados en tellmealex.com.
+El sistema separa validación (GitHub Actions) y despliegue (Dokploy). GitHub Actions ejecuta los quality gates y notifica el estado; Dokploy escucha el webhook de GitHub y orquesta el build + despliegue del contenedor Docker en el VPS de producción. Traefik (incluido en Dokploy) termina TLS y enruta el tráfico hacia el contenedor.
 
 ## 🏗️ Arquitectura General
 
 ```mermaid
 graph TB
-    DEV[👨‍💻 Desarrollador] --> GIT[📁 Git Push main]
-    GIT --> GHA[🤖 GitHub Actions]
+    DEV[👨‍💻 Desarrollador] --> GIT[📁 git push origin main]
+    GIT --> GHA[🤖 GitHub Actions<br/>ci-cd.yml]
 
-    subgraph "CI/CD Pipeline"
-        GHA --> QC[🔍 Quality Checks]
-        QC --> SC[🛡️ Security Scan]
-        SC --> BT[🏗️ Build Test]
-        BT --> DT[🚀 Deployment Trigger]
+    subgraph "Quality Gates (GitHub Actions)"
+        GHA --> QC[🔍 Lint / Format / Type-check]
+        QC --> TST[🧪 Unit Tests + Coverage]
+        TST --> SC[🛡️ npm audit]
+        SC --> BT[🏗️ Build Verification]
+        BT --> NOTIF[📣 dokploy-deploy.yml<br/>Notification]
     end
 
-    DT --> SSH[📡 SSH Deployment]
+    GIT -. webhook .-> DOK[🚢 Dokploy<br/>Raspberry Pi]
 
-    subgraph "Servidor (198.12.82.184)"
-        SSH --> CONT[🐳 react-nginx-app]
-        CONT --> WEB[🌐 tellmealex.com]
+    subgraph "Dokploy Pipeline"
+        DOK --> BUILD[🐳 Docker multi-stage build]
+        BUILD --> SWARM[🐝 Docker Swarm<br/>portfolio-portfolioapp-cjgywg]
     end
 
+    SWARM --> TRAEFIK[🌐 Traefik<br/>SSL termination]
+    TRAEFIK --> WEB[🔗 https://tellmealex.dev]
     WEB --> USER[👥 Usuarios]
 ```
 
-## 📋 Flujo Detallado del Proceso
+> **Nota**: GitHub Actions y Dokploy operan en paralelo a partir del mismo evento `push`. El deploy _no_ depende del éxito de los quality gates — si los tests fallan, lo que llega a producción puede seguir construyéndose. Si quieres bloquear deploys ante fallos de CI, configura una branch protection rule que exija `ci-cd.yml` como check antes de poder mergear a `main`.
 
-### 1. Desarrollo y Commit
+## 📋 Flujo Detallado
+
+### 1. Push a `main`
 
 ```mermaid
 sequenceDiagram
     participant Dev as 👨‍💻 Desarrollador
-    participant Git as 📁 Git Repository
+    participant Git as 📁 GitHub
     participant GHA as 🤖 GitHub Actions
+    participant DOK as 🚢 Dokploy
 
     Dev->>Git: git push origin main
-    Git->>GHA: Trigger CI/CD Pipeline
-    Note over GHA: Workflow: ci-cd.yml
+    Git->>GHA: Dispara ci-cd.yml
+    Git-->>DOK: Webhook (GitHub App)
+    Note over GHA,DOK: Ambos flujos arrancan en paralelo
 ```
 
-### 2. Pipeline de Calidad (CI/CD)
+### 2. Pipeline de Validación (`ci-cd.yml`)
 
 ```mermaid
 graph LR
-    subgraph "Quality Checks (~28s)"
-        QC1[📦 npm install]
+    subgraph "Job: quality-checks"
+        QC1[📦 npm ci]
         QC2[✨ npm run lint]
         QC3[🎨 npm run format:check]
         QC4[🔍 npm run type-check]
-        QC5[🧪 npm run test:unit]
-        QC1 --> QC2 --> QC3 --> QC4 --> QC5
+        QC5[🧪 npm run test:unit --coverage]
+        QC6[📊 Upload Codecov]
+        QC1 --> QC2 --> QC3 --> QC4 --> QC5 --> QC6
     end
 
-    subgraph "Security Scan (~16s)"
-        SC1[📦 npm install]
-        SC2[🛡️ npm audit]
+    subgraph "Job: security-scan"
+        SC1[📦 npm ci]
+        SC2[🛡️ npm audit --audit-level moderate]
         SC1 --> SC2
     end
 
-    subgraph "Build Test (~21s)"
-        BT1[📦 npm install]
+    subgraph "Job: build-test"
+        BT1[📦 npm ci]
         BT2[🏗️ npm run build]
         BT1 --> BT2
     end
 
-    QC5 --> SC1
+    subgraph "Job: deployment-notification"
+        DN1[✅ Reporta estado]
+    end
+
+    QC6 --> SC1
     SC2 --> BT1
-    BT2 --> DT[🚀 Deployment Trigger]
+    BT2 --> DN1
 ```
 
-### 3. Despliegue SSH Automático
+**Workflow file**: [.github/workflows/ci-cd.yml](../.github/workflows/ci-cd.yml)
+
+Jobs en orden:
+
+1. `quality-checks` — instala con `npm ci`, ejecuta lint, format check, type-check, tests con cobertura, sube coverage a Codecov.
+2. `security-scan` — `npm audit --audit-level moderate` (continue-on-error: true; informa pero no bloquea).
+3. `build-test` — verifica que `npm run build` termina sin errores.
+4. `deployment-notification` — solo si el push es a `main`: imprime un resumen indicando que Dokploy se encargará del deploy.
+
+### 3. Notificación de Deploy (`dokploy-deploy.yml`)
 
 ```mermaid
 sequenceDiagram
-    participant GHA as 🤖 GitHub Actions
-    participant SSH as 📡 SSH Connection
-    participant Server as 🖥️ Servidor
-    participant Docker as 🐳 Container
-    participant Web as 🌐 Website
+    participant GHA as 🤖 ci-cd.yml
+    participant DN as 📣 dokploy-deploy.yml
+    participant Dev as 👨‍💻 Desarrollador
 
-    GHA->>SSH: Establecer conexión SSH
-    SSH->>Server: mkdir -p /root/development/portfolio
-    SSH->>Server: scp dist/* → servidor
-    SSH->>Docker: docker exec react-nginx-app
-    Docker->>Docker: Backup contenido actual
-    Docker->>Docker: rm -rf /usr/share/nginx/html/*
-    SSH->>Docker: docker cp archivos → container
-    Docker->>Docker: nginx -s reload
-    Docker->>Web: Contenido actualizado
-    SSH->>GHA: ✅ Deployment exitoso
+    GHA->>DN: workflow_run completed (success)
+    DN->>Dev: Log "✅ Listo para deploy"
+    Note over DN: NO dispara despliegue.<br/>Sirve como recordatorio del estado.
+```
+
+**Workflow file**: [.github/workflows/dokploy-deploy.yml](../.github/workflows/dokploy-deploy.yml)
+
+Este workflow escucha el evento `workflow_run` del CI principal y simplemente registra que el código está listo. El deploy real ocurre vía webhook directo de GitHub → Dokploy, independiente de GitHub Actions.
+
+### 4. Build y Deploy en Dokploy
+
+```mermaid
+sequenceDiagram
+    participant Git as 📁 GitHub
+    participant DOK as 🚢 Dokploy (Raspberry Pi)
+    participant VPS as 🖥️ VPS 198.12.82.184
+    participant SWARM as 🐝 Docker Swarm
+    participant TRAEFIK as 🌐 Traefik
+
+    Git->>DOK: Push webhook (rama main)
+    DOK->>VPS: Clone + docker build (multi-stage)
+    Note over VPS: Stage 1: node:25-slim → npm ci + vite build<br/>Stage 2: nginx:1.29-alpine + dist/
+    VPS->>SWARM: docker service update (rolling)
+    SWARM->>TRAEFIK: Nuevo contenedor saludable
+    TRAEFIK->>TRAEFIK: Renueva/usa cert Let's Encrypt
+    TRAEFIK-->>Git: ✅ https://tellmealex.dev sirviendo nueva versión
 ```
 
 ## 🔧 Componentes Técnicos
 
-### Archivos de Configuración
+### Workflows de GitHub Actions
 
-#### `.github/workflows/ci-cd.yml`
+| Archivo                                                                         | Trigger                                                       | Propósito                                                    |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------ |
+| [.github/workflows/ci-cd.yml](../.github/workflows/ci-cd.yml)                   | `push` y `pull_request` a `main` (`push` también a `develop`) | Quality gates: lint, format, type-check, tests, audit, build |
+| [.github/workflows/dokploy-deploy.yml](../.github/workflows/dokploy-deploy.yml) | `workflow_run` de "CI/CD Pipeline" (success, rama main)       | Notificación informativa de que el deploy está listo         |
+| [.github/workflows/security.yml](../.github/workflows/security.yml)             | Programado / PR                                               | Escaneo de seguridad adicional                               |
+| [.github/workflows/performance.yml](../.github/workflows/performance.yml)       | PR / programado                                               | Métricas de rendimiento (Lighthouse)                         |
+| [.github/workflows/pr-validation.yml](../.github/workflows/pr-validation.yml)   | PR                                                            | Validaciones específicas de pull requests                    |
 
-- **Propósito**: Pipeline principal de validación
-- **Triggers**: Push/PR a rama `main`
-- **Jobs**: quality-checks → security-scan → build-test → deployment-trigger
+### Dockerfile (multi-stage)
 
-#### `.github/workflows/deploy-ssh.yml`
+Ver [Dockerfile](../Dockerfile) para el detalle completo. Resumen:
 
-- **Propósito**: Despliegue automático al servidor
-- **Trigger**: Completion exitosa de ci-cd.yml
-- **Estrategia**: Actualización in-place del container existente
+- **Stage 1 — builder** (`node:25-slim`): instala dependencias del sistema, `npm ci`, type-check, lint (best-effort), `npm run build` con `NODE_ENV=production`.
+- **Stage 2 — runtime** (`nginx:1.29-alpine`): copia `dist/` del builder a `/usr/share/nginx/html`, monta `nginx.conf` propio, ejecuta como usuario `nginx`, expone puerto `80`, healthcheck cada 30 s.
+
+Imagen final ~50 MB. El TLS lo termina Traefik, no Nginx.
 
 ### Stack Tecnológico
 
 ```mermaid
 graph TB
     subgraph "Frontend"
-        REACT[⚛️ React 18]
+        REACT[⚛️ React 19]
         TS[📘 TypeScript]
         VITE[⚡ Vite]
-        TAIL[🎨 Tailwind CSS]
+        CSS[🎨 CSS Modules + Tokens]
     end
 
     subgraph "Quality Tools"
         ESLINT[🔍 ESLint]
         PRETTIER[✨ Prettier]
         VITEST[🧪 Vitest]
-        YARN[📦 Yarn]
+        NPM[📦 npm]
     end
 
-    subgraph "Infrastructure"
-        DOCKER[🐳 Docker]
-        NGINX[🌐 Nginx]
-        SSL[🔒 Let's Encrypt SSL]
-        SSH[📡 SSH]
+    subgraph "Deploy Infrastructure"
+        DOK[🚢 Dokploy]
+        DOCKER[🐳 Docker Swarm]
+        NGINX[🌐 Nginx 1.29-alpine]
+        TRAEFIK[🔒 Traefik + Let's Encrypt]
     end
 
-    REACT --> QUALITY
-    TS --> QUALITY
-    VITE --> QUALITY
-    QUALITY --> DOCKER
-    DOCKER --> NGINX
+    REACT --> VITE
+    VITE --> NPM
+    NPM --> DOCKER
+    DOCKER --> DOK
+    DOK --> NGINX
+    NGINX --> TRAEFIK
 ```
 
-## 🚀 Proceso de Despliegue Detallado
+## 🚀 Estrategia de Despliegue
 
-### Estrategia de Container Update
+Dokploy ejecuta `docker service update` sobre la stack Swarm. La rolling update levanta el nuevo contenedor, espera al healthcheck `HEALTHCHECK CMD curl -f http://localhost/`, y solo entonces drena el anterior. Resultado: zero downtime y rollback trivial desde la UI de Dokploy si el deploy queda en estado unhealthy.
 
-El sistema utiliza una estrategia inteligente que **actualiza el container existente** en lugar de crear uno nuevo:
+### Ventajas de delegar en Dokploy + Traefik
 
-```mermaid
-graph LR
-    subgraph "Antes"
-        OLD[🐳 react-nginx-app<br/>Puerto 80:80, 443:443<br/>SSL Certificates]
-    end
+1. **Zero downtime** vía rolling update de Docker Swarm.
+2. **SSL automático**: Traefik renueva certificados Let's Encrypt sin intervención.
+3. **Rollback con un click** desde la UI de Dokploy a cualquier deploy anterior.
+4. **Sin secrets SSH en GitHub**: el deploy lo orquesta Dokploy hablando con su propio Docker daemon.
+5. **Build aislado**: ocurre dentro del contenedor de Dokploy, no en el runner de GitHub Actions.
 
-    subgraph "Durante Update"
-        BACKUP[💾 Backup contenido]
-        CLEAR[🗑️ Limpiar /html/*]
-        COPY[📄 Copiar nuevos archivos]
-        RELOAD[🔄 nginx -s reload]
-    end
-
-    subgraph "Después"
-        NEW[🐳 react-nginx-app<br/>Puerto 80:80, 443:443<br/>SSL Certificates<br/>✨ Contenido actualizado]
-    end
-
-    OLD --> BACKUP --> CLEAR --> COPY --> RELOAD --> NEW
-```
-
-### Ventajas de esta Estrategia
-
-1. **Zero Downtime**: El container nunca se detiene
-2. **SSL Preservation**: Mantiene certificados Let's Encrypt
-3. **Port Management**: Evita conflictos de puerto 80/443
-4. **Rollback Safety**: Backup automático antes de actualizar
-
-## 📊 Métricas y Tiempos
-
-### Tiempos Promedio de Ejecución
+## 📊 Tiempos Aproximados
 
 ```mermaid
 gantt
-    title Timeline del CI/CD Process
+    title Timeline desde push hasta producción
     dateFormat X
-    axisFormat %s
+    axisFormat %ss
 
-    section CI Pipeline
-    Quality Checks    :0, 28
-    Security Scan     :28, 44
-    Build Test        :44, 65
-    Trigger           :65, 68
+    section GitHub Actions
+    quality-checks            :0, 60
+    security-scan             :60, 75
+    build-test                :75, 100
+    deployment-notification   :100, 105
 
-    section SSH Deploy
-    Setup SSH         :68, 73
-    Deploy to Server  :73, 108
-    Verify            :108, 113
+    section Dokploy (paralelo)
+    docker build              :0, 120
+    docker service update     :120, 165
+    healthcheck + traffic switch :165, 180
 
-    section Total
-    Complete Process  :0, 113
+    section Resultado
+    Live en tellmealex.dev    :180, 185
 ```
 
-**Tiempo Total**: ~2 minutos desde push hasta deployment
+**Tiempo total típico**: ~3 minutos desde push hasta nueva versión sirviendo tráfico.
 
-## 🔒 Configuración de Seguridad
+## 🔒 Seguridad
 
-### GitHub Secrets Requeridos
+### Secrets de GitHub
 
 ```yaml
-SSH_HOST: '198.12.82.184' # IP del servidor
-SSH_USER: 'root' # Usuario SSH
-SSH_PRIVATE_KEY: '-----BEGIN...' # Clave privada SSH
+DOKPLOY_API_TOKEN: <token> # Solo necesario si quieres disparar deploys desde GitHub Actions
 ```
 
-### Validaciones de Seguridad
+Actualmente el deploy lo dispara la GitHub App de Dokploy (`Dokploy-2025-10-23-b1h5vv`), por lo que no es estrictamente necesario almacenar secrets de SSH ni de servidor en GitHub. Los secrets antiguos (`SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `RASPBERRY_PI_*`, `TAILSCALE_*`) se pueden eliminar — ver [DOKPLOY-AUTO-DEPLOY-SETUP.md](../DOKPLOY-AUTO-DEPLOY-SETUP.md).
+
+### Validaciones encadenadas
 
 ```mermaid
 graph TD
     CODE[📝 Código] --> LINT[🔍 ESLint]
-    LINT --> AUDIT[🛡️ npm audit]
-    AUDIT --> TYPE[📘 TypeScript]
-    TYPE --> TEST[🧪 Unit Tests]
-    TEST --> BUILD[🏗️ Build Verification]
-    BUILD --> DEPLOY[🚀 Deploy]
+    LINT --> FMT[🎨 Prettier]
+    FMT --> TYPE[📘 TypeScript]
+    TYPE --> TEST[🧪 Vitest]
+    TEST --> AUDIT[🛡️ npm audit]
+    AUDIT --> BUILD[🏗️ Build Verification]
+    BUILD --> DEPLOY[🚢 Dokploy]
 
     LINT -.-> FAIL1[❌ Lint Errors]
-    AUDIT -.-> FAIL2[❌ Security Vulnerabilities]
+    FMT -.-> FAIL2[❌ Format mismatch]
     TYPE -.-> FAIL3[❌ Type Errors]
     TEST -.-> FAIL4[❌ Test Failures]
     BUILD -.-> FAIL5[❌ Build Errors]
 ```
 
-## 📁 Estructura de Archivos
+Solo `quality-checks` y `build-test` bloquean el pipeline. `security-scan` está en `continue-on-error: true`: informa pero no rompe el build.
 
-### En el Repositorio
+## 📁 Estructura Relevante
 
 ```
 portfolio/
 ├── .github/workflows/
-│   ├── ci-cd.yml              # Pipeline principal
-│   └── deploy-ssh.yml         # Despliegue SSH
-├── src/                       # Código fuente React
-├── public/                    # Assets estáticos
-├── docs/                      # Documentación
-├── package.json               # Dependencias y scripts
-├── package-lock.json                  # Lock de dependencias
-├── vite.config.ts            # Configuración Vite
-└── tailwind.config.js        # Configuración Tailwind
+│   ├── ci-cd.yml                 # Pipeline principal de quality gates
+│   ├── dokploy-deploy.yml        # Notificación post-CI
+│   ├── pr-validation.yml         # Checks específicos de PR
+│   ├── security.yml              # Escaneo de seguridad
+│   └── performance.yml           # Lighthouse / métricas
+├── Dockerfile                    # Multi-stage: node:25-slim → nginx:1.29-alpine
+├── nginx.conf                    # Config Nginx (SPA routing, compresión, headers)
+├── DEPLOYMENT.md                 # Guía operativa de deployment
+├── DOKPLOY-AUTO-DEPLOY-SETUP.md  # Setup y estado de la integración con Dokploy
+├── WEBHOOK-SETUP.md              # Configuración del webhook GitHub → Dokploy
+└── docs/
+    ├── CI-CD.md                  # Este documento
+    └── TROUBLESHOOTING.md        # Diagnóstico operativo
 ```
 
-### En el Servidor (Container)
+## 🔄 Rollback
 
-```
-/usr/share/nginx/html/
-├── index.html                 # Aplicación principal
-├── assets/
-│   ├── index-[hash].js       # JavaScript bundle
-│   ├── index-[hash].css      # CSS bundle
-│   └── vendor-[hash].js      # Vendor bundle
-└── vite.svg                  # Assets estáticos
-```
+Rollback se hace desde la UI de Dokploy, no por SSH:
 
-## 🔄 Flujo de Rollback
+1. Acceder a Dokploy (`http://100.122.202.103:3000` vía Tailscale).
+2. **Projects → portfolio → portfolio-app → Deployments**.
+3. Seleccionar el deploy anterior en estado _success_ y pulsar **Redeploy**.
 
-En caso de problemas, el sistema mantiene backups automáticos:
-
-```mermaid
-graph LR
-    ISSUE[🚨 Problema Detectado] --> BACKUP[💾 Localizar Backup]
-    BACKUP --> RESTORE[🔄 Restaurar Contenido]
-    RESTORE --> RELOAD[🔄 nginx -s reload]
-    RELOAD --> VERIFY[✅ Verificar Funcionamiento]
-```
-
-### Comando de Rollback Manual
+Para verificar el resultado:
 
 ```bash
-# Conectar al servidor
-ssh root@198.12.82.184
+# Listar tasks del service Swarm (desde el VPS o vía Tailscale)
+ssh servidor-198 'docker service ps portfolio-portfolioapp-cjgywg --no-trunc | head -5'
 
-# Listar backups disponibles
-ls -la /tmp/backup-*
-
-# Restaurar backup específico
-docker exec react-nginx-app cp -r /tmp/backup-YYYYMMDD-HHMMSS/* /usr/share/nginx/html/
-
-# Recargar nginx
-docker exec react-nginx-app nginx -s reload
+# Confirmar headers de la versión servida
+curl -I https://tellmealex.dev
 ```
 
-## 🎛️ Monitoreo y Debugging
+## 🎛️ Monitoreo y Debug
 
-### Comandos Útiles de Verificación
+### GitHub Actions
 
 ```bash
-# Estado del workflow
 gh run list -R TellMeAlex/portfolio --limit 5
-
-# Logs de deployment fallido
-gh run view [RUN_ID] --log-failed
-
-# Estado del container en servidor
-ssh root@198.12.82.184 "docker ps | grep react-nginx-app"
-
-# Logs del container
-ssh root@198.12.82.184 "docker logs react-nginx-app --tail 20"
-
-# Verificar contenido actual
-ssh root@198.12.82.184 "docker exec react-nginx-app ls -la /usr/share/nginx/html/"
+gh run view <RUN_ID> --log-failed -R TellMeAlex/portfolio
 ```
 
-### Health Checks
+### Dokploy + contenedor
 
-El sistema incluye verificaciones automáticas:
+```bash
+# Estado del service
+ssh servidor-198 'docker service ls | grep portfolio'
 
-```mermaid
-graph TD
-    DEPLOY[🚀 Deploy Complete] --> CHECK1[🔍 Container Status]
-    CHECK1 --> CHECK2[📡 HTTP Response]
-    CHECK2 --> CHECK3[🌐 External Access]
-    CHECK3 --> SUCCESS[✅ Deployment Verified]
+# Tasks (instancias)
+ssh servidor-198 'docker service ps portfolio-portfolioapp-cjgywg --no-trunc'
 
-    CHECK1 -.-> FAIL1[❌ Container Down]
-    CHECK2 -.-> FAIL2[❌ HTTP Error]
-    CHECK3 -.-> FAIL3[❌ External Blocked]
+# Logs en tiempo real
+ssh servidor-198 'docker service logs -f portfolio-portfolioapp-cjgywg --tail 50'
+
+# Logs de Dokploy (build/deploy events)
+ssh servidor-198 'docker service logs dokploy --tail 100 | grep portfolio'
 ```
+
+> Para la UI de Dokploy y el debug profundo, consulta [TROUBLESHOOTING.md](./TROUBLESHOOTING.md).
 
 ## 📈 Beneficios del Sistema
 
 ### Para el Desarrollo
 
-- ✅ **Automatización Completa**: Cero intervención manual
-- ✅ **Calidad Garantizada**: Múltiples gates de validación
-- ✅ **Feedback Inmediato**: Errores detectados en minutos
-- ✅ **Deployment Seguro**: Backup automático y rollback
+- ✅ **Quality gates rápidos**: feedback en ~1.5 min con cobertura subida a Codecov.
+- ✅ **Pre-commit local**: Husky corre lint y format antes del push, evitando fallos triviales en CI.
+- ✅ **Sin scripts custom de deploy**: la build vive en el `Dockerfile`, reproducible localmente.
 
-### Para la Producción
+### Para Producción
 
-- ✅ **Zero Downtime**: Actualizaciones sin interrupciones
-- ✅ **SSL Preservation**: Certificados mantenidos automáticamente
-- ✅ **Performance**: Assets optimizados con Vite
-- ✅ **Monitoring**: Logs y métricas integradas
+- ✅ **Zero downtime** via Docker Swarm rolling updates.
+- ✅ **TLS gestionado** por Traefik (renovación automática).
+- ✅ **Rollback en un click** desde Dokploy.
+- ✅ **Healthchecks** integrados a nivel de contenedor.
 
-### Para el Mantenimiento
+### Para Mantenimiento
 
-- ✅ **Reproducibilidad**: Mismo proceso cada vez
-- ✅ **Trazabilidad**: Logs completos de cada deployment
-- ✅ **Escalabilidad**: Fácil extensión para nuevos ambientes
-- ✅ **Documentación**: Proceso completamente documentado
+- ✅ **Sin secrets de servidor en GitHub** una vez completado el cleanup.
+- ✅ **Trazabilidad** de cada deploy en la UI de Dokploy.
+- ✅ **Build idéntico** local y en producción (mismo `Dockerfile`).
 
 ## 🚦 Estados del Sistema
 
@@ -358,41 +347,28 @@ stateDiagram-v2
     [*] --> Development
     Development --> Push: git push main
     Push --> CI_Running: GitHub Actions
-    CI_Running --> CI_Success: All checks pass
-    CI_Running --> CI_Failed: Quality gates fail
-    CI_Failed --> Development: Fix issues
-    CI_Success --> Deploy_Running: SSH trigger
-    Deploy_Running --> Deploy_Success: Container updated
-    Deploy_Running --> Deploy_Failed: SSH/Docker issues
-    Deploy_Failed --> Investigation: Debug required
-    Deploy_Success --> Production: Live on tellmealex.com
-    Production --> Development: Next iteration
-    Investigation --> Development: Issues resolved
+    Push --> Dokploy_Build: Webhook a Dokploy
+    CI_Running --> CI_Success: Quality gates OK
+    CI_Running --> CI_Failed: Fallo en lint/test/build
+    CI_Failed --> Development: Corregir
+    Dokploy_Build --> Deploying: docker service update
+    Deploying --> Live: Healthcheck OK
+    Deploying --> Deploy_Failed: Healthcheck KO
+    Deploy_Failed --> Investigation
+    Investigation --> Development
+    Live --> Development: Siguiente iteración
 ```
 
 ## 🎯 Próximos Pasos Sugeridos
 
-### Mejoras Potenciales
-
-1. **Monitoring Avanzado**: Integración con Datadog/New Relic
-2. **Testing E2E**: Playwright tests automáticos
-3. **Multiple Environments**: Staging environment
-4. **Performance Metrics**: Core Web Vitals tracking
-5. **Notifications**: Slack/Discord integration
-
-### Escalabilidad
-
-```mermaid
-graph LR
-    CURRENT[🎯 Actual<br/>Single Server] --> STAGING[🔄 Staging<br/>Environment]
-    STAGING --> CDN[📡 CDN<br/>Integration]
-    CDN --> CLUSTER[☁️ Container<br/>Orchestration]
-    CLUSTER --> MONITORING[📊 Advanced<br/>Monitoring]
-```
+1. **Branch protection rule** en `main` exigiendo el check de `ci-cd.yml` antes de mergear, para que los quality gates bloqueen realmente el deploy.
+2. **E2E tests** con Playwright integrados al pipeline.
+3. **Notificaciones**: webhook de Dokploy a Slack/Discord para deploys success/failure.
+4. **Staging environment**: una segunda app en Dokploy apuntando a una rama distinta.
+5. **Limpieza de secrets** legados (SSH, Tailscale, Raspberry Pi) — ver [DOKPLOY-AUTO-DEPLOY-SETUP.md](../DOKPLOY-AUTO-DEPLOY-SETUP.md).
 
 ---
 
-**🎉 Sistema CI/CD Completamente Funcional**
-**📅 Implementado**: Octubre 2025
-**🔗 URL**: https://tellmealex.com
+**🔗 URL producción**: https://tellmealex.dev
 **📧 Contacto**: llamamealex@gmail.com
+**📅 Última revisión**: 2026-05-23
