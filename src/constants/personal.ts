@@ -34,16 +34,6 @@ export const PERSONAL_INFO = {
   // Key projects
   keyProjects: [
     {
-      name: 'ONLY-WORKS-ON-OLYMPUS',
-      description: 'Meta-orquestador OSS para oh-my-opencode',
-      role: 'Creator & Maintainer',
-    },
-    {
-      name: 'NTTCoder OCX Registry',
-      description: 'Registry de extensiones OpenCode para equipos NTT',
-      role: 'Creator & Maintainer',
-    },
-    {
       name: 'Inditex Store Management Platform',
       description: 'Microfrontends architecture for all Spain stores',
       role: 'Technical Lead',
@@ -52,6 +42,11 @@ export const PERSONAL_INFO = {
       name: 'RTVE Play CMS',
       description: 'National broadcasting content management APIs',
       role: 'Backend Developer',
+    },
+    {
+      name: 'HelloAuto Telemetry Dashboard',
+      description: 'IoT vehicle fleet monitoring',
+      role: 'Full Stack Developer',
     },
   ],
 }

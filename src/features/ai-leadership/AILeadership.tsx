@@ -73,17 +73,6 @@ export const AILeadership: React.FC = () => {
                 ✓
               </span>
               <div className="responsibility-text">
-                <strong>Investigación y OSS en harnesses agénticos:</strong>{' '}
-                meta-orquestador para oh-my-opencode, registry de extensiones
-                OCX y adopción de Spec-Driven Development en proyectos cliente.
-              </div>
-            </li>
-
-            <li className="responsibility-item">
-              <span className="check-icon" aria-hidden="true">
-                ✓
-              </span>
-              <div className="responsibility-text">
                 <strong>Procesos de selección técnica</strong> y validación de
                 conocimientos
               </div>
