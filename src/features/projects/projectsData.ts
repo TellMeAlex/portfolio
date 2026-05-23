@@ -6,6 +6,90 @@ import type { ProjectsData } from './Projects.types'
 export const projectsData: ProjectsData = {
   projects: [
     {
+      id: 'olympus-meta-orchestrator',
+      name: 'ONLY-WORKS-ON-OLYMPUS',
+      tagline: 'Meta-orquestador con enrutado inteligente para oh-my-opencode',
+      category: 'ai',
+      status: 'production',
+      confidential: false,
+      client: 'Open Source',
+      period: {
+        start: '2026-02',
+        end: null,
+        current: true,
+        display: 'Febrero 2026 - Presente',
+      },
+      description: {
+        short:
+          'Plugin meta-orquestador que enruta peticiones entre agentes especializados dentro del harness oh-my-opencode.',
+        long: 'Plugin que actúa como capa de orquestación sobre oh-my-opencode: analiza la petición entrante, selecciona el sub-agente adecuado y coordina la ejecución multi-agente. Materializa los patrones de harness engineering (contexto fresco por hijo, memoria compartida, validación) en una pieza reutilizable.',
+      },
+      role: 'Creator & Maintainer',
+      impact: {
+        innovation: 'Patrón meta-orquestador',
+        community: 'Plugin OSS para harness',
+      },
+      technologies: ['TypeScript', 'OpenCode', 'Multi-agent', 'Harness'],
+      tags: ['AI', 'Open Source', 'Harness Engineering'],
+      url: 'https://github.com/TellMeAlex/ONLY-WORKS-ON-OLYMPUS',
+    },
+    {
+      id: 'nttcoder-ocx-registry',
+      name: 'NTTCoder OCX Registry',
+      tagline: 'Registro de OpenCode Extension Components para equipos NTT',
+      category: 'ai',
+      status: 'production',
+      confidential: false,
+      client: 'NTT DATA (Open Source)',
+      period: {
+        start: '2026-04',
+        end: null,
+        current: true,
+        display: 'Abril 2026 - Presente',
+      },
+      description: {
+        short:
+          'Registro y catálogo de extensiones (OCX) para OpenCode, pensado para estandarizar harnesses dentro de NTT.',
+        long: 'Registry tipo "package index" para componentes de extensión de OpenCode: comandos, agentes, hooks, plugins. Permite a los equipos descubrir, versionar y compartir piezas de harness sin reinventar configuración. Pensado como punto de contacto entre la disciplina de harness engineering y la estandarización empresarial.',
+      },
+      role: 'Creator & Maintainer',
+      impact: {
+        innovation: 'Estandarización de harness',
+        community: 'Extension registry NTTCoder',
+      },
+      technologies: ['TypeScript', 'OpenCode', 'Registry', 'OCX'],
+      tags: ['AI', 'Open Source', 'Tooling'],
+      url: 'https://github.com/TellMeAlex/registro-nttcoder',
+    },
+    {
+      id: 'aidev-pipeline-demo',
+      name: 'AI Dev Pipeline Demo',
+      tagline: 'Repo didáctico para asimilar conceptos de pipeline agéntico',
+      category: 'ai',
+      status: 'completed',
+      confidential: false,
+      client: 'Charla Inditex',
+      period: {
+        start: '2026-05',
+        end: '2026-05',
+        current: false,
+        display: 'Mayo 2026',
+      },
+      description: {
+        short:
+          'Repositorio juguete que materializa los conceptos de pipeline agéntico usados como apoyo en charla interna en Inditex.',
+        long: 'Demo end-to-end de un pipeline agéntico aplicado al desarrollo: análisis de requisitos → implementación → revisión → verificación, todo coordinado por sub-agentes con contexto fresco. Acompañó a la charla interna en Inditex sobre cómo adoptar agentic engineering en equipos cliente.',
+      },
+      role: 'Speaker & Author',
+      impact: {
+        education: 'Material formativo para equipos cliente',
+        innovation: 'Aterrizaje práctico de pipeline agéntico',
+      },
+      technologies: ['JavaScript', 'Claude Code', 'Pipeline', 'Agents'],
+      tags: ['AI', 'Education', 'Open Source'],
+      url: 'https://github.com/TellMeAlex/aidev-pipeline-demo',
+    },
+    {
       id: 'ai-agents-workshop',
       name: 'Taller Agentes IA & MCP',
       tagline: 'Formación avanzada sobre agentes autónomos y protocolo MCP',
