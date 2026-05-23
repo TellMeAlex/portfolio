@@ -7,9 +7,9 @@ export const PERSONAL_INFO = {
     first: 'Alejandro',
     full: 'Alejandro de la Fuente de la Rosa',
   },
-  title: 'Full Stack Developer',
+  title: 'Technical Leader Specialist · Agentic AI',
   description:
-    'Full Stack Developer passionate about creating innovative web solutions with modern technologies',
+    'Technical Leader Specialist en NTT DATA, especializado en IA agéntica, harness engineering y arquitectura microfrontends. Diseño sistemas donde humanos y agentes colaboran sin perder el techo de calidad.',
   location: 'Jaén, Andalucía, Spain',
   company: 'NTT DATA',
   role: 'Technical Leader Specialist',
@@ -25,14 +25,24 @@ export const PERSONAL_INFO = {
 
   // Specializations
   specializations: [
-    'AI Integration',
-    'ReactJS Development',
-    'Microfrontends Architecture',
-    'Technical Leadership',
+    'Agentic AI & Harness Engineering',
+    'Claude Code & Multi-agent Orchestration',
+    'Microfrontends Architecture (React + TS)',
+    'Technical Leadership & Mentoring',
   ],
 
   // Key projects
   keyProjects: [
+    {
+      name: 'ONLY-WORKS-ON-OLYMPUS',
+      description: 'Meta-orquestador OSS para oh-my-opencode',
+      role: 'Creator & Maintainer',
+    },
+    {
+      name: 'NTTCoder OCX Registry',
+      description: 'Registry de extensiones OpenCode para equipos NTT',
+      role: 'Creator & Maintainer',
+    },
     {
       name: 'Inditex Store Management Platform',
       description: 'Microfrontends architecture for all Spain stores',
@@ -42,11 +52,6 @@ export const PERSONAL_INFO = {
       name: 'RTVE Play CMS',
       description: 'National broadcasting content management APIs',
       role: 'Backend Developer',
-    },
-    {
-      name: 'HelloAuto Telemetry Dashboard',
-      description: 'IoT vehicle fleet monitoring',
-      role: 'Full Stack Developer',
     },
   ],
 }

@@ -44,17 +44,38 @@ export const AILeadership: React.FC = () => {
                 ✓
               </span>
               <div className="responsibility-text">
-                <strong>Talleres de GenAI y herramientas de IA:</strong>
+                <strong>Talleres y charlas de IA agéntica:</strong>
                 <ul
                   className="workshop-list"
                   aria-label="Temas de talleres impartidos"
                 >
                   <li>
+                    Workflows en Claude Code y orquestación multi-agente
+                    determinística
+                  </li>
+                  <li>
+                    Harness Engineering: contexto, tools, memoria y verificación
+                  </li>
+                  <li>
+                    Pipeline agéntico aplicado al desarrollo (charla interna en
+                    Inditex)
+                  </li>
+                  <li>
                     "Sacarle partido a la IA: Instructions de Copilot y Agentes"
                   </li>
-                  <li>"Dev Containers: estandarización de entornos"</li>
-                  <li>Novedades en React y arquitecturas modernas</li>
+                  <li>Dev Containers y estandarización de entornos</li>
                 </ul>
+              </div>
+            </li>
+
+            <li className="responsibility-item">
+              <span className="check-icon" aria-hidden="true">
+                ✓
+              </span>
+              <div className="responsibility-text">
+                <strong>Investigación y OSS en harnesses agénticos:</strong>{' '}
+                meta-orquestador para oh-my-opencode, registry de extensiones
+                OCX y adopción de Spec-Driven Development en proyectos cliente.
               </div>
             </li>
 
