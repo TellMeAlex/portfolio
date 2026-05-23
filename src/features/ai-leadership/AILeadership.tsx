@@ -50,20 +50,26 @@ export const AILeadership: React.FC = () => {
                   aria-label="Temas de talleres impartidos"
                 >
                   <li>
-                    Workflows en Claude Code y orquestación multi-agente
-                    determinística
+                    <strong>Talleres comunidad Código Sin Siesta</strong> (abril
+                    2026): Agentes IA + MCP Servers, Graphify (knowledge graphs)
+                    y LLM Wiki (estilo Karpathy)
                   </li>
                   <li>
-                    Harness Engineering: contexto, tools, memoria y verificación
+                    <strong>Pipeline agéntico aplicado al desarrollo</strong> —
+                    charla interna en Inditex (mayo 2026)
                   </li>
                   <li>
-                    Pipeline agéntico aplicado al desarrollo (charla interna en
-                    Inditex)
+                    <strong>Patrones de Orquestación de Agentes IA</strong> —
+                    material modular de 3 piezas (en preparación)
                   </li>
                   <li>
                     "Sacarle partido a la IA: Instructions de Copilot y Agentes"
+                    (interno NTT)
                   </li>
-                  <li>Dev Containers y estandarización de entornos</li>
+                  <li>
+                    <strong>Dev Containers</strong> y estandarización de
+                    entornos de desarrollo
+                  </li>
                 </ul>
               </div>
             </li>
