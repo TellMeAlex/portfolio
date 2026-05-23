@@ -56,6 +56,14 @@ updates:
         update-types: ['version-update:semver-major']
       - dependency-name: '@types/react-dom'
         update-types: ['version-update:semver-major']
+      # eslint v10 not yet supported by eslint-plugin-react (peer dep max ^9)
+      - dependency-name: 'eslint'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@eslint/js'
+        update-types: ['version-update:semver-major']
+      # @types/node 25+ ships experimental localStorage that broke jsdom tests
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: 'github-actions'
     directory: '/'
@@ -83,7 +91,7 @@ updates:
       time: '08:00'
     open-pull-requests-limit: 2
     commit-message:
-      prefix: 'docker'
+      prefix: 'chore'
       include: 'scope'
     labels:
       - 'docker'
