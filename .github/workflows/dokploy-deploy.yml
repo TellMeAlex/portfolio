@@ -41,8 +41,14 @@ jobs:
             exit 1
           fi
 
+          # Dokploy's /api/deploy/{refreshToken} parses a GitHub-shaped
+          # webhook payload to validate the branch (compares body.ref vs
+          # app's configured branch). Send the minimum fields it needs.
           response=$(curl -sS -w "\n%{http_code}" \
-            -X POST "$DOKPLOY_URL/api/deploy/$DOKPLOY_APP_REFRESH_TOKEN")
+            -X POST "$DOKPLOY_URL/api/deploy/$DOKPLOY_APP_REFRESH_TOKEN" \
+            -H "Content-Type: application/json" \
+            -H "X-GitHub-Event: push" \
+            -d '{"ref":"refs/heads/main"}')
 
           body=$(echo "$response" | sed '$d')
           http_status=$(echo "$response" | tail -n1)
@@ -50,8 +56,11 @@ jobs:
           echo "HTTP $http_status"
           echo "Response: $body"
 
-          if [ "$http_status" -ge 400 ]; then
-            echo "::error::Deploy trigger failed with HTTP $http_status"
+          # Dokploy returns 301 with body explaining why deploy was rejected
+          # (e.g. "Branch Not Match", "Watch Paths Not Match"). Treat anything
+          # outside 2xx as failure.
+          if [ "$http_status" -lt 200 ] || [ "$http_status" -ge 300 ]; then
+            echo "::error::Deploy trigger failed with HTTP $http_status — $body"
             exit 1
           fi
 
