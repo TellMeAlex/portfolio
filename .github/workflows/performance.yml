@@ -99,14 +99,16 @@ jobs:
 
       - name: Run Lighthouse CI
         run: |
-          npx @lhci/cli@latest autorun
+          npx @lhci/cli@latest autorun --config=lighthouserc.json
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       - name: Upload Lighthouse reports
+        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: lighthouse-reports
+          if-no-files-found: warn
           path: .lighthouseci/
 
   # Core Web Vitals monitoring
