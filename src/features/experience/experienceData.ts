@@ -32,7 +32,7 @@ export const experienceData: ExperienceData = {
           responsibilities: [
             'Liderazgo de iniciativas de IA y formación en GenAI, Copilot Agents y Dev Containers, ahora desde el área de Digital Architecture',
             'Continuidad en el liderazgo de equipos técnicos, con mayor alcance e impacto organizativo',
-            'Referente técnico de nivel Expert dentro del área de arquitectura, por encima del nivel Architect',
+            'Referente técnico',
           ],
           technologies: ['Leadership', 'GenAI', 'Team Coordination'],
         },
