@@ -21,13 +21,29 @@ export const experienceData: ExperienceData = {
       },
       positions: [
         {
+          title: 'Expert Architect',
+          level: 'Expert',
+          period: {
+            start: '2026-08',
+            end: null,
+            current: true,
+            display: 'Ago 2026 - Presente',
+          },
+          responsibilities: [
+            'Liderazgo de iniciativas de IA y formación en GenAI, Copilot Agents y Dev Containers, ahora desde el área de Digital Architecture',
+            'Continuidad en el liderazgo de equipos técnicos, con mayor alcance e impacto organizativo',
+            'Referente técnico de nivel Expert dentro del área de arquitectura, por encima del nivel Architect',
+          ],
+          technologies: ['Leadership', 'GenAI', 'Team Coordination'],
+        },
+        {
           title: 'Technical Leader Specialist',
           level: 'Leadership',
           period: {
             start: '2025-07',
-            end: null,
-            current: true,
-            display: 'Jul 2025 - Presente',
+            end: '2026-08',
+            current: false,
+            display: 'Jul 2025 - Ago 2026',
           },
           responsibilities: [
             'Liderazgo en iniciativas de IA y talleres de GenAI, Copilot Agents y Dev Containers',

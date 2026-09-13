@@ -7,12 +7,12 @@ export const PERSONAL_INFO = {
     first: 'Alejandro',
     full: 'Alejandro de la Fuente de la Rosa',
   },
-  title: 'Technical Leader Specialist · Agentic AI',
+  title: 'Expert Architect · Agentic AI',
   description:
-    'Technical Leader Specialist en NTT DATA, especializado en IA agéntica, harness engineering y arquitectura microfrontends. Diseño sistemas donde humanos y agentes colaboran sin perder el techo de calidad.',
+    'Expert Architect en NTT DATA (área de Digital Architecture), especializado en IA agéntica, harness engineering y arquitectura microfrontends. Diseño sistemas donde humanos y agentes colaboran sin perder el techo de calidad.',
   location: 'Jaén, Andalucía, Spain',
   company: 'NTT DATA',
-  role: 'Technical Leader Specialist',
+  role: 'Expert Architect',
   experience: `${calculateYearsOfExperience('2021-02')}+ years leading digital transformation`,
 
   // Contact information

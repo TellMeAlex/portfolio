@@ -4,7 +4,7 @@
 
 export interface Position {
   title: string
-  level: 'Leadership' | 'Senior' | 'Mid-level'
+  level: 'Expert' | 'Leadership' | 'Senior' | 'Mid-level'
   period: {
     start: string
     end: string | null

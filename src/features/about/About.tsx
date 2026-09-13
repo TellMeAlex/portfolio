@@ -34,8 +34,9 @@ export const About: React.FC = () => {
         <p className="about-text">
           Desarrollador web especializado en ReactJS con más de {years} años
           liderando proyectos de transformación digital en NTT DATA. Actualmente
-          me desempeño como Technical Leader Specialist, liderando iniciativas
-          de IA y automatización para clientes como Inditex.
+          me desempeño como Expert Architect dentro del área de Digital
+          Architecture, liderando iniciativas de IA y formación para clientes
+          como Inditex con mayor alcance e impacto organizativo.
         </p>
 
         <p className="about-text">

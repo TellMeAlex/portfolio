@@ -21,7 +21,7 @@ export const AILeadership: React.FC = () => {
 
         <div className="leadership-content">
           <p className="leadership-intro">
-            Como Technical Leader Specialist en NTT DATA, lidero:
+            Como Expert Architect en NTT DATA, lidero:
           </p>
 
           <ul

@@ -7,7 +7,7 @@ import './Hero.css'
 
 export const Hero: React.FC = () => {
   const { displayText } = useTypingEffect({
-    text: 'Technical Leader Specialist | Experto en IA',
+    text: 'Expert Architect | Experto en IA',
     speed: 80,
     loop: false,
     startDelay: 800,
