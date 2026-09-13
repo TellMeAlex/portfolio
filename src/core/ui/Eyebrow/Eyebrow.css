@@ -1,0 +1,34 @@
+/* ============================================
+   EYEBROW — section marker (bar 24×2 + mono label)
+   ============================================ */
+
+.eyebrow {
+  --eyebrow-color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: var(--font-normal);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  line-height: var(--leading-normal);
+  color: var(--eyebrow-color);
+}
+
+.eyebrow--plain {
+  letter-spacing: var(--tracking-wide);
+  text-transform: none;
+}
+
+.eyebrow__bar {
+  flex-shrink: 0;
+  width: 24px;
+  height: 2px;
+  background: var(--eyebrow-color);
+}
+
+.eyebrow__label {
+  min-width: 0;
+}

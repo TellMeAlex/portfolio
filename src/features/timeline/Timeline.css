@@ -1,0 +1,325 @@
+/* ============================================
+   TIMELINE — `$ git log --oneline` + CV card
+   ============================================ */
+
+.timeline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 48px;
+  margin: 0 var(--page-gutter) 80px;
+  padding: 40px 48px 48px;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--color-border);
+  background:
+    linear-gradient(var(--color-grid-line) 1px, transparent 1px) 0 0 / 100% 48px,
+    linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px) 0 0 /
+      48px 100%,
+    var(--color-bg-primary);
+  outline: none;
+}
+
+.timeline__main {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 0;
+}
+
+.timeline__header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timeline__command {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.timeline__count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-faint);
+  white-space: nowrap;
+}
+
+.timeline__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Filter chips */
+.filter-chip {
+  --chip-color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: var(--font-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast) var(--ease-out),
+    color var(--transition-fast) var(--ease-out),
+    background var(--transition-fast) var(--ease-out);
+}
+
+.filter-chip:hover {
+  border-color: var(--color-accent);
+  color: var(--color-text-primary);
+}
+
+.filter-chip.is-active {
+  background: rgba(30, 58, 138, 0.45);
+  border-color: var(--chip-color);
+  color: var(--color-text-primary);
+}
+
+.filter-chip__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--color-border-strong);
+}
+
+.filter-chip.is-active .filter-chip__dot {
+  background: var(--chip-color);
+}
+
+.filter-chip__count {
+  font-weight: var(--font-medium);
+  color: var(--color-text-faint);
+}
+
+/* Rail + spine */
+.timeline__rail {
+  position: relative;
+  padding-left: 36px;
+}
+
+.timeline__line {
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    var(--color-accent-strong),
+    var(--color-border) 60%,
+    var(--color-border)
+  );
+}
+
+.timeline__spine {
+  position: absolute;
+  left: 5px;
+  top: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--color-accent-strong);
+  box-shadow: 0 0 12px var(--color-accent-strong);
+  animation:
+    spine 9s ease-in-out infinite alternate,
+    csi-pulse 2s ease-in-out infinite;
+}
+
+.timeline__list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  list-style: none;
+}
+
+.commit {
+  --commit-color: var(--color-accent-strong);
+  position: relative;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: start;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition:
+    background var(--transition-fast) var(--ease-out),
+    border-color var(--transition-fast) var(--ease-out);
+}
+
+.commit:hover {
+  background: var(--color-bg-elevated);
+  border-color: var(--color-border);
+}
+
+.commit__dot {
+  position: absolute;
+  left: -30px;
+  top: 20px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--commit-color);
+  box-shadow: 0 0 8px var(--commit-color);
+}
+
+.commit__date {
+  padding-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-accent);
+}
+
+.commit__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.commit__title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: var(--font-bold);
+  line-height: 1.25;
+}
+
+.commit__desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.commit__kind {
+  padding-top: 4px;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--commit-color);
+  white-space: nowrap;
+}
+
+/* CV card */
+.cv-card {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px;
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.cv-card__cmd {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-accent);
+}
+
+.cv-card__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cv-card__title {
+  font-size: 24px;
+  font-weight: var(--font-extrabold);
+  line-height: 1.1;
+}
+
+.cv-card__desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.cv-card__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.cv-card__stat {
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+}
+
+.cv-card__stat-value {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: var(--font-extrabold);
+  line-height: 1;
+  color: var(--color-accent);
+}
+
+.cv-card__stat-label {
+  margin-top: 5px;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.cv-card__cta {
+  width: 100%;
+  padding: 13px 20px;
+}
+
+.cv-card__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--color-text-faint);
+}
+
+@media (max-width: 1024px) {
+  .timeline {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 32px 24px;
+  }
+
+  .cv-card {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .timeline {
+    padding: 24px 16px;
+    border-radius: var(--radius-xl);
+  }
+
+  .commit {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+    padding: 12px;
+  }
+
+  .commit__kind {
+    padding-top: 0;
+  }
+}

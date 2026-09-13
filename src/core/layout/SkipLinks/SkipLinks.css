@@ -20,7 +20,7 @@
   padding: var(--space-4) var(--space-6);
 
   background: var(--color-accent);
-  color: var(--color-navy);
+  color: var(--color-on-accent);
 
   font-weight: var(--font-bold);
   text-decoration: none;
@@ -32,10 +32,10 @@
 .skip-link:focus {
   left: var(--space-4);
   top: var(--space-4);
-  outline: 2px solid var(--color-white);
+  outline: 2px solid var(--color-text-primary);
   outline-offset: 4px;
 }
 
 .skip-link:hover {
-  background: var(--color-white);
+  background: var(--color-accent-soft);
 }

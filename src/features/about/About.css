@@ -1,115 +1,116 @@
 /* ============================================
-   ABOUT FEATURE
-   Professional background section
+   ABOUT — proyectos / whoami / stack + contact cards
    ============================================ */
 
-.about-card {
+.about {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  padding: 0 var(--page-gutter) 72px;
+  outline: none;
+}
+
+.about__card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: 14px;
+  padding: 24px;
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  min-width: 0;
 }
 
-.about-header {
+.about__cmd {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+  color: var(--color-accent);
+}
+
+.about__cmd--push {
+  margin-top: auto;
+}
+
+.about__projects {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-4);
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
 }
 
-.section-title {
-  font-size: var(--text-2xl);
+.about__project-name {
+  font-family: var(--font-display);
+  font-size: 16px;
   font-weight: var(--font-bold);
-  color: var(--color-text-primary);
-  margin: 0;
 }
 
-.badge {
+.about__project-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.about__bio {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.about__note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-faint);
+}
+
+.about__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+}
+
+.about__tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: var(--font-semibold);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-tint-strong);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  color: var(--color-accent);
+}
+
+.about__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.about__contact {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-full);
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-}
-
-.badge--available {
-  background: rgba(var(--color-accent-rgb), 0.1);
-  color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-}
-
-.badge-icon {
-  font-size: var(--text-base);
-}
-
-.about-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
-}
-
-.about-text {
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
+  gap: 4px;
   color: var(--color-text-secondary);
+  overflow-wrap: anywhere;
 }
 
-.about-highlights {
-  display: flex;
-  gap: var(--space-8);
-  flex-wrap: wrap;
-}
-
-.highlight-item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.highlight-icon {
-  font-size: var(--text-3xl);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
-.highlight-value {
-  font-size: var(--text-4xl);
-  font-weight: var(--font-extrabold);
-  color: var(--color-accent);
-  line-height: 1;
-}
-
-.highlight-text {
-  font-size: var(--text-base);
-  font-weight: var(--font-semibold);
+.about__contact:hover {
   color: var(--color-text-primary);
 }
 
-.highlight-label {
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
+@media (max-width: 1024px) {
+  .about {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .about-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .about-highlights {
-    flex-direction: column;
-    gap: var(--space-4);
+@media (max-width: 640px) {
+  .about {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

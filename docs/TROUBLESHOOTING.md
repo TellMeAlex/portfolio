@@ -155,7 +155,8 @@ ssh servidor-198 'docker inspect $(docker ps -q --filter "name=portfolio-portfol
 
 **Solución:**
 
-- Si `nginx` reporta errores de configuración, revisar [nginx.conf](../nginx.conf). El healthcheck es `curl -f http://localhost/`: si la raíz no devuelve 200, el contenedor se marca unhealthy.
+- Revisar los logs de `node server/index.mjs` ([server/index.mjs](../server/index.mjs)). El healthcheck es `GET /health`: si no devuelve 200, el contenedor se marca unhealthy.
+- Si `$ ask alex` responde siempre con el mensaje demo, falta `ANTHROPIC_API_KEY` en las variables de entorno de la aplicación en Dokploy.
 - Rollback inmediato desde Dokploy: **Deployments → [deploy anterior] → Redeploy**.
 
 ---

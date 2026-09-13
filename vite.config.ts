@@ -1,10 +1,29 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { handleAsk } from './server/ask.mjs'
+
+/**
+ * Mounts the production `/api/ask` handler on the dev/preview servers so the
+ * chatbot works under `npm run dev` (live with ANTHROPIC_API_KEY, demo without).
+ */
+const askApiPlugin = (): Plugin => ({
+  name: 'tellmealex-ask-api',
+  configureServer(server) {
+    server.middlewares.use('/api/ask', (req, res) => {
+      void handleAsk(req, res)
+    })
+  },
+  configurePreviewServer(server) {
+    server.middlewares.use('/api/ask', (req, res) => {
+      void handleAsk(req, res)
+    })
+  },
+})
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), askApiPlugin()],
   resolve: {
     alias: {
       '@': path.resolve(path.dirname(fileURLToPath(import.meta.url)), './src'),
@@ -22,29 +41,9 @@ export default defineConfig({
               return 'vendor'
             }
           }
-
-          // Feature-based chunks for lazy-loaded components
-          if (id.includes('/features/experience')) {
-            return 'experience'
-          }
-          if (id.includes('/features/projects')) {
-            return 'projects'
-          }
-          if (id.includes('/features/skills')) {
-            return 'skills'
-          }
-          if (id.includes('/features/stats')) {
-            return 'stats'
-          }
-
-          // Core UI chunk for shared components
-          if (id.includes('/core/ui')) {
-            return 'ui'
-          }
         },
       },
     },
-    // Chunk size warnings
     chunkSizeWarningLimit: 500,
   },
   server: {

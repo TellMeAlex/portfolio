@@ -1,0 +1,214 @@
+/* ============================================
+   ASK ALEX — `$ ask alex` chat section
+   ============================================ */
+
+.ask {
+  display: grid;
+  grid-template-columns: 380px minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+  padding: 0 var(--page-gutter) 80px;
+  outline: none;
+}
+
+.ask__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 8px;
+}
+
+.ask__title {
+  font-size: clamp(2rem, 4vw, 40px);
+  font-weight: var(--font-black);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.ask__lead {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.ask__suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ask__try {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.ask__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ask__chip {
+  font-family: var(--font-primary);
+  font-size: 12px;
+  font-weight: var(--font-medium);
+  padding: 7px 12px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast) var(--ease-out),
+    color var(--transition-fast) var(--ease-out),
+    background var(--transition-fast) var(--ease-out);
+}
+
+.ask__chip:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-text-primary);
+  background: rgba(30, 58, 138, 0.3);
+}
+
+.ask__chip:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.ask__footnote {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-text-faint);
+}
+
+.ask__window {
+  min-height: 420px;
+}
+
+/* Chat log */
+.chat__log {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  max-height: 520px;
+  overflow-y: auto;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.chat__msg {
+  display: flex;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+}
+
+.chat__msg--bot {
+  background: rgba(30, 58, 138, 0.22);
+  color: var(--color-text-primary);
+}
+
+.chat__msg--user {
+  color: var(--color-text-secondary);
+}
+
+.chat__msg--busy {
+  color: var(--color-text-muted);
+}
+
+.chat__prompt {
+  flex-shrink: 0;
+  font-weight: var(--font-bold);
+  color: var(--color-kind-project);
+}
+
+.chat__msg--user .chat__prompt {
+  color: var(--color-accent);
+}
+
+.chat__text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.chat__cursor {
+  display: inline-block;
+  width: 7px;
+  height: 13px;
+  align-self: center;
+  background: var(--color-kind-project);
+  animation: blink 1s step-end infinite;
+}
+
+/* Input row */
+.chat__input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-top: 1px solid rgba(96, 165, 250, 0.15);
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.chat__input-prompt {
+  font-weight: var(--font-bold);
+  color: var(--color-accent);
+}
+
+.chat__input {
+  flex: 1;
+  min-width: 0;
+  min-height: 32px;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.chat__input::placeholder {
+  color: var(--color-text-faint);
+}
+
+.chat__input:focus-visible {
+  outline: none;
+}
+
+.chat__input-row:focus-within {
+  box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.35);
+}
+
+.chat__send {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: var(--font-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-accent);
+  border: 0;
+  color: var(--color-on-accent);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.chat__send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1024px) {
+  .ask {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

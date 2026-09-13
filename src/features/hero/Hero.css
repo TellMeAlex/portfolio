@@ -1,142 +1,111 @@
 /* ============================================
-   HERO FEATURE
-   Professional presentation card
+   HERO
    ============================================ */
 
-.hero-card {
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 520px;
+  gap: 48px;
+  align-items: center;
+  padding: 40px var(--page-gutter) 72px;
+  outline: none;
+}
+
+.hero__copy {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: var(--space-8);
-  padding: var(--space-8);
+  gap: 22px;
+  min-width: 0;
 }
 
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 60px);
+  font-weight: var(--font-black);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
 }
 
-/* Hero Text */
-.hero-text {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
+.hero__accent {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
-.hero-name {
-  font-size: var(--text-4xl);
-  font-weight: var(--font-extrabold);
-  color: var(--color-text-primary);
-  line-height: var(--leading-tight);
-}
-
-.hero-title {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.typed-text {
-  font-size: var(--text-xl);
-  font-weight: var(--font-semibold);
-  color: var(--color-accent);
-  line-height: var(--leading-normal);
-  min-height: 1.5em;
-  display: inline-flex;
-  align-items: center;
-}
-
-/* Typing cursor animation */
-.typing-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1.2em;
-  background-color: var(--color-accent);
-  margin-left: 2px;
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  51%,
-  100% {
-    opacity: 0;
-  }
-}
-
-.hero-subtitle {
-  font-size: var(--text-lg);
-  color: var(--color-text-secondary);
-  line-height: var(--leading-relaxed);
-}
-
-.hero-location {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--text-base);
+.hero__bio {
+  max-width: 480px;
+  font-size: 17px;
+  line-height: 1.55;
   color: var(--color-text-secondary);
 }
 
-.location-icon {
-  font-size: var(--text-lg);
-}
-
-/* Hero Actions */
-.hero-actions {
+.hero__actions {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: 12px;
 }
 
-.btn-icon {
+.hero__note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-faint);
+}
+
+/* Buttons — shared by hero, CV card and chat send */
+.btn {
   display: inline-flex;
   align-items: center;
-  font-size: var(--text-lg);
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: var(--font-semibold);
+  line-height: 1;
+  padding: 12px 22px;
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition:
+    transform var(--transition-fast) var(--ease-out),
+    border-color var(--transition-fast) var(--ease-out),
+    box-shadow var(--transition-fast) var(--ease-out);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .hero-name {
-    font-size: var(--text-3xl);
-  }
-
-  .typed-text {
-    font-size: var(--text-lg);
-  }
-
-  .hero-subtitle {
-    font-size: var(--text-base);
-  }
-
-  .hero-actions {
-    flex-direction: column;
-  }
-
-  .hero-actions .btn {
-    width: 100%;
-    justify-content: center;
-  }
+.btn__icon {
+  font-family: var(--font-mono);
 }
 
-@media (min-width: 1024px) {
-  .hero-content {
-    padding: var(--space-8);
-  }
-
-  .hero-name {
-    font-size: var(--text-5xl);
-  }
+.btn--primary {
+  background: var(--gradient-accent);
+  color: var(--color-on-accent);
+  border: 0;
 }
 
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .typing-cursor {
-    animation: none;
-    opacity: 1;
+.btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+  color: var(--color-on-accent);
+}
+
+.btn--ghost {
+  font-family: var(--font-mono);
+  padding: 11px 20px;
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-primary);
+  background: transparent;
+}
+
+.btn--ghost:hover {
+  border-color: var(--color-accent);
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
