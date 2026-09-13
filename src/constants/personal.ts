@@ -7,12 +7,12 @@ export const PERSONAL_INFO = {
     first: 'Alejandro',
     full: 'Alejandro de la Fuente de la Rosa',
   },
-  title: 'Technical Leader Specialist · NTT DATA',
+  title: 'Expert Architect · AI Champion · NTT DATA',
   description:
-    'Technical Leader Specialist en NTT DATA (GDNE), especializado en IA agéntica, ReactJS y arquitectura microfrontends. Construyo software con criterio; IA aplicada con cabeza.',
+    'Expert Architect en NTT DATA, AI Champion para NTT DATA e Inditex y AI/SDD Delivery Lead. Lidero la adopción de IA aplicada al desarrollo de software — agentes, MCP, SDD — en equipos de más de 800 profesionales.',
   location: 'Jaén, Andalucía, Spain',
   company: 'NTT DATA',
-  role: 'Technical Leader Specialist',
+  role: 'Expert Architect',
   experience: `${calculateYearsOfExperience('2021-02')}+ years leading digital transformation`,
 
   // Contact information
@@ -20,7 +20,7 @@ export const PERSONAL_INFO = {
     email: 'llamamealex@gmail.com',
     phone: '+34 629 20 26 39',
     github: 'https://github.com/TellMeAlex',
-    linkedin: 'https://www.linkedin.com/in/alejandro-de-la-fuente/',
+    linkedin: 'https://www.linkedin.com/in/alejandro-dela-fuente/',
     twitter: 'https://x.com/TellMeAlex',
   },
 }

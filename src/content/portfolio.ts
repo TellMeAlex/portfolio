@@ -29,7 +29,7 @@ export const SITE = {
 }
 
 export const HERO = {
-  eyebrow: 'Technical Leader Specialist · NTT DATA · Jaén',
+  eyebrow: 'Expert Architect · AI Champion · NTT DATA · Jaén',
   title: {
     es: {
       lead: 'Soy Alejandro.',
@@ -43,8 +43,8 @@ export const HERO = {
     },
   } satisfies Bi<{ lead: string; body: string; accent: string }>,
   bio: {
-    es: 'Llevo años peleando con código real: arquitecturas que se mantienen, equipos que iteran sin romper, IA que ayuda en vez de estorbar. Lidero frontend y adopción de IA en NTT DATA; lo que aprendo lo cuento en Código Sin Siesta.',
-    en: 'Years wrestling with real code: architectures that hold up, teams that iterate without breaking, AI that helps instead of getting in the way. I lead frontend and AI adoption at NTT DATA; what I learn, I share at Código Sin Siesta.',
+    es: 'Llevo años peleando con código real: arquitecturas que se mantienen, equipos que iteran sin romper, IA que ayuda en vez de estorbar. Como AI Champion y AI/SDD Delivery Lead en NTT DATA lidero la adopción de IA en equipos de más de 800 profesionales; lo que aprendo lo cuento en Código Sin Siesta.',
+    en: 'Years wrestling with real code: architectures that hold up, teams that iterate without breaking, AI that helps instead of getting in the way. As AI Champion and AI/SDD Delivery Lead at NTT DATA I lead AI adoption across teams of 800+ professionals; what I learn, I share at Código Sin Siesta.',
   } satisfies Bi,
   cvLabel: { es: 'Descargar CV · PDF', en: 'Download CV · PDF' } satisfies Bi,
   cvNote: `ES/EN · ${SITE.cvMeta.pages} pág. · rev. ${SITE.cvMeta.revision}`,
@@ -63,8 +63,8 @@ export const TERMINAL_COMMANDS: TerminalCommand[] = [
       {
         color: '#cbd5e1',
         text: {
-          es: 'alejandro · technical leader · ntt data · jaén',
-          en: 'alejandro · technical leader · ntt data · jaén',
+          es: 'alejandro · expert architect · ntt data · jaén',
+          en: 'alejandro · expert architect · ntt data · jaén',
         },
       },
       {
@@ -401,27 +401,72 @@ export const TIMELINE: TimelineEntry[] = [
     kindLabel: { es: 'charla', en: 'talk' },
   },
   {
-    id: 'ntt-2023',
-    date: '2023 →',
+    id: 'ntt-architect-2026',
+    date: '2026 →',
     title: {
-      es: 'Technical Leader Specialist · NTT DATA · GDNE',
-      en: 'Technical Leader Specialist · NTT DATA · GDNE',
+      es: 'Expert Architect · AI Champion · NTT DATA',
+      en: 'Expert Architect · AI Champion · NTT DATA',
     },
     desc: {
-      es: 'IA aplicada, ReactJS, microfrontends. Cliente: Inditex.',
-      en: 'Applied AI, ReactJS, microfrontends. Client: Inditex.',
+      es: 'AI/SDD Delivery Lead. Adopción de IA en equipos de +800 profesionales.',
+      en: 'AI/SDD Delivery Lead. Leading AI adoption across teams of 800+ professionals.',
     },
     kind: 'work',
     kindLabel: { es: 'trabajo', en: 'work' },
   },
   {
-    id: 'frontend-2021',
-    date: '2021 – 23',
+    id: 'ntt-leader-2025',
+    date: '2025',
     title: {
-      es: 'Frontend Engineer · [empresa]',
-      en: 'Frontend Engineer · [company]',
+      es: 'Technical Leader Specialist · NTT DATA',
+      en: 'Technical Leader Specialist · NTT DATA',
     },
-    desc: { es: '[completar]', en: '[to fill]' },
+    desc: {
+      es: 'AI Champion para NTT DATA e Inditex. Formaciones en agentes, MCP y SDD.',
+      en: 'AI Champion for NTT DATA and Inditex. Training on agents, MCP and SDD.',
+    },
+    kind: 'work',
+    kindLabel: { es: 'trabajo', en: 'work' },
+  },
+  {
+    id: 'ntt-senior-2023',
+    date: '2023 – 25',
+    title: {
+      es: 'Desarrollador sénior · NTT DATA · Inditex',
+      en: 'Senior Developer · NTT DATA · Inditex',
+    },
+    desc: {
+      es: 'SPA + microfrontends: primera plataforma de RRHH del grupo publicada a nivel mundial.',
+      en: "SPA + microfrontends: the group's first HR platform published worldwide.",
+    },
+    kind: 'work',
+    kindLabel: { es: 'trabajo', en: 'work' },
+  },
+  {
+    id: 'rtve-2022',
+    date: '2022 – 23',
+    title: {
+      es: 'Desarrollador web · RTVE Play',
+      en: 'Web Developer · RTVE Play',
+    },
+    desc: {
+      es: 'APIs de contenidos, reproductor de vídeo, QA automatizada con Puppeteer.',
+      en: 'Content APIs, video player, QA automation with Puppeteer.',
+    },
+    kind: 'work',
+    kindLabel: { es: 'trabajo', en: 'work' },
+  },
+  {
+    id: 'helloauto-2021',
+    date: '2021 – 22',
+    title: {
+      es: 'Desarrollador web · Hello Auto',
+      en: 'Web Developer · Hello Auto',
+    },
+    desc: {
+      es: 'Telemetría IoT en tiempo real (React + Node/Azure). Mentoría a 3 junior devs.',
+      en: 'Real-time IoT telemetry (React + Node/Azure). Mentored 3 junior devs.',
+    },
     kind: 'work',
     kindLabel: { es: 'trabajo', en: 'work' },
   },
@@ -449,10 +494,10 @@ export const CV_CARD = {
 
 export const PROJECTS: Array<{ name: string; desc: Bi }> = [
   {
-    name: 'Inditex · microfrontends',
+    name: 'Inditex · plataforma RRHH',
     desc: {
-      es: 'Transformación digital, React a escala. NTT DATA.',
-      en: 'Digital transformation, React at scale. NTT DATA.',
+      es: 'SPA + microfrontends: primera plataforma de RRHH del grupo publicada a nivel mundial. NTT DATA.',
+      en: "SPA + microfrontends: the group's first HR platform published worldwide. NTT DATA.",
     },
   },
   {
@@ -473,8 +518,8 @@ export const PROJECTS: Array<{ name: string; desc: Bi }> = [
 
 export const WHOAMI = {
   bio: {
-    es: 'Technical Leader Specialist en NTT DATA (GDNE). Jaén. Años peleando con código real: arquitecturas que se mantienen, equipos que iteran sin romper, IA que ayuda en vez de estorbar.',
-    en: 'Technical Leader Specialist at NTT DATA (GDNE). Jaén. Years wrestling with real code: architectures that hold up, teams that iterate without breaking, AI that helps instead of getting in the way.',
+    es: 'Expert Architect y AI Champion en NTT DATA. Jaén. Lidero la adopción de IA aplicada al desarrollo — agentes, MCP, SDD — en equipos de más de 800 profesionales.',
+    en: 'Expert Architect and AI Champion at NTT DATA. Jaén. I lead the adoption of AI applied to development — agents, MCP, SDD — across teams of 800+ professionals.',
   } satisfies Bi,
   note: {
     es: '# esta web fue construida con agentes de IA. Y con criterio.',
@@ -509,7 +554,7 @@ export const CONTACT_LINKS: Array<{
   { icon: '🐦', label: '@TellMeAlex', href: PERSONAL_INFO.contact.twitter },
   {
     icon: '💼',
-    label: 'linkedin/alejandro-de-la-fuente',
+    label: 'linkedin/alejandro-dela-fuente',
     href: PERSONAL_INFO.contact.linkedin,
   },
 ]
