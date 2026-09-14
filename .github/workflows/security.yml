@@ -146,16 +146,20 @@ jobs:
   # Container security scanning (if using Docker)
   container-scan:
     runs-on: ubuntu-latest
-    if: hashFiles('Dockerfile') != ''
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      # hashFiles() only resolves on the runner, after checkout — it cannot
+      # be used in a job-level `if:` (GitHub rejects the whole workflow file
+      # if it is). Gate each step instead.
       - name: Build Docker image
+        if: hashFiles('Dockerfile') != ''
         run: docker build -t portfolio:latest .
 
       - name: Run Trivy vulnerability scanner
+        if: hashFiles('Dockerfile') != ''
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'portfolio:latest'
@@ -163,6 +167,7 @@ jobs:
           output: 'trivy-results.sarif'
 
       - name: Upload Trivy scan results
+        if: hashFiles('Dockerfile') != ''
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: 'trivy-results.sarif'
