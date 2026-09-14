@@ -1,10 +1,9 @@
 # Multi-stage Dockerfile for production deployment
 # Stage 1: Builder - Compiles React application with all dependencies
-# Stage 2: Runtime - Serves static files with Nginx (Alpine for minimal size)
+# Stage 2: Runtime - Node server: static files + /api/ask chatbot endpoint
 #
 # Optimizations:
-# - Multi-stage build: minimal final image (~50MB)
-# - Non-root user execution: enhanced security
+# - Multi-stage build: dev toolchain never reaches the runtime image
 # - Health checks: monitoring and auto-recovery
 # - Layer caching: faster builds on unchanged dependencies
 # - Production optimization: NODE_ENV=production for tree-shaking
@@ -57,46 +56,34 @@ RUN test -d dist || (echo "Build failed: dist directory not found" && exit 1) &&
 # ============================================================================
 # STAGE 2: RUNTIME
 # ============================================================================
-FROM nginx:1.31.1-alpine
+# Node runtime (instead of nginx) so the same container can serve the static
+# build AND the `/api/ask` chatbot endpoint. server/index.mjs reproduces the
+# caching, compression and security headers the old nginx.conf applied.
+FROM node:25-slim
 
-# Set working directory
+ENV NODE_ENV=production
+# The container keeps listening on :80 so the existing Dokploy/Traefik routing
+# needs no change. Binding a privileged port means running as root; to run as
+# the unprivileged `node` user instead, set PORT=8080, add `USER node` below and
+# point the Dokploy application port at 8080.
+ENV PORT=80
+
 WORKDIR /app
 
-# Remove default nginx config so our custom one (copied below) takes over.
-# Intentionally skip `apk add curl/ca-certificates` to avoid touching the
-# alpine package index during build — works around overlay-network DNS
-# flakiness on the host, and the runtime needs nothing beyond what the
-# base nginx:alpine image ships (wget is included for the healthcheck).
-RUN rm -f /etc/nginx/conf.d/default.conf
+# Runtime dependencies only (the Anthropic SDK; React is bundled into dist/)
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
 
-# Copy custom Nginx configuration
-# Includes SPA routing, compression, caching, and security headers
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Built application + the server
+COPY --from=builder /app/dist ./dist
+COPY server ./server
 
-# Copy built application from builder stage
-# Only includes production-optimized dist/ files
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Set proper permissions for Nginx
-# Nginx will run as the nginx user (already exists in nginx:alpine image)
-RUN chown -R nginx:nginx /usr/share/nginx/html && \
-    chmod -R 755 /usr/share/nginx/html
-
-# Expose HTTP port 80
-# Dokploy's Traefik will handle SSL termination and route traffic here
 EXPOSE 80
 
-# Health check configuration
-# Used by Docker and Dokploy for container liveness monitoring
-# - interval: check every 30 seconds
-# - timeout: 3 second timeout per check
-# - start-period: allow 5 seconds for startup
-# - retries: 3 failed checks = unhealthy
+# Health check hits the server's /health endpoint (no curl/wget needed)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://127.0.0.1/ || exit 1
+    CMD node -e "fetch('http://127.0.0.1:'+process.env.PORT+'/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 
-# Start Nginx in foreground mode
-# This keeps the container running and allows proper signal handling
-# foreground mode is REQUIRED for Docker containers (Nginx must not daemonize)
-# Receives SIGTERM for graceful shutdown
-CMD ["nginx", "-g", "daemon off;"]
+# ANTHROPIC_API_KEY is injected at runtime (Dokploy → Environment). Without it
+# the chatbot answers with a demo message instead of calling the API.
+CMD ["node", "server/index.mjs"]

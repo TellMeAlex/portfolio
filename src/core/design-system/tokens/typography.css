@@ -1,15 +1,24 @@
 /* ============================================
    TYPOGRAPHY - Design Tokens
+   Space Grotesk (display) · Inter (body) · JetBrains Mono (code)
+   Fonts are self-hosted via @fontsource-variable (imported in index.css)
+   so the CSP can keep `font-src 'self'`.
    ============================================ */
 
 :root {
   /* Font Families */
+  --font-display:
+    'Space Grotesk Variable', 'Space Grotesk', 'Inter Variable', Inter,
+    system-ui, sans-serif;
   --font-primary:
-    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    'Inter Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, sans-serif;
   --font-mono:
-    'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, Consolas, monospace;
+    'JetBrains Mono Variable', 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco,
+    Consolas, monospace;
 
-  /* Type Scale (1.2 ratio - Major Third) */
+  /* Type Scale */
+  --text-2xs: 0.625rem; /* 10px — mono labels */
   --text-xs: 0.75rem; /* 12px */
   --text-sm: 0.875rem; /* 14px */
   --text-base: 1rem; /* 16px */
@@ -22,16 +31,25 @@
   --text-6xl: 3.75rem; /* 60px */
 
   /* Line Heights */
-  --leading-tight: 1.25;
+  --leading-none: 1;
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
   --leading-normal: 1.5;
-  --leading-relaxed: 1.75;
-  --leading-loose: 2;
+  --leading-relaxed: 1.6;
 
   /* Font Weights */
-  --font-light: 300;
   --font-normal: 400;
   --font-medium: 500;
   --font-semibold: 600;
   --font-bold: 700;
   --font-extrabold: 800;
+  --font-black: 900;
+
+  /* Letter Spacing */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+  --tracking-wider: 0.08em;
+  --tracking-label: 0.12em;
+  --tracking-eyebrow: 0.16em;
 }

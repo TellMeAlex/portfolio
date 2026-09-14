@@ -8,57 +8,55 @@ A premium, highly accessible, and modern portfolio built with **React 19**, **Ty
 
 ## ✨ Key Features
 
-- **Responsive Bento Grid**: A dynamic layout that adapts to all screen sizes using CSS Grid.
-- **Multi-Palette Theme System**: Choose between 5 primary color palettes (Navy & Cyan, Deep Purple, Emerald, Amber, Coral).
-- **Auto Dark/Light Mode**: Respects system preferences with manual toggle.
-- **Enhanced Accessibility**:
-  - AA-compliant color contrast in all themes.
-  - Custom Accessibility Panel with high-contrast settings.
-  - Full keyboard navigation and semantic HTML.
-- **Professional Sections**:
-  - Interactive Experience Timeline with lazy loading.
-  - Filterable Project Showcase.
-  - Animated Skill Mastery bars.
-  - Real-time Impact Counters.
-- **Performance Optimized**: Lazy loading of below-the-fold components and manual chunking for optimal bundle size.
+- **Terminal hero**: a self-typing `zsh` session (`whoami`, `ls charlas/`, `cat tesis.md`, `cat valores.md`) next to the headline.
+- **`$ ls charlas/`**: the nine Código Sin Siesta decks, sortable by recency, topic or duration.
+- **`$ git log --oneline`**: a filterable timeline (todo · trabajo · charlas · proyectos) with an animated spine and a sticky CV download card.
+- **`$ ask alex`**: a chatbot that answers questions about Alejandro using only the facts on the page — powered by Claude through `POST /api/ask`, with a demo fallback when no API key is configured.
+- **Bilingual ES/EN**: one toggle switches every string; the choice is remembered and mirrored to `<html lang>`.
+- **Accessibility first**: semantic landmarks, skip links, keyboard shortcuts (Alt+1–6), `prefers-reduced-motion` support, self-hosted fonts under a strict CSP.
 
 ## 🛠️ Tech Stack
 
 - **Framework**: [React 19](https://reactjs.org/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Bundler**: [Vite](https://vitejs.dev/)
-- **Styling**: Vanilla CSS with Design Tokens (CSS Variables)
-- **Icons**: Native Unicode/Emoji (zero icon-library dependency)
+- **Styling**: Vanilla CSS with Design Tokens (dark blueprint palette, Space Grotesk / Inter / JetBrains Mono via `@fontsource-variable`)
+- **Chatbot**: [Anthropic SDK](https://github.com/anthropics/anthropic-sdk-typescript) (`claude-opus-5`) behind a zero-dependency Node server
 - **Testing**: [Vitest](https://vitest.dev/) & [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-- **Animations**: CSS Animations & Transitions (Intersection Observer-driven)
 
 ## 📁 Project Structure
 
 ```
 portfolio/
 ├── src/
-│   ├── core/           # Shared foundations
-│   │   ├── design-system/  # Tokens, reset, typography
-│   │   ├── layout/         # Grid, Nav, Card components
-│   │   └── ui/             # Reusable UI elements (Button, ThemeToggle)
-│   ├── features/       # Business logic / Sections
-│   │   ├── experience/     # Timeline & career data
-│   │   ├── projects/       # Filterable showcase
-│   │   ├── skills/         # Technical stack visualization
-│   │   └── ...            # Other sections
-│   ├── App.tsx         # Main entry & lazy loading strategy
-│   └── main.tsx        # Render root
-├── public/             # Static assets
-└── tests/              # Test suites
+│   ├── content/portfolio.ts   # All copy (ES/EN), talks, timeline, stack, contact
+│   ├── i18n/                  # LanguageProvider + useLang()
+│   ├── core/
+│   │   ├── design-system/     # Tokens, reset, typography, animations
+│   │   ├── layout/            # SkipLinks
+│   │   └── ui/                # Eyebrow, TerminalWindow, ErrorBoundary
+│   ├── features/              # nav · hero · talks · timeline · ask · about · footer
+│   ├── App.tsx
+│   └── main.tsx
+├── server/
+│   ├── index.mjs              # Production server: static dist/ + /api/ask
+│   ├── ask.mjs                # Claude handler (also mounted on the Vite dev server)
+│   └── facts.mjs              # The only context the agent gets
+└── public/                    # Static assets — drop the CV at public/cv.pdf
 ```
 
 ## 📋 Available Scripts
 
-- `npm run dev`: Starts the development server on `localhost:3000`.
+- `npm run dev`: Starts the development server on `localhost:3000` (`/api/ask` included).
 - `npm run build`: Compiles TypeScript and builds for production.
+- `npm start`: Serves the production build with the Node server (`PORT`, default 80).
 - `npm run preview`: Locally preview the production build.
 - `npm test`: Runs the test suite with Vitest.
 - `npm run lint`: Performs static analysis and checks for errors.
+
+### Environment
+
+Copy `.env.example` and set `ANTHROPIC_API_KEY` to make `$ ask alex` answer for real. Without it the endpoint returns a demo message, so the site runs locally with no secrets.
 
 ## 🤝 Contributing
 

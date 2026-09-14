@@ -1,53 +1,52 @@
 /* ============================================
-   APP LAYOUT STYLES
-   Global layout and responsive header/footer
+   APP LAYOUT
+   Page shell: full-bleed slate background with the
+   blueprint glow, content capped at the 1180px artboard.
    ============================================ */
 
-/* Desktop responsive padding for header and footer */
-@media (min-width: 1024px) {
-  header#navigation {
-    padding-left: var(--grid-padding-desktop) !important;
-    padding-right: var(--grid-padding-desktop) !important;
-  }
-
-  footer {
-    padding-left: var(--grid-padding-desktop) !important;
-    padding-right: var(--grid-padding-desktop) !important;
-  }
+:root {
+  --page-max-width: 1180px;
+  --page-gutter: 56px;
 }
 
-/* Prevent horizontal overflow */
-.min-h-screen {
-  overflow-x: hidden;
+.page {
+  position: relative;
   width: 100%;
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(
+      ellipse at 100% 0%,
+      rgba(59, 130, 246, 0.1) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 0% 100%,
+      rgba(30, 58, 138, 0.16) 0%,
+      transparent 55%
+    ),
+    var(--color-bg-primary);
 }
 
-/* Terminal Logo Styles */
-.terminal-logo {
-  display: flex;
-  align-items: center;
-  font-family: var(--font-mono), monospace;
-  letter-spacing: -0.5px;
-  cursor: pointer;
-  transition: transform var(--transition-base) var(--ease-out);
+.page__bar {
+  height: 3px;
+  background: var(--gradient-bar);
 }
 
-.terminal-logo:hover {
-  transform: translateX(4px);
+main:focus {
+  outline: none;
 }
 
-.terminal-cursor {
-  color: var(--color-accent);
-  animation: terminal-blink 1s step-end infinite;
-  margin-left: 2px;
-}
-
-@keyframes terminal-blink {
-  from,
-  to {
-    opacity: 1;
+@media (max-width: 768px) {
+  :root {
+    --page-gutter: 24px;
   }
-  50% {
-    opacity: 0;
+}
+
+@media (max-width: 480px) {
+  :root {
+    --page-gutter: 16px;
   }
 }

@@ -16,12 +16,11 @@ interface KeyboardShortcut {
 
 const shortcuts: KeyboardShortcut[] = [
   { key: '1', sectionId: 'hero', label: 'Inicio' },
-  { key: '2', sectionId: 'about', label: 'Sobre Mí' },
-  { key: '3', sectionId: 'experience', label: 'Experiencia' },
-  { key: '4', sectionId: 'projects', label: 'Proyectos' },
-  { key: '5', sectionId: 'skills', label: 'Skills' },
-  { key: '6', sectionId: 'contact', label: 'Contacto' },
-  { key: 'A', sectionId: '', label: 'Accesibilidad' }, // Handled in App.tsx
+  { key: '2', sectionId: 'charlas', label: 'Charlas' },
+  { key: '3', sectionId: 'cronologia', label: 'Cronología' },
+  { key: '4', sectionId: 'ask', label: 'Ask alex' },
+  { key: '5', sectionId: 'sobre-mi', label: 'Sobre mí' },
+  { key: '6', sectionId: 'contacto', label: 'Contacto' },
 ]
 
 /**
@@ -39,12 +38,6 @@ export const useKeyboardNav = (): void => {
 
       if (shortcut) {
         event.preventDefault() // Prevent default browser behavior
-
-        // Show visual feedback
-        console.log(
-          `%c[Keyboard Nav] Alt+${shortcut.key} → ${shortcut.label}`,
-          'color: #64FFDA; font-weight: bold'
-        )
 
         // Scroll to section
         scrollToSection(shortcut.sectionId)

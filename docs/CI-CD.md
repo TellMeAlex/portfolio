@@ -125,7 +125,7 @@ sequenceDiagram
 
     Git->>DOK: Push webhook (rama main)
     DOK->>VPS: Clone + docker build (multi-stage)
-    Note over VPS: Stage 1: node:25-slim → npm ci + vite build<br/>Stage 2: nginx:1.29-alpine + dist/
+    Note over VPS: Stage 1: node:25-slim → npm ci + vite build<br/>Stage 2: node:25-slim + dist/ + server/
     VPS->>SWARM: docker service update (rolling)
     SWARM->>TRAEFIK: Nuevo contenedor saludable
     TRAEFIK->>TRAEFIK: Renueva/usa cert Let's Encrypt
@@ -149,9 +149,9 @@ sequenceDiagram
 Ver [Dockerfile](../Dockerfile) para el detalle completo. Resumen:
 
 - **Stage 1 — builder** (`node:25-slim`): instala dependencias del sistema, `npm ci`, type-check, lint (best-effort), `npm run build` con `NODE_ENV=production`.
-- **Stage 2 — runtime** (`nginx:1.29-alpine`): copia `dist/` del builder a `/usr/share/nginx/html`, monta `nginx.conf` propio, ejecuta como usuario `nginx`, expone puerto `80`, healthcheck cada 30 s.
+- **Stage 2 — runtime** (`node:25-slim`): instala solo dependencias de producción (`@anthropic-ai/sdk`), copia `dist/` y `server/` del builder y arranca `node server/index.mjs`, que sirve los estáticos (cache, gzip, headers de seguridad, fallback SPA) y expone `POST /api/ask` (el chatbot `$ ask alex`). Escucha en el puerto `80`, healthcheck contra `/health` cada 30 s.
 
-Imagen final ~50 MB. El TLS lo termina Traefik, no Nginx.
+El TLS lo termina Traefik. La variable `ANTHROPIC_API_KEY` se inyecta en runtime desde Dokploy; sin ella el chatbot responde con un mensaje demo.
 
 ### Stack Tecnológico
 
@@ -174,7 +174,7 @@ graph TB
     subgraph "Deploy Infrastructure"
         DOK[🚢 Dokploy]
         DOCKER[🐳 Docker Swarm]
-        NGINX[🌐 Nginx 1.29-alpine]
+        NODE[🟢 Node server (dist + /api/ask)]
         TRAEFIK[🔒 Traefik + Let's Encrypt]
     end
 
@@ -182,8 +182,8 @@ graph TB
     VITE --> NPM
     NPM --> DOCKER
     DOCKER --> DOK
-    DOK --> NGINX
-    NGINX --> TRAEFIK
+    DOK --> NODE
+    NODE --> TRAEFIK
 ```
 
 ## 🚀 Estrategia de Despliegue
@@ -264,8 +264,8 @@ portfolio/
 │   ├── pr-validation.yml         # Checks específicos de PR
 │   ├── security.yml              # Escaneo de seguridad
 │   └── performance.yml           # Lighthouse / métricas
-├── Dockerfile                    # Multi-stage: node:25-slim → nginx:1.29-alpine
-├── nginx.conf                    # Config Nginx (SPA routing, compresión, headers)
+├── Dockerfile                    # Multi-stage: node:25-slim (build) → node:25-slim (runtime)
+├── server/                       # Servidor de producción: estáticos + POST /api/ask (Claude)
 ├── DEPLOYMENT.md                 # Guía operativa de deployment
 ├── DOKPLOY-AUTO-DEPLOY-SETUP.md  # Setup y estado de la integración con Dokploy
 ├── WEBHOOK-SETUP.md              # Configuración del webhook GitHub → Dokploy

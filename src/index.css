@@ -1,30 +1,28 @@
 /* ============================================
    PORTFOLIO - Main Entry Point
    Alejandro de la Fuente
-   Phase 1: Foundation & Design System
    ============================================ */
 
-/* Import Design System */
+/* Self-hosted variable fonts (keeps CSP font-src 'self') */
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+
+/* Design System */
 @import './core/design-system/index.css';
 @import './core/design-system/animations.css';
 
-/* Import Layout Components */
-@import './core/layout/BentoGrid/BentoGrid.css';
-@import './core/layout/Card/Card.css';
+/* Layout & UI */
 @import './core/layout/SkipLinks/SkipLinks.css';
+@import './core/ui/Eyebrow/Eyebrow.css';
+@import './core/ui/TerminalWindow/TerminalWindow.css';
 
-/* Import UI Components */
-@import './core/ui/Button/Button.css';
-@import './core/ui/ThemeToggle/ThemeToggle.css';
-@import './core/ui/PaletteSelector/PaletteSelector.css';
-@import './core/ui/ScrollProgress/ScrollProgress.css';
-
-/* Import Features */
+/* Features */
+@import './features/nav/Nav.css';
 @import './features/hero/Hero.css';
+@import './features/hero/Terminal.css';
+@import './features/talks/Talks.css';
+@import './features/timeline/Timeline.css';
+@import './features/ask/AskAlex.css';
 @import './features/about/About.css';
-@import './features/ai-leadership/AILeadership.css';
-@import './features/experience/Experience.css';
-@import './features/projects/Projects.css';
-@import './features/skills/Skills.css';
-@import './features/stats/Stats.css';
-@import './features/contact/Contact.css';
+@import './features/footer/Footer.css';

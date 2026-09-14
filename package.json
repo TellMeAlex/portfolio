@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "version": "1.0.0",
-  "description": "Modern portfolio website showcasing professional work and projects",
+  "description": "Portfolio de Alejandro de la Fuente — terminal + cronología + agente \"ask alex\"",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,7 +12,7 @@
     "build:production": "NODE_ENV=production npm run build",
     "build:preview": "NODE_ENV=preview npm run build",
     "preview": "vite preview",
-    "start": "npm run preview",
+    "start": "node server/index.mjs",
     "test": "vitest",
     "test:unit": "vitest run",
     "test:integration": "vitest run --reporter=verbose",
@@ -23,7 +23,8 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "type-check": "tsc --noEmit",
     "analyze:bundle": "npm run build && npx vite-bundle-analyzer dist/stats.json",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "serve": "npm run build && node server/index.mjs"
   },
   "keywords": [
     "portfolio",
@@ -89,6 +90,10 @@
   },
   "homepage": "https://github.com/TellMeAlex/portfolio#readme",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.125.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.6"
   }
