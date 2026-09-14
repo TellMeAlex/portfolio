@@ -1,0 +1,69 @@
+name: Deploy to GitHub Pages
+
+# Builds the Vite SPA and publishes it via GitHub Pages (Actions source).
+# Kept independent from the existing Dokploy pipeline (dokploy-deploy.yml)
+# so both targets can run side by side until the DNS cutover decision is
+# made — this workflow does not touch tellmealex.dev's DNS.
+#
+# One-time setup required before this can succeed:
+#   Settings → Pages → Build and deployment → Source: "GitHub Actions"
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20.x'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Configure npm registry
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          npm config delete //inditex.jfrog.io/inditex/api/npm/node-public/:_auth
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
