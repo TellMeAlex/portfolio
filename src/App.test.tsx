@@ -141,6 +141,59 @@ describe('App', () => {
     ])
   })
 
+  it('clears pending remote consent after activating local AI', async () => {
+    const user = userEvent.setup()
+    let availability = 'downloadable'
+    const session = {
+      prompt: vi.fn().mockResolvedValue('Hola'),
+      destroy: vi.fn(),
+    }
+    vi.stubGlobal('LanguageModel', {
+      availability: vi.fn(() => Promise.resolve(availability)),
+      create: vi.fn(() => {
+        availability = 'available'
+        return Promise.resolve(session)
+      }),
+    })
+    renderApp()
+    await user.click(
+      await screen.findByRole('button', {
+        name: '¿En qué charla hablas de MCP?',
+      })
+    )
+    expect(
+      await screen.findByRole('button', { name: /usar servidor/i })
+    ).toBeInTheDocument()
+    await user.click(
+      await screen.findByRole('button', { name: /activar IA local/i })
+    )
+    expect(await screen.findByText('IA local')).toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: /usar servidor/i })
+    ).not.toBeInTheDocument()
+    expect(fetch).not.toHaveBeenCalled()
+  })
+
+  it('invalidates remote consent when the visitor edits the question', async () => {
+    const user = userEvent.setup()
+    renderApp()
+    const input = screen.getByLabelText('pregunta algo sobre Alejandro…')
+    await user.type(input, 'primera pregunta{enter}')
+    expect(
+      await screen.findByRole('button', { name: /usar servidor/i })
+    ).toBeInTheDocument()
+    await user.type(input, ' modificada')
+    expect(
+      screen.queryByRole('button', { name: /usar servidor/i })
+    ).not.toBeInTheDocument()
+    expect(input).toHaveValue('primera pregunta modificada')
+    expect(fetch).not.toHaveBeenCalled()
+    await user.type(input, '{enter}')
+    expect(
+      await screen.findByText('primera pregunta modificada')
+    ).toBeInTheDocument()
+  })
+
   it('requires fresh consent for each remote question and sends no history', async () => {
     const user = userEvent.setup()
     vi.mocked(fetch).mockResolvedValue(jsonResponse({ text: 'Respuesta' }))

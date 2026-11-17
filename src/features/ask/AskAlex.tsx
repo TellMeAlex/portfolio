@@ -185,7 +185,10 @@ export const AskAlex: React.FC = () => {
             className="chat__input"
             type="text"
             value={input}
-            onChange={e => setInput(e.target.value)}
+            onChange={e => {
+              setInput(e.target.value)
+              cancelRemote()
+            }}
             placeholder={t(ASK.placeholder)}
             maxLength={MAX_QUESTION_LENGTH}
             autoComplete="off"

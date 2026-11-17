@@ -63,6 +63,7 @@ export const useAskAlex = (lang: Lang, errorText: string) => {
       )
       if (!result) throw new Error('Local model unavailable')
       setAvailability('available')
+      setPendingQuestion(null)
       setStatus('local')
     } catch {
       setStatus('error')
