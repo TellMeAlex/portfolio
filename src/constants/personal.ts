@@ -20,7 +20,7 @@ export const PERSONAL_INFO = {
     email: 'llamamealex@gmail.com',
     phone: '+34 629 20 26 39',
     github: 'https://github.com/TellMeAlex',
-    linkedin: 'https://www.linkedin.com/in/alejandro-dela-fuente/',
+    linkedin: 'https://www.linkedin.com/in/alejandro-de-la-fuente/',
     twitter: 'https://x.com/TellMeAlex',
   },
 }

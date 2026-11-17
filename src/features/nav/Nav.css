@@ -103,7 +103,7 @@
 }
 
 @media (max-width: 640px) {
-  .nav__link:not(.nav__link--ask) {
-    display: none;
+  .nav__links {
+    gap: 10px 16px;
   }
 }

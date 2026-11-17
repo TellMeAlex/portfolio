@@ -64,7 +64,7 @@ describe('askClaude', () => {
       messages: [{ role: 'user', content: 'hi' }],
     })
     expect(es.demo).toBe(true)
-    expect(es.text).toMatch(/Demo sin conexión/)
-    expect(en.text).toMatch(/Offline demo/)
+    expect(es.text).toMatch(/no está disponible/)
+    expect(en.text).toMatch(/currently unavailable/)
   })
 })

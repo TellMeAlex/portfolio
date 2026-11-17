@@ -12,10 +12,20 @@ import './AskAlex.css'
 
 export const AskAlex: React.FC = () => {
   const { t, lang } = useLang()
-  const { messages, input, setInput, busy, ask } = useAskAlex(
-    lang,
-    t(ASK.error)
-  )
+  const {
+    messages,
+    input,
+    setInput,
+    busy,
+    status,
+    availability,
+    progress,
+    enableLocal,
+    pendingQuestion,
+    approveRemote,
+    cancelRemote,
+    ask,
+  } = useAskAlex(lang, t(ASK.error))
   const logRef = useRef<HTMLDivElement>(null)
   const es = lang === 'es'
 
@@ -55,13 +65,78 @@ export const AskAlex: React.FC = () => {
           </div>
         </div>
         <p className="ask__footnote">{t(ASK.footnote)}</p>
+        {pendingQuestion && (
+          <div
+            className="ask__local"
+            role="group"
+            aria-label={es ? 'Confirmación de envío' : 'Sending confirmation'}
+          >
+            <p>
+              {es
+                ? 'Usar el servidor envía esta pregunta al servidor y, si está configurado, al proveedor Anthropic. No se envía el historial.'
+                : 'Using the server sends this question to the server and, if configured, to Anthropic. Conversation history is not sent.'}
+            </p>
+            <p>{pendingQuestion}</p>
+            <button type="button" className="ask__chip" onClick={approveRemote}>
+              {es ? 'Usar servidor' : 'Use server'}
+            </button>
+            <button type="button" className="ask__chip" onClick={cancelRemote}>
+              {es ? 'Cancelar' : 'Cancel'}
+            </button>
+          </div>
+        )}
+        {(availability === 'downloadable' ||
+          availability === 'downloading') && (
+          <div className="ask__local">
+            <p>
+              {es
+                ? 'La IA local necesita descargar un modelo en tu dispositivo. Puede tardar y ocupar varios GB.'
+                : 'Local AI needs to download a model to your device. This can take time and several GB.'}
+            </p>
+            <button
+              type="button"
+              className="ask__chip"
+              onClick={() => void enableLocal()}
+              disabled={busy}
+            >
+              {es ? 'Activar IA local' : 'Enable local AI'}
+            </button>
+            {progress !== null && (
+              <p role="status">
+                {progress < 1
+                  ? `${es ? 'Descargando modelo' : 'Downloading model'}: ${Math.round(progress * 100)}%`
+                  : es
+                    ? 'Cargando el modelo en memoria…'
+                    : 'Loading the model into memory…'}
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       <TerminalWindow
         tone="green"
         className="ask__window"
         title={<>alex-agent — {t(ASK.windowTitle)}</>}
-        status="online"
+        status={
+          status === 'local'
+            ? es
+              ? 'IA local'
+              : 'local AI'
+            : status === 'online'
+              ? 'online'
+              : status === 'demo'
+                ? es
+                  ? 'demo sin conexión'
+                  : 'offline demo'
+                : status === 'error'
+                  ? es
+                    ? 'no disponible'
+                    : 'unavailable'
+                  : es
+                    ? 'estado desconocido'
+                    : 'status unknown'
+        }
       >
         <div
           ref={logRef}

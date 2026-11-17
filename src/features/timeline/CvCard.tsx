@@ -7,7 +7,6 @@ import { CV_CARD, HERO, SITE } from '@/content/portfolio'
 
 export const CvCard: React.FC = () => {
   const { t } = useLang()
-  const { pages, sizeKb, revision } = SITE.cvMeta
 
   return (
     <aside className="cv-card" aria-labelledby="cv-card-title">
@@ -32,13 +31,7 @@ export const CvCard: React.FC = () => {
         </span>
         {t(HERO.cvLabel)}
       </a>
-      <div className="cv-card__meta">
-        <span>ES · EN</span>
-        <span>
-          {pages} {t(CV_CARD.pagesLabel)} · {sizeKb} KB
-        </span>
-        <span>rev. {revision}</span>
-      </div>
+      <span className="cv-card__meta">{t(CV_CARD.pdfNote)}</span>
     </aside>
   )
 }
