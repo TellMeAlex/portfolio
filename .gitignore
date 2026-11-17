@@ -18,6 +18,10 @@ out/
 .env.test.local
 .env.production.local
 
+# npm audit reports written by the dependency gate (CI + local runs)
+audit-report.json
+audit-production.json
+
 # IDE and editor files
 .vscode/
 .idea/

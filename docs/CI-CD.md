@@ -136,13 +136,15 @@ sequenceDiagram
 
 ### Workflows de GitHub Actions
 
-| Archivo                                                                         | Trigger                                                       | Propósito                                                    |
-| ------------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------ |
-| [.github/workflows/ci-cd.yml](../.github/workflows/ci-cd.yml)                   | `push` y `pull_request` a `main` (`push` también a `develop`) | Quality gates: lint, format, type-check, tests, audit, build |
-| [.github/workflows/dokploy-deploy.yml](../.github/workflows/dokploy-deploy.yml) | `workflow_run` de "CI/CD Pipeline" (success, rama main)       | Notificación informativa de que el deploy está listo         |
-| [.github/workflows/security.yml](../.github/workflows/security.yml)             | Programado / PR                                               | Escaneo de seguridad adicional                               |
-| [.github/workflows/performance.yml](../.github/workflows/performance.yml)       | PR / programado                                               | Métricas de rendimiento (Lighthouse)                         |
-| [.github/workflows/pr-validation.yml](../.github/workflows/pr-validation.yml)   | PR                                                            | Validaciones específicas de pull requests                    |
+| Archivo                                                                         | Trigger                                                       | Propósito                                                                   |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| [.github/workflows/ci-cd.yml](../.github/workflows/ci-cd.yml)                   | `push` y `pull_request` a `main` (`push` también a `develop`) | Quality gates: lint, format, type-check, tests, audit, build                |
+| [.github/workflows/dokploy-deploy.yml](../.github/workflows/dokploy-deploy.yml) | `workflow_run` de "CI/CD Pipeline" (success, rama main)       | Notificación informativa de que el deploy está listo                        |
+| [.github/workflows/security.yml](../.github/workflows/security.yml)             | Programado / PR                                               | Escaneo de seguridad; `dependency-scan` bloquea con avisos altos o críticos |
+| [.github/workflows/performance.yml](../.github/workflows/performance.yml)       | PR / programado                                               | Métricas de rendimiento (Lighthouse)                                        |
+| [.github/workflows/pr-validation.yml](../.github/workflows/pr-validation.yml)   | PR                                                            | Validaciones específicas de pull requests                                   |
+
+`dependency-scan` ejecuta `npm audit` dos veces: sobre dependencias de producción (ningún aviso alto o crítico puede pasar) y sobre el árbol completo, donde `scripts/audit-gate.mjs` solo admite avisos sin versión parcheada publicada, documentados en su lista con fecha de revisión. Un aviso nuevo de severidad alta sigue rompiendo la CI.
 
 ### Dockerfile (multi-stage)
 
