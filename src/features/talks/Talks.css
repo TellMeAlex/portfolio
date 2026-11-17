@@ -68,7 +68,7 @@
     transform var(--transition-fast) var(--ease-out);
 }
 
-.talk-card:hover {
+a.talk-card:hover {
   background: var(--color-bg-hover);
   transform: translateY(-3px);
   color: inherit;

@@ -43,26 +43,23 @@ jobs:
       - name: Run npm audit
         run: |
           npm audit --json > audit-report.json || true
+          npm audit --omit=dev --json > audit-production.json || true
           cat audit-report.json
 
       - name: Upload audit report
         uses: actions/upload-artifact@v7
         with:
           name: npm-audit-report
-          path: audit-report.json
+          path: |
+            audit-report.json
+            audit-production.json
 
-      - name: Check for high/critical vulnerabilities
-        run: |
-          if [ -f audit-report.json ] && [ -s audit-report.json ]; then
-            HIGH_CRITICAL=$(cat audit-report.json | jq '.metadata.vulnerabilities.high + .metadata.vulnerabilities.critical' || echo "0")
-            if [ "$HIGH_CRITICAL" -gt 0 ]; then
-              echo "❌ Found $HIGH_CRITICAL high/critical vulnerabilities"
-              exit 1
-            fi
-            echo "✅ No high/critical vulnerabilities found"
-          else
-            echo "⚠️ No audit report generated"
-          fi
+      # Production advisories always block. Dev-only advisories block too, except
+      # those on the allowlist in scripts/audit-gate.mjs — entries there exist only
+      # for advisories with no published patched version, so no upgrade can clear
+      # them. The gate still fails on any new high/critical advisory.
+      - name: Enforce dependency gate
+        run: node scripts/audit-gate.mjs audit-report.json audit-production.json
 
   # Static code security analysis
   code-security-analysis:

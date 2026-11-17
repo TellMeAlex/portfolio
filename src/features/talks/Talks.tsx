@@ -79,15 +79,9 @@ export const Talks: React.FC = () => {
         </div>
       </div>
       <ul className="talks__grid" role="list">
-        {talks.map(talk => (
-          <li key={talk.id}>
-            <a
-              href={talkUrl(talk)}
-              className="talk-card"
-              style={{ '--talk-color': talk.color } as React.CSSProperties}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+        {talks.map(talk => {
+          const content = (
+            <>
               <div className="talk-card__top">
                 <span className="talk-card__emoji" aria-hidden="true">
                   {talk.emoji}
@@ -99,12 +93,38 @@ export const Talks: React.FC = () => {
                 <p className="talk-card__desc">{t(talk.desc)}</p>
               </div>
               <div className="talk-card__meta">
-                <span>{talk.repo}</span>
+                <span>
+                  {talk.unavailable
+                    ? es
+                      ? 'Material no disponible'
+                      : 'Material unavailable'
+                    : (talk.resourceLabel ?? talk.repo)}
+                </span>
                 <span>{talk.meta}</span>
               </div>
-            </a>
-          </li>
-        ))}
+            </>
+          )
+          const style = { '--talk-color': talk.color } as React.CSSProperties
+          return (
+            <li key={talk.id}>
+              {talk.unavailable ? (
+                <div className="talk-card" style={style}>
+                  {content}
+                </div>
+              ) : (
+                <a
+                  href={talkUrl(talk)}
+                  className="talk-card"
+                  style={style}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {content}
+                </a>
+              )}
+            </li>
+          )
+        })}
       </ul>
     </section>
   )

@@ -24,7 +24,6 @@ export const SITE = {
   displayUrl: 'tellmealex.dev',
   /** Drop the PDF in `public/cv.pdf` — this is where every CV button points. */
   cvUrl: '/cv.pdf',
-  cvMeta: { pages: 2, sizeKb: 180, revision: '2026.09' },
   talksBaseUrl: 'https://codigosinsiesta.github.io',
 }
 
@@ -47,7 +46,6 @@ export const HERO = {
     en: 'Years wrestling with real code: architectures that hold up, teams that iterate without breaking, AI that helps instead of getting in the way. As AI Champion and AI/SDD Delivery Lead at NTT DATA I lead AI adoption across teams of 800+ professionals; what I learn, I share at Código Sin Siesta.',
   } satisfies Bi,
   cvLabel: { es: 'Descargar CV · PDF', en: 'Download CV · PDF' } satisfies Bi,
-  cvNote: `ES/EN · ${SITE.cvMeta.pages} pág. · rev. ${SITE.cvMeta.revision}`,
 }
 
 export interface TerminalCommand {
@@ -134,6 +132,10 @@ export type TalkFormat = 'keynote' | 'talk' | 'workshop'
 export interface Talk {
   id: string
   title: Bi
+  /** Public resource link; used when it is not hosted under the deck URL. */
+  url?: string
+  resourceLabel?: string
+  unavailable?: boolean
   /** Repo slug in the Código Sin Siesta GitHub org — also the deck URL path. */
   repo: string
   format: TalkFormat
@@ -155,10 +157,12 @@ export const TALKS: Talk[] = [
       en: 'Vibe Coding vs Software Engineering',
     },
     repo: 'ai-presentation',
+    resourceLabel: 'codigosinsiesta.com/ensayos',
+    url: 'https://codigosinsiesta.com/ensayos/vibe-coding-vs-software-engineering/',
     format: 'keynote',
-    kind: { es: 'keynote', en: 'keynote' },
+    kind: { es: 'ensayo', en: 'essay' },
     minutes: 60,
-    meta: '21 slides',
+    meta: '4R',
     emoji: '🌀',
     color: KIND_COLORS.work,
     desc: {
@@ -230,6 +234,7 @@ export const TALKS: Talk[] = [
     id: 'skills-vs-subagents',
     title: { es: 'Skills vs Subagentes', en: 'Skills vs Subagents' },
     repo: 'skills-vs-subagents-presentation',
+    unavailable: true,
     format: 'talk',
     kind: { es: 'charla', en: 'talk' },
     minutes: 30,
@@ -289,7 +294,7 @@ export const TALKS: Talk[] = [
 ]
 
 export const talkUrl = (talk: Talk): string =>
-  `${SITE.talksBaseUrl}/${talk.repo}/`
+  talk.url ?? `${SITE.talksBaseUrl}/${talk.repo}/`
 
 export interface TimelineEntry {
   id: string
@@ -489,7 +494,7 @@ export const CV_CARD = {
     { value: String(TALKS.length), label: { es: 'charlas', en: 'talks' } },
     { value: '5+', label: { es: 'años', en: 'years' } },
   ] satisfies Array<{ value: string; label: Bi }>,
-  pagesLabel: { es: 'páginas', en: 'pages' } satisfies Bi,
+  pdfNote: { es: 'PDF', en: 'PDF' } satisfies Bi,
 }
 
 export const PROJECTS: Array<{ name: string; desc: Bi }> = [
@@ -554,7 +559,7 @@ export const CONTACT_LINKS: Array<{
   { icon: '🐦', label: '@TellMeAlex', href: PERSONAL_INFO.contact.twitter },
   {
     icon: '💼',
-    label: 'linkedin/alejandro-dela-fuente',
+    label: 'linkedin/alejandro-de-la-fuente',
     href: PERSONAL_INFO.contact.linkedin,
   },
 ]
@@ -579,8 +584,8 @@ export const ASK = {
     },
   ] satisfies Bi[],
   footnote: {
-    es: '# contexto: cv.md + charlas/ · sin memoria entre sesiones · no inventa',
-    en: "# context: cv.md + charlas/ · no memory across sessions · doesn't make things up",
+    es: '# contexto: cv.md + charlas/ · sin memoria entre sesiones · puede equivocarse',
+    en: '# context: cv.md + charlas/ · no memory across sessions · may make mistakes',
   } satisfies Bi,
   windowTitle: { es: 'contexto: cv.md', en: 'context: cv.md' } satisfies Bi,
   greeting: {

@@ -34,7 +34,6 @@ export const Hero: React.FC = () => {
           <a href={NAVIGATION.timeline} className="btn btn--ghost">
             ./cronologia →
           </a>
-          <span className="hero__note">{HERO.cvNote}</span>
         </div>
       </div>
       <Terminal />
