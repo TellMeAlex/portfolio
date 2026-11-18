@@ -1,11 +1,11 @@
 # Deployment Guide - Portfolio TellMeAlex
 
-**Last Updated**: 2025-12-14
-**Status**: ⚠️ **Webhook Requiere Configuración** (ver [WEBHOOK-SETUP.md](./WEBHOOK-SETUP.md))
+**Last Updated**: 2026-11-18
+**Status**: ✅ **Auto-deploy operativo** vía `dokploy-deploy.yml` (ver nota abajo)
 **Production URL**: https://tellmealex.dev
 
-> **⚠️ IMPORTANTE**: El webhook de Dokploy actualmente NO está configurado. Los despliegues no ocurren automáticamente al hacer push.
-> **Acción requerida**: Sigue la guía en [WEBHOOK-SETUP.md](./WEBHOOK-SETUP.md) para activar auto-deployment.
+> **Nota**: el despliegue es automático sin necesidad del webhook nativo de Dokploy: `dokploy-deploy.yml` reacciona al CI en verde sobre `main` y llama a `/api/deploy` (verificado con despliegues exitosos consecutivos).
+> La guía [WEBHOOK-SETUP.md](./WEBHOOK-SETUP.md) solo aplica si se quiere activar el webhook nativo como vía alternativa.
 
 ---
 
