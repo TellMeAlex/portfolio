@@ -309,6 +309,48 @@ export interface TimelineEntry {
 /** `$ git log --oneline` — newest first. */
 export const TIMELINE: TimelineEntry[] = [
   {
+    id: 'devfest-jaen-2026',
+    date: '2026·11',
+    title: {
+      es: 'Kit de supervivencia para juniors · DevFest Jaén',
+      en: 'Junior Survival Kit · DevFest Jaén',
+    },
+    desc: {
+      es: 'Taller en GDG Jaén, +40 personas y aforo lleno. Un tutor para OpenCode que no escribe el código por ti.',
+      en: "Workshop at GDG Jaén, 40+ people and a full room. An OpenCode tutor that doesn't write the code for you.",
+    },
+    kind: 'talk',
+    kindLabel: { es: 'taller', en: 'workshop' },
+  },
+  {
+    id: 'pi-course-2026',
+    date: '2026·11',
+    title: {
+      es: 'Curso «Pi y oh my pi» · Ruta «IA desde cero»',
+      en: '"Pi and oh my pi" course · "AI from scratch" path',
+    },
+    desc: {
+      es: '28 vídeos con guías escritas y un laboratorio aislado con OpenCode y modelos gratuitos.',
+      en: '28 videos with written guides and a sandboxed lab with OpenCode and free models.',
+    },
+    kind: 'project',
+    kindLabel: { es: 'curso', en: 'course' },
+  },
+  {
+    id: 'paralelo37-2026',
+    date: '2026·09',
+    title: {
+      es: 'De agente a orquestador · Paralelo 37',
+      en: 'From agent to orchestrator · Paralelo 37',
+    },
+    desc: {
+      es: 'XauenDevs, Jaén. Agentes, subagentes, contexto, SDD, orquestadores y harness en 50 min.',
+      en: 'XauenDevs, Jaén. Agents, subagents, context, SDD, orchestrators and harness in 50 min.',
+    },
+    kind: 'talk',
+    kindLabel: { es: 'charla', en: 'talk' },
+  },
+  {
     id: 'redesign-2026',
     date: '2026·09',
     title: { es: 'Rediseño de tellmealex.dev', en: 'tellmealex.dev redesign' },
@@ -385,8 +427,8 @@ export const TIMELINE: TimelineEntry[] = [
     date: '2025',
     title: { es: 'tecnoboletin', en: 'tecnoboletin' },
     desc: {
-      es: 'Lectura cómoda de boletines Telegram · Astro 5.',
-      en: 'Readable Telegram digests · Astro 5.',
+      es: 'Boletín diario enriquecido, archivo y grafo de conocimiento de +1.600 nodos · Astro 5.',
+      en: 'Enriched daily digest, archive and a 1,600+ node knowledge graph · Astro 5.',
     },
     kind: 'project',
     kindLabel: { es: 'proyecto', en: 'project' },
@@ -407,7 +449,7 @@ export const TIMELINE: TimelineEntry[] = [
   },
   {
     id: 'ntt-architect-2026',
-    date: '2026 →',
+    date: '2026·08 →',
     title: {
       es: 'Expert Architect · AI Champion · NTT DATA',
       en: 'Expert Architect · AI Champion · NTT DATA',
@@ -421,7 +463,7 @@ export const TIMELINE: TimelineEntry[] = [
   },
   {
     id: 'ntt-leader-2025',
-    date: '2025',
+    date: '2025 – 26',
     title: {
       es: 'Technical Leader Specialist · NTT DATA',
       en: 'Technical Leader Specialist · NTT DATA',
@@ -429,6 +471,20 @@ export const TIMELINE: TimelineEntry[] = [
     desc: {
       es: 'AI Champion para NTT DATA e Inditex. Formaciones en agentes, MCP y SDD.',
       en: 'AI Champion for NTT DATA and Inditex. Training on agents, MCP and SDD.',
+    },
+    kind: 'work',
+    kindLabel: { es: 'trabajo', en: 'work' },
+  },
+  {
+    id: 'ntt-tech-senior-2025',
+    date: '2025',
+    title: {
+      es: 'Technical Senior Specialist · NTT DATA · Inditex',
+      en: 'Technical Senior Specialist · NTT DATA · Inditex',
+    },
+    desc: {
+      es: 'Shell de microfrontends de la app de iPad para tiendas, operativa en todas las tiendas de España.',
+      en: 'Microfrontend shell for the stores iPad app, live in every store in Spain.',
     },
     kind: 'work',
     kindLabel: { es: 'trabajo', en: 'work' },
@@ -515,8 +571,8 @@ export const PROJECTS: Array<{ name: string; desc: Bi }> = [
   {
     name: 'tecnoboletin',
     desc: {
-      es: 'Boletines Telegram legibles · Astro 5',
-      en: 'Readable Telegram digests · Astro 5',
+      es: 'Boletín diario + grafo de conocimiento · Astro 5',
+      en: 'Daily digest + knowledge graph · Astro 5',
     },
   },
 ]
